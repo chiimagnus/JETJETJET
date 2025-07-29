@@ -197,7 +197,7 @@ struct DataCard: View {
                 .foregroundColor(.secondary)
         }
         .padding()
-        .background(Color.white)
+        .background(Color(.systemBackground))
         .cornerRadius(8)
     }
 }
@@ -223,7 +223,7 @@ struct RecordingControlButton: View {
                 Text(buttonText)
                     .font(.headline)
             }
-            .foregroundColor(.white)
+            .foregroundColor(Color(.systemBackground))
             .padding(.horizontal, 30)
             .padding(.vertical, 15)
             .background(buttonColor)
