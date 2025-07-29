@@ -1,10 +1,3 @@
-//
-//  AirplaneModelView.swift
-//  JETJETJET
-//
-//  Created by chii_magnus on 2025/7/29.
-//
-
 import SwiftUI
 import SceneKit
 import SwiftData
