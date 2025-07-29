@@ -10,18 +10,18 @@ import SwiftData
 
 @Model
 final class FlightSession {
-    var id: UUID
-    var startTime: Date
-    var endTime: Date
-    var dataCount: Int
-    var title: String
-    
-    init(startTime: Date, endTime: Date, dataCount: Int) {
+    var id: UUID = UUID()
+    var startTime: Date = Date()
+    var endTime: Date = Date()
+    var dataCount: Int = 0
+    var title: String = ""
+
+    init(startTime: Date = Date(), endTime: Date = Date(), dataCount: Int = 0) {
         self.id = UUID()
         self.startTime = startTime
         self.endTime = endTime
         self.dataCount = dataCount
-        
+
         // 自动生成标题
         let formatter = DateFormatter()
         formatter.dateStyle = .short
