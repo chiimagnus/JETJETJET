@@ -13,6 +13,7 @@ struct JETJETJETApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             FlightData.self,
+            FlightSession.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

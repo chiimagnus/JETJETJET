@@ -13,7 +13,8 @@ class FlightRecordingVM {
     private let motionService = MotionService()
     private var modelContext: ModelContext?
     private var recordedData: [FlightDataSnapshot] = []
-    
+    private var currentSessionId: UUID?
+
     // 状态属性
     var isRecording = false
     var currentSnapshot: FlightDataSnapshot?
@@ -43,10 +44,11 @@ class FlightRecordingVM {
             errorMessage = "运动传感器不可用"
             return
         }
-        
+
         isRecording = true
         recordingStartTime = Date()
         recordedData.removeAll()
+        currentSessionId = UUID()
         errorMessage = nil
         
         motionService.startMotionUpdates { [weak self] snapshot in
@@ -82,11 +84,21 @@ class FlightRecordingVM {
     }
     
     private func saveRecordedData() {
-        guard let modelContext = modelContext else {
+        guard let modelContext = modelContext,
+              let sessionId = currentSessionId,
+              let startTime = recordingStartTime else {
             errorMessage = "数据上下文不可用"
             return
         }
-        
+
+        // 创建飞行会话
+        let session = FlightSession(
+            startTime: startTime,
+            endTime: Date(),
+            dataCount: recordedData.count
+        )
+        modelContext.insert(session)
+
         // 将录制的数据保存到SwiftData
         for snapshot in recordedData {
             let flightData = FlightData(
@@ -94,11 +106,12 @@ class FlightRecordingVM {
                 speed: snapshot.speed,
                 pitch: snapshot.pitch,
                 roll: snapshot.roll,
-                yaw: snapshot.yaw
+                yaw: snapshot.yaw,
+                sessionId: sessionId
             )
             modelContext.insert(flightData)
         }
-        
+
         do {
             try modelContext.save()
             print("成功保存 \(recordedData.count) 条飞行数据")

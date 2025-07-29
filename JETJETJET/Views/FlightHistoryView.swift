@@ -10,21 +10,17 @@ import SwiftData
 
 struct FlightHistoryView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query(sort: \FlightData.timestamp, order: .reverse) private var flightData: [FlightData]
-    
+    @Query(sort: \FlightSession.startTime, order: .reverse) private var flightSessions: [FlightSession]
+
     var body: some View {
         NavigationView {
             List {
-                ForEach(groupedFlightData, id: \.key) { group in
-                    Section(header: Text(formatDate(group.key))) {
-                        ForEach(group.value, id: \.timestamp) { data in
-                            FlightDataRow(data: data)
-                        }
-                        .onDelete { indexSet in
-                            deleteItems(from: group.value, at: indexSet)
-                        }
+                ForEach(flightSessions, id: \.id) { session in
+                    NavigationLink(destination: AirplaneModelView(session: session)) {
+                        FlightSessionRow(session: session)
                     }
                 }
+                .onDelete(perform: deleteSessions)
             }
             .navigationTitle("飞行历史")
             .toolbar {
@@ -34,79 +30,74 @@ struct FlightHistoryView: View {
             }
         }
     }
-    
-    // 按日期分组飞行数据
-    private var groupedFlightData: [(key: Date, value: [FlightData])] {
-        let calendar = Calendar.current
-        let grouped = Dictionary(grouping: flightData) { data in
-            calendar.startOfDay(for: data.timestamp)
-        }
-        return grouped.sorted { $0.key > $1.key }
-    }
-    
-    private func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        return formatter.string(from: date)
-    }
-    
-    private func deleteItems(from group: [FlightData], at offsets: IndexSet) {
+
+    private func deleteSessions(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
-                modelContext.delete(group[index])
+                let session = flightSessions[index]
+
+                // 删除相关的飞行数据
+                let sessionId = session.id
+                let request = FetchDescriptor<FlightData>(
+                    predicate: #Predicate<FlightData> { data in
+                        data.sessionId == sessionId
+                    }
+                )
+
+                do {
+                    let relatedData = try modelContext.fetch(request)
+                    for data in relatedData {
+                        modelContext.delete(data)
+                    }
+                } catch {
+                    print("删除相关数据失败: \(error)")
+                }
+
+                // 删除会话
+                modelContext.delete(session)
             }
         }
     }
 }
 
-struct FlightDataRow: View {
-    let data: FlightData
-    
+struct FlightSessionRow: View {
+    let session: FlightSession
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 8) {
             HStack {
-                Text(formatTime(data.timestamp))
+                Text(session.title)
                     .font(.headline)
                 Spacer()
-                Text("速度: \(String(format: "%.2f", data.speed))")
+                Text(formatDate(session.startTime))
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
-            
-            HStack(spacing: 20) {
-                DataPoint(label: "俯仰", value: data.pitch, unit: "°")
-                DataPoint(label: "横滚", value: data.roll, unit: "°")
-                DataPoint(label: "偏航", value: data.yaw, unit: "°")
+
+            HStack {
+                Label("\(session.dataCount) 条数据", systemImage: "chart.line.uptrend.xyaxis")
+                    .font(.caption)
+                    .foregroundColor(.blue)
+
+                Spacer()
+
+                Label(session.formattedDuration, systemImage: "clock")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
             }
         }
-        .padding(.vertical, 2)
+        .padding(.vertical, 4)
     }
-    
-    private func formatTime(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .medium
-        return formatter.string(from: date)
-    }
-}
 
-struct DataPoint: View {
-    let label: String
-    let value: Double
-    let unit: String
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 2) {
-            Text(label)
-                .font(.caption2)
-                .foregroundColor(.secondary)
-            Text("\(String(format: "%.1f", value))\(unit)")
-                .font(.caption)
-                .fontWeight(.medium)
-        }
+    private func formatDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
     }
 }
 
 #Preview {
     FlightHistoryView()
-        .modelContainer(for: FlightData.self, inMemory: true)
+        .modelContainer(for: [FlightData.self, FlightSession.self], inMemory: true)
 }

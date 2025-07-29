@@ -47,6 +47,15 @@ struct FlightRecordingView: View {
                     onStart: { viewModel.startRecording() },
                     onStop: { viewModel.stopRecording() }
                 )
+
+                // 使用提示
+                if !viewModel.isRecording {
+                    Text("💡 将手机放在桌子上或座椅上开始录制")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
+                }
                 
                 // 错误信息
                 if let errorMessage = viewModel.errorMessage {
