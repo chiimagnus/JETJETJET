@@ -14,12 +14,20 @@ struct FlightRecordingView: View {
                     .fontWeight(.bold)
                 
                 // 状态指示器
-                StatusIndicatorView(isRecording: viewModel.isRecording)
-                
+                StatusIndicatorView(
+                    isRecording: viewModel.isRecording,
+                    isCountingDown: viewModel.isCountingDown,
+                    countdownValue: viewModel.countdownValue
+                )
+
+                // 倒计时显示
+                if viewModel.isCountingDown {
+                    CountdownView(countdownValue: viewModel.countdownValue)
+                }
                 // 传感器数据显示
-                if let snapshot = viewModel.currentSnapshot {
+                else if let snapshot = viewModel.currentSnapshot {
                     SensorDataView(snapshot: snapshot)
-                } else {
+                } else if !viewModel.isCountingDown {
                     Text("等待传感器数据...")
                         .foregroundColor(.secondary)
                         .padding()
@@ -37,15 +45,22 @@ struct FlightRecordingView: View {
                 // 录制控制按钮
                 RecordingControlButton(
                     isRecording: viewModel.isRecording,
+                    isCountingDown: viewModel.isCountingDown,
                     onStart: { viewModel.startRecording() },
                     onStop: { viewModel.stopRecording() }
                 )
 
                 // 使用提示
-                if !viewModel.isRecording {
-                    Text("💡 将手机放在桌子上或座椅上开始录制")
+                if !viewModel.isRecording && !viewModel.isCountingDown {
+                    Text("💡 将手机顶部对着飞机头方向，平放在桌子上开始录制")
                         .font(.caption)
                         .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
+                } else if viewModel.isCountingDown {
+                    Text("📱 请将手机平放在桌子上\n手机顶部对着飞机头方向")
+                        .font(.caption)
+                        .foregroundColor(.orange)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal)
                 }
@@ -79,19 +94,63 @@ struct FlightRecordingView: View {
 // 状态指示器组件
 struct StatusIndicatorView: View {
     let isRecording: Bool
-    
+    let isCountingDown: Bool
+    let countdownValue: Int
+
     var body: some View {
         HStack {
             Circle()
-                .fill(isRecording ? Color.red : Color.gray)
+                .fill(statusColor)
                 .frame(width: 12, height: 12)
-                .scaleEffect(isRecording ? 1.2 : 1.0)
-                .animation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true), value: isRecording)
-            
-            Text(isRecording ? "正在录制" : "待机中")
+                .scaleEffect(isRecording || isCountingDown ? 1.2 : 1.0)
+                .animation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true), value: isRecording || isCountingDown)
+
+            Text(statusText)
                 .font(.headline)
-                .foregroundColor(isRecording ? .red : .secondary)
+                .foregroundColor(statusColor)
         }
+    }
+
+    private var statusColor: Color {
+        if isCountingDown {
+            return .orange
+        } else if isRecording {
+            return .red
+        } else {
+            return .secondary
+        }
+    }
+
+    private var statusText: String {
+        if isCountingDown {
+            return "准备录制"
+        } else if isRecording {
+            return "正在录制"
+        } else {
+            return "待机中"
+        }
+    }
+}
+
+// 倒计时显示组件
+struct CountdownView: View {
+    let countdownValue: Int
+
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("倒计时")
+                .font(.headline)
+                .foregroundColor(.orange)
+
+            Text("\(countdownValue)")
+                .font(.system(size: 80, weight: .bold, design: .rounded))
+                .foregroundColor(.orange)
+                .scaleEffect(1.2)
+                .animation(.easeInOut(duration: 0.3), value: countdownValue)
+        }
+        .padding()
+        .background(Color.orange.opacity(0.1))
+        .cornerRadius(20)
     }
 }
 
@@ -148,28 +207,59 @@ struct DataCard: View {
 // 录制控制按钮组件
 struct RecordingControlButton: View {
     let isRecording: Bool
+    let isCountingDown: Bool
     let onStart: () -> Void
     let onStop: () -> Void
-    
+
     var body: some View {
         Button(action: {
-            if isRecording {
+            if isRecording || isCountingDown {
                 onStop()
             } else {
                 onStart()
             }
         }) {
             HStack {
-                Image(systemName: isRecording ? "stop.circle.fill" : "record.circle")
+                Image(systemName: buttonIcon)
                     .font(.title2)
-                Text(isRecording ? "停止录制" : "开始录制")
+                Text(buttonText)
                     .font(.headline)
             }
             .foregroundColor(.white)
             .padding(.horizontal, 30)
             .padding(.vertical, 15)
-            .background(isRecording ? Color.red : Color.blue)
+            .background(buttonColor)
             .cornerRadius(25)
+        }
+    }
+
+    private var buttonIcon: String {
+        if isCountingDown {
+            return "xmark.circle.fill"
+        } else if isRecording {
+            return "stop.circle.fill"
+        } else {
+            return "record.circle"
+        }
+    }
+
+    private var buttonText: String {
+        if isCountingDown {
+            return "取消"
+        } else if isRecording {
+            return "停止录制"
+        } else {
+            return "开始录制"
+        }
+    }
+
+    private var buttonColor: Color {
+        if isCountingDown {
+            return .orange
+        } else if isRecording {
+            return .red
+        } else {
+            return .blue
         }
     }
 }

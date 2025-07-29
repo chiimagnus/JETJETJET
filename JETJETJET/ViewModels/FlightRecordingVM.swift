@@ -13,7 +13,12 @@ class FlightRecordingVM {
     var currentSnapshot: FlightDataSnapshot?
     var recordingDuration: TimeInterval = 0
     var recordingStartTime: Date?
-    
+
+    // 倒计时状态
+    var isCountingDown = false
+    var countdownValue = 0
+    private var countdownTimer: Timer?
+
     // 错误状态
     var errorMessage: String?
     
@@ -32,18 +37,48 @@ class FlightRecordingVM {
     }
     
     func startRecording() {
-        guard !isRecording else { return }
+        guard !isRecording && !isCountingDown else { return }
         guard motionService.isAvailable else {
             errorMessage = "运动传感器不可用"
             return
         }
 
+        // 开始3秒倒计时
+        startCountdown()
+    }
+
+    private func startCountdown() {
+        isCountingDown = true
+        countdownValue = 3
+        errorMessage = nil
+
+        countdownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
+            guard let self = self else {
+                timer.invalidate()
+                return
+            }
+
+            if self.countdownValue > 0 {
+                self.countdownValue -= 1
+            } else {
+                timer.invalidate()
+                self.countdownTimer = nil
+                self.isCountingDown = false
+                self.beginActualRecording()
+            }
+        }
+    }
+
+    private func beginActualRecording() {
+        // 重置所有传感器数据 - 归零
+        motionService.resetSensorData()
+
         isRecording = true
         recordingStartTime = Date()
         recordedData.removeAll()
         currentSessionId = UUID()
-        errorMessage = nil
-        
+        currentSnapshot = nil // 重置当前快照
+
         motionService.startMotionUpdates { [weak self] snapshot in
             DispatchQueue.main.async {
                 self?.handleMotionUpdate(snapshot)
@@ -52,14 +87,23 @@ class FlightRecordingVM {
     }
     
     func stopRecording() {
+        // 如果正在倒计时，取消倒计时
+        if isCountingDown {
+            countdownTimer?.invalidate()
+            countdownTimer = nil
+            isCountingDown = false
+            countdownValue = 0
+            return
+        }
+
         guard isRecording else { return }
-        
+
         isRecording = false
         motionService.stopMotionUpdates()
-        
+
         // 保存录制的数据
         saveRecordedData()
-        
+
         // 重置状态
         currentSnapshot = nil
         recordingDuration = 0
