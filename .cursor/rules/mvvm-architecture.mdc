@@ -27,11 +27,38 @@ Utils/          // 工具类
 - 使用 `@Observable` 或 `ObservableObject`
 - 包含 `@Published` 属性用于状态管理
 - 不直接引用视图
+- **禁止使用单例模式** (`shared` 静态实例)
 
 ### 3. Views (视图)
 - 纯UI展示，不包含业务逻辑
 - 通过 `@State` 和 `@Bindable` 管理状态
 - 使用 ViewModel 处理业务逻辑
+
+## ViewModel 实例化策略
+
+### 推荐方式
+1. **按需创建**：每个视图创建独立的ViewModel实例
+2. **依赖注入**：通过 `.environment()` 传递ViewModel
+3. **生命周期管理**：
+   - 短期：使用 `@State` 管理
+   - 长期：使用 `@Environment` 或 `@StateObject`
+
+### 禁止方式
+- ❌ 使用 `static let shared` 单例模式
+- ❌ 在ViewModel中创建全局状态
+- ❌ 多个视图共享同一个ViewModel实例
+
+### 正确示例
+```swift
+// ✅ 正确：按需创建
+@State private var viewModel = ItemViewModel()
+
+// ✅ 正确：依赖注入
+.environment(ItemViewModel())
+
+// ❌ 错误：单例模式
+// static let shared = ItemViewModel() // 禁止
+```
 
 ## 数据流
 View → ViewModel → Service → Model
@@ -40,42 +67,8 @@ View → ViewModel → Service → Model
 - 在View中直接处理业务逻辑
 - 在Model中包含业务逻辑
 - 在ViewModel中直接操作UI
-- 在View中直接访问数据库# SwiftUI MVVM 架构规则
-
-## 项目结构
-
-### 目录结构
-```
-Models/          // 数据模型
-ViewModels/      // 视图模型  
-Views/          // SwiftUI视图
-Services/       // 业务逻辑服务
-Utils/          // 工具类
-```
-
-## MVVM 架构规范
-
-### 1. Models (数据模型)
-- 纯数据结构，不包含业务逻辑
-- 使用 `@Model` 用于 SwiftData
-- 只包含属性，不包含方法
-
-### 2. ViewModels (视图模型)
-- 处理业务逻辑，管理状态
-- 使用 `@Observable` 或 `ObservableObject`
-- 包含 `@Published` 属性用于状态管理
-- 不直接引用视图
-
-### 3. Views (视图)
-- 纯UI展示，不包含业务逻辑
-- 通过 `@State` 和 `@Bindable` 管理状态
-- 使用 ViewModel 处理业务逻辑
-
-## 数据流
-View → ViewModel → Service → Model
-
-## 禁止事项
-- 在View中直接处理业务逻辑
+- 在View中直接访问数据库
+- 使用单例模式创建ViewModel
 - 在Model中包含业务逻辑
 - 在ViewModel中直接操作UI
 - 在View中直接访问数据库
