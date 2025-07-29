@@ -2,11 +2,9 @@
 
 ## Idea
 
-- 我想到一个很好玩的点。手机上有个飞机模型，持续记录乘坐飞机的速度、前后角度、侧向角度等信息。
-  最后交付的就是整个飞机运动状态的动画，以及整个飞机路线。  
-  还可以记录高度!  
-- 还可以做成 Apple vision pro 应用，看到整个过程的飞机运动状态!
-- 我这个则是展示飞机运动状态的。
+- 我想到一个很好玩的点。手机上有个飞机模型，持续记录手机的运动状态：速度、前后角度、侧向角度等信息。
+  最后交付的就是整个手机运动状态的动画！
+- 我这个则是展示手机运动状态的。
 
 ## MVP 技术实现
 
@@ -19,10 +17,7 @@
 - **CoreMotion框架**: 设备姿态、加速度、陀螺仪
   - `CMMotionManager` - 主要传感器管理
   - `CMAttitude` - 获取俯仰角、横滚角、偏航角
-- **CoreLocation框架**: GPS数据
-  - `CLLocationManager` - 位置管理
-  - `CLLocation.speed` - 前进速度
-  - `CLLocation.altitude` - 高度
+  - `CMDeviceMotion` - 获取设备运动数据
 
 ### 3. 数据记录结构
 ```swift
@@ -32,9 +27,6 @@ FlightData {
   pitch: Double       // 俯仰角 (degrees)
   roll: Double        // 横滚角 (degrees)
   yaw: Double         // 偏航角 (degrees)
-  altitude: Double    // 高度 (meters)
-  latitude: Double    // 纬度
-  longitude: Double   // 经度
 }
 ```
 
@@ -47,5 +39,5 @@ FlightData {
 ### 5. 技术栈
 - **3D渲染**: SceneKit
 - **数据存储**: SwiftData
-- **传感器**: CoreMotion + CoreLocation
+- **传感器**: CoreMotion
 - **UI**: SwiftUI 
