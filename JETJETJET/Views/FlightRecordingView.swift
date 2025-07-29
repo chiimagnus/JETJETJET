@@ -1,13 +1,27 @@
 import SwiftUI
 import SwiftData
+import SceneKit
 
 struct FlightRecordingView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var viewModel = FlightRecordingVM()
+    @State private var scene: SCNScene?
+    @State private var airplaneNode: SCNNode?
     
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
+                // 3D飞机模型显示
+                if let scene = scene {
+                    SceneView(
+                        scene: scene,
+                        options: [.allowsCameraControl, .autoenablesDefaultLighting]
+                    )
+                    .frame(height: 200)
+                    .cornerRadius(12)
+                    .padding(.horizontal)
+                }
+                
                 // 标题
                 Text("JET!")
                     .font(.largeTitle)
@@ -27,6 +41,12 @@ struct FlightRecordingView: View {
                 // 传感器数据显示
                 else if let snapshot = viewModel.currentSnapshot {
                     SensorDataView(snapshot: snapshot)
+                        .onAppear {
+                            updateAirplaneAttitude()
+                        }
+                        .onChange(of: snapshot) { _ in
+                            updateAirplaneAttitude()
+                        }
                 } else if !viewModel.isCountingDown {
                     Text("等待传感器数据...")
                         .foregroundColor(.secondary)
@@ -85,7 +105,43 @@ struct FlightRecordingView: View {
         }
         .onAppear {
             viewModel.setModelContext(modelContext)
+            setup3DScene()
         }
+    }
+    
+    private func setup3DScene() {
+        let newScene = SCNScene()
+        
+        // 创建简单的箭头作为飞机模型
+        let arrowGeometry = SCNBox(width: 0.2, height: 0.05, length: 1.0, chamferRadius: 0.02)
+        arrowGeometry.firstMaterial?.diffuse.contents = UIColor.systemBlue
+        
+        let arrowNode = SCNNode(geometry: arrowGeometry)
+        arrowNode.name = "airplane"
+        newScene.rootNode.addChildNode(arrowNode)
+        
+        // 添加相机
+        let cameraNode = SCNNode()
+        cameraNode.camera = SCNCamera()
+        cameraNode.position = SCNVector3(x: 0, y: 2, z: 5)
+        cameraNode.look(at: SCNVector3(0, 0, 0))
+        newScene.rootNode.addChildNode(cameraNode)
+        
+        scene = newScene
+        airplaneNode = arrowNode
+    }
+    
+    private func updateAirplaneAttitude() {
+        guard let airplaneNode = airplaneNode,
+              let snapshot = viewModel.currentSnapshot else { return }
+        
+        // 将角度转换为弧度并应用到飞机模型
+        let pitchRadians = Float(snapshot.pitch * .pi / 180.0)
+        let rollRadians = Float(snapshot.roll * .pi / 180.0)
+        let yawRadians = Float(snapshot.yaw * .pi / 180.0)
+        
+        // 应用旋转（注意SceneKit的坐标系）
+        airplaneNode.eulerAngles = SCNVector3(pitchRadians, yawRadians, rollRadians)
     }
 }
 
