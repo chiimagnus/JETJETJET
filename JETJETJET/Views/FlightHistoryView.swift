@@ -6,20 +6,18 @@ struct FlightHistoryView: View {
     @Query(sort: \FlightSession.startTime, order: .reverse) private var flightSessions: [FlightSession]
 
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(flightSessions, id: \.id) { session in
-                    NavigationLink(destination: AirplaneModelView(session: session)) {
-                        FlightSessionRow(session: session)
-                    }
+        List {
+            ForEach(flightSessions, id: \.id) { session in
+                NavigationLink(destination: AirplaneModelView(session: session)) {
+                    FlightSessionRow(session: session)
                 }
-                .onDelete(perform: deleteSessions)
             }
-            .navigationTitle("飞行历史")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
+            .onDelete(perform: deleteSessions)
+        }
+        .navigationTitle("飞行历史")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                EditButton()
             }
         }
     }
