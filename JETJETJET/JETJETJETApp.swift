@@ -12,7 +12,7 @@ import SwiftData
 struct JETJETJETApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            FlightData.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -25,7 +25,7 @@ struct JETJETJETApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            FlightRecordingView()
         }
         .modelContainer(sharedModelContainer)
     }
