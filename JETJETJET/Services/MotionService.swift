@@ -5,6 +5,7 @@ class MotionService {
     private let motionManager = CMMotionManager()
     private var previousLocation: (x: Double, y: Double, z: Double) = (0, 0, 0)
     private var previousTimestamp: TimeInterval = 0
+    private var referenceAttitude: CMAttitude?
     
     var isAvailable: Bool {
         return motionManager.isDeviceMotionAvailable
@@ -57,6 +58,14 @@ class MotionService {
         motionManager.stopDeviceMotionUpdates()
         previousTimestamp = 0
         previousLocation = (0, 0, 0)
+        referenceAttitude = nil
+    }
+
+    func resetSensorData() {
+        // 重置所有传感器数据，为新的录制会话做准备
+        previousTimestamp = 0
+        previousLocation = (0, 0, 0)
+        referenceAttitude = nil
     }
     
     private func calculateSpeed(from acceleration: CMAcceleration, timestamp: TimeInterval) -> Double {
