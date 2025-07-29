@@ -1,0 +1,66 @@
+---
+alwaysApply: false
+---
+# JETJETJET 项目依赖项指南
+
+## 📱 系统框架依赖
+
+- **SwiftUI**: 主要UI框架，用于构建所有视图
+- **SwiftData**: 数据持久化，用于存储飞行数据
+- **CloudKit**: 云端数据同步
+- **CoreMotion**: 设备运动数据获取
+- **Foundation**: 基础功能支持
+
+## 📦 第三方依赖
+
+### 当前项目状态
+- **暂无第三方依赖**: 项目目前仅使用系统框架
+- **Swift Package Manager**: 已配置，可添加新依赖
+
+### 推荐添加的依赖
+- **Lottie**: 精美动画效果
+- **SwiftUIX**: SwiftUI扩展组件
+- **AlertKit**: 美化弹窗系统
+
+## 🔧 依赖配置位置
+
+### 系统框架
+- 位置: `JETJETJET.xcodeproj/project.pbxproj`
+- 配置: 通过Xcode的"Frameworks, Libraries, and Embedded Content"添加
+
+### Swift Package Manager
+- 配置文件: 项目根目录下无`Package.swift`，使用Xcode内置SPM
+- 添加方式: File → Add Package Dependencies...
+
+## 📋 依赖检查清单
+
+### 检查系统依赖
+```bash
+# 查看项目使用的系统框架
+grep -r "import" JETJETJET/ --include="*.swift" | sort | uniq
+```
+
+### 检查SPM依赖
+```bash
+# 查看Package.resolved文件（如果存在）
+find . -name "Package.resolved" -type f
+```
+
+## 🎯 使用场景映射
+
+| 功能需求 | 当前依赖 | 推荐添加 |
+|---------|----------|----------|
+| UI构建 | SwiftUI | SwiftUIX |
+| 数据存储 | SwiftData | - |
+| 云端同步 | CloudKit | - |
+| 运动数据 | CoreMotion | - |
+| 数据可视化 | - | Charts |
+| 动画效果 | - | Lottie |
+| 用户提示 | SwiftUI Alert | AlertKit |
+
+## ⚠️ 注意事项
+
+- **系统框架**: 无需额外安装，直接import使用
+- **版本兼容**: 确保依赖支持iOS 17+
+- **权限配置**: 部分框架需要在Info.plist添加权限描述
+- **测试**: 添加依赖后务必测试所有功能
