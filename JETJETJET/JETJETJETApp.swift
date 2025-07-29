@@ -11,7 +11,7 @@ import SwiftData
 @main
 struct JETJETJETApp: App {
     // iCloud同步开关 - 设置为false禁用云同步
-    private let enableCloudSync = false
+    private static let enableCloudSync = false
     
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
