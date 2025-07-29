@@ -9,7 +9,7 @@ struct FlightRecordingView: View {
         NavigationView {
             VStack(spacing: 20) {
                 // 标题
-                Text("JETJETJET")
+                Text("JET!")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                 
@@ -75,8 +75,6 @@ struct FlightRecordingView: View {
                 Spacer()
             }
             .padding()
-            .navigationTitle("飞行记录")
-            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationLink(destination: FlightHistoryView()) {
