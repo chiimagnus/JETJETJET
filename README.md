@@ -8,43 +8,44 @@
 - 还可以做成 Apple vision pro 应用，看到整个过程的飞机运动状态!
 - 我这个则是展示飞机运动状态的。
 
-## MVP
+## MVP 技术实现
 
-### 核心功能
-- 记录飞机运动数据（速度、角度、高度）
-- 实时显示当前状态
-- 保存历史记录
-- 简单回放功能
+### 1. 3D飞机模型
+- **方案A**: SceneKit内置箭头 (`SCNArrow`) - 最简单
+- **方案B**: 免费飞机模型从Sketchfab下载 (.obj/.dae格式)
+- **当前选择**: 先用简单箭头，后期升级
 
-### 开发阶段
+### 2. iOS传感器API
+- **CoreMotion框架**: 设备姿态、加速度、陀螺仪
+  - `CMMotionManager` - 主要传感器管理
+  - `CMAttitude` - 获取俯仰角、横滚角、偏航角
+- **CoreLocation框架**: GPS数据
+  - `CLLocationManager` - 位置管理
+  - `CLLocation.speed` - 前进速度
+  - `CLLocation.altitude` - 高度
 
-#### 阶段1：基础数据收集（1天）
-- [ ] 集成CoreMotion获取加速度、陀螺仪数据
-- [ ] 创建FlightData模型存储运动数据
-- [ ] 实现数据收集服务
+### 3. 数据记录结构
+```swift
+FlightData {
+  timestamp: Date      // 时间戳
+  speed: Double       // 前进速度 (m/s)
+  pitch: Double       // 俯仰角 (degrees)
+  roll: Double        // 横滚角 (degrees)
+  yaw: Double         // 偏航角 (degrees)
+  altitude: Double    // 高度 (meters)
+  latitude: Double    // 纬度
+  longitude: Double   // 经度
+}
+```
 
-#### 阶段2：实时显示（1天）
-- [ ] 创建实时数据显示界面
-- [ ] 显示速度、高度、俯仰角、横滚角
-- [ ] 添加开始/停止记录按钮
+### 4. 开发阶段
+1. **阶段1**: 传感器数据收集 + 简单存储
+2. **阶段2**: 历史记录列表
+3. **阶段3**: 3D回放功能
+4. **阶段4**: 美化界面 + 真实飞机模型
 
-#### 阶段3：数据存储（1天）
-- [ ] 使用SwiftData持久化存储
-- [ ] 实现历史记录列表
-- [ ] 支持数据导出
-
-#### 阶段4：可视化（2天）
-- [ ] 创建简单3D飞机模型
-- [ ] 实现运动轨迹回放
-- [ ] 添加基础动画效果
-
-### 技术栈
+### 5. 技术栈
+- **3D渲染**: SceneKit
+- **数据存储**: SwiftData
 - **传感器**: CoreMotion + CoreLocation
-- **存储**: SwiftData
-- **UI**: SwiftUI
-- [ ] 3D**: SceneKit
-
-### 最小可用版本
-1. 开始/停止记录按钮
-2. 实时数据显示
-3. 历史记录查看
+- **UI**: SwiftUI 
