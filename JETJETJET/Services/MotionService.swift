@@ -82,7 +82,7 @@ class MotionService {
 }
 
 // 用于传递实时数据的结构体
-struct FlightDataSnapshot {
+struct FlightDataSnapshot: Equatable {
     let timestamp: Date
     let speed: Double
     let pitch: Double
