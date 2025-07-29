@@ -15,7 +15,11 @@ struct JETJETJETApp: App {
             FlightData.self,
             FlightSession.self,
         ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        let modelConfiguration = ModelConfiguration(
+            schema: schema, 
+            isStoredInMemoryOnly: false,
+            cloudKitDatabase: .automatic // 添加这行启用iCloud同步
+        )
 
         do {
             return try ModelContainer(for: schema, configurations: [modelConfiguration])
