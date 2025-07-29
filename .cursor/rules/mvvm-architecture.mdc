@@ -1,0 +1,81 @@
+---
+alwaysApply: true
+---
+
+# SwiftUI MVVM 架构规则
+
+## 项目结构
+
+### 目录结构
+```
+Models/          // 数据模型
+ViewModels/      // 视图模型  
+Views/          // SwiftUI视图
+Services/       // 业务逻辑服务
+Utils/          // 工具类
+```
+
+## MVVM 架构规范
+
+### 1. Models (数据模型)
+- 纯数据结构，不包含业务逻辑
+- 使用 `@Model` 用于 SwiftData
+- 只包含属性，不包含方法
+
+### 2. ViewModels (视图模型)
+- 处理业务逻辑，管理状态
+- 使用 `@Observable` 或 `ObservableObject`
+- 包含 `@Published` 属性用于状态管理
+- 不直接引用视图
+
+### 3. Views (视图)
+- 纯UI展示，不包含业务逻辑
+- 通过 `@State` 和 `@Bindable` 管理状态
+- 使用 ViewModel 处理业务逻辑
+
+## 数据流
+View → ViewModel → Service → Model
+
+## 禁止事项
+- 在View中直接处理业务逻辑
+- 在Model中包含业务逻辑
+- 在ViewModel中直接操作UI
+- 在View中直接访问数据库# SwiftUI MVVM 架构规则
+
+## 项目结构
+
+### 目录结构
+```
+Models/          // 数据模型
+ViewModels/      // 视图模型  
+Views/          // SwiftUI视图
+Services/       // 业务逻辑服务
+Utils/          // 工具类
+```
+
+## MVVM 架构规范
+
+### 1. Models (数据模型)
+- 纯数据结构，不包含业务逻辑
+- 使用 `@Model` 用于 SwiftData
+- 只包含属性，不包含方法
+
+### 2. ViewModels (视图模型)
+- 处理业务逻辑，管理状态
+- 使用 `@Observable` 或 `ObservableObject`
+- 包含 `@Published` 属性用于状态管理
+- 不直接引用视图
+
+### 3. Views (视图)
+- 纯UI展示，不包含业务逻辑
+- 通过 `@State` 和 `@Bindable` 管理状态
+- 使用 ViewModel 处理业务逻辑
+
+## 数据流
+View → ViewModel → Service → Model
+
+## 禁止事项
+- 在View中直接处理业务逻辑
+- 在Model中包含业务逻辑
+- 在ViewModel中直接操作UI
+- 在View中直接访问数据库
