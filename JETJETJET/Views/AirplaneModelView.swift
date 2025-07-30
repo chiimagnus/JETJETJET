@@ -16,9 +16,10 @@ struct AirplaneModelView: View {
     var body: some View {
         VStack {
             // 3D场景视图
-            SceneView(
-                scene: airplane3DModel.getScene(),
-                options: [.allowsCameraControl, .autoenablesDefaultLighting]
+            Airplane3DSceneView(
+                airplane3DModel: airplane3DModel,
+                height: nil,
+                showControls: true
             )
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .onChange(of: currentDataIndex) { _, newIndex in

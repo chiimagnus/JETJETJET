@@ -6,7 +6,6 @@ struct FlightRecordingView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var viewModel = FlightRecordingVM()
     @State private var airplane3DModel = Airplane3DModel()
-    @State private var scene: SCNScene?
     
     var body: some View {
         NavigationView {
@@ -50,15 +49,11 @@ struct FlightRecordingView: View {
                 }
                 
                 // 3D飞机模型显示
-                if let scene = scene {
-                    SceneView(
-                        scene: scene,
-                        options: [.allowsCameraControl, .autoenablesDefaultLighting]
-                    )
-                    .frame(height: 200)
-                    .cornerRadius(12)
-                    .padding(.horizontal)
-                }
+                Airplane3DSceneView(
+                    airplane3DModel: airplane3DModel,
+                    height: 200,
+                    showControls: true
+                )
 
                 Spacer()
                 
@@ -105,12 +100,7 @@ struct FlightRecordingView: View {
         }
         .onAppear {
             viewModel.setModelContext(modelContext)
-            setup3DScene()
         }
-    }
-    
-    private func setup3DScene() {
-        scene = airplane3DModel.getScene()
     }
     
     private func updateAirplaneAttitude() {
