@@ -4,15 +4,25 @@ import SwiftData
 struct FlightHistoryView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \FlightSession.startTime, order: .reverse) private var flightSessions: [FlightSession]
+    @State private var viewModel = FlightHistoryVM()
 
     var body: some View {
-        List {
-            ForEach(flightSessions, id: \.id) { session in
-                NavigationLink(destination: AirplaneModelView(session: session)) {
-                    FlightSessionRow(session: session)
+        VStack {
+            List {
+                ForEach(flightSessions, id: \.id) { session in
+                    NavigationLink(destination: AirplaneModelView(session: session)) {
+                        FlightSessionRow(session: session)
+                    }
                 }
+                .onDelete(perform: deleteSessions)
             }
-            .onDelete(perform: deleteSessions)
+
+            // 错误信息显示
+            if let errorMessage = viewModel.errorMessage {
+                Text(errorMessage)
+                    .foregroundColor(.red)
+                    .padding()
+            }
         }
         .navigationTitle("飞行历史")
         .toolbar {
@@ -20,33 +30,14 @@ struct FlightHistoryView: View {
                 EditButton()
             }
         }
+        .onAppear {
+            viewModel.setModelContext(modelContext)
+        }
     }
 
     private func deleteSessions(offsets: IndexSet) {
         withAnimation {
-            for index in offsets {
-                let session = flightSessions[index]
-
-                // 删除相关的飞行数据
-                let sessionId = session.id
-                let request = FetchDescriptor<FlightData>(
-                    predicate: #Predicate<FlightData> { data in
-                        data.sessionId == sessionId
-                    }
-                )
-
-                do {
-                    let relatedData = try modelContext.fetch(request)
-                    for data in relatedData {
-                        modelContext.delete(data)
-                    }
-                } catch {
-                    print("删除相关数据失败: \(error)")
-                }
-
-                // 删除会话
-                modelContext.delete(session)
-            }
+            viewModel.deleteSessions(at: offsets, from: flightSessions)
         }
     }
 }
