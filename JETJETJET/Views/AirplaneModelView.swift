@@ -11,15 +11,19 @@ struct AirplaneModelView: View {
     @State private var playbackTimer: Timer?
     
     @State private var sessionFlightData: [FlightData] = []
+    @State private var airplane3DModel = Airplane3DModel()
     
     var body: some View {
         VStack {
             // 3D场景视图
             SceneView(
-                scene: createScene(),
+                scene: airplane3DModel.getScene(),
                 options: [.allowsCameraControl, .autoenablesDefaultLighting]
             )
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .onChange(of: currentDataIndex) { _, newIndex in
+                updateAirplaneAttitude()
+            }
             
             // 播放控制
             PlaybackControlsView(
@@ -51,43 +55,10 @@ struct AirplaneModelView: View {
         }
     }
     
-    private func createScene() -> SCNScene {
-        let scene = SCNScene()
-        
-        // 创建简单的箭头作为飞机模型
-        let arrowGeometry = SCNBox(width: 0.2, height: 0.05, length: 1.0, chamferRadius: 0.02)
-        arrowGeometry.firstMaterial?.diffuse.contents = UIColor.systemBlue
-        
-        let arrowNode = SCNNode(geometry: arrowGeometry)
-        arrowNode.name = "airplane"
-        scene.rootNode.addChildNode(arrowNode)
-        
-        // 添加相机
-        let cameraNode = SCNNode()
-        cameraNode.camera = SCNCamera()
-        cameraNode.position = SCNVector3(x: 0, y: 2, z: 5)
-        cameraNode.look(at: SCNVector3(0, 0, 0))
-        scene.rootNode.addChildNode(cameraNode)
-        
-        // 更新飞机姿态
-        updateAirplaneAttitude(in: scene)
-        
-        return scene
-    }
-    
-    private func updateAirplaneAttitude(in scene: SCNScene) {
-        guard let airplaneNode = scene.rootNode.childNode(withName: "airplane", recursively: false),
-              currentDataIndex < sessionFlightData.count else { return }
-        
+    private func updateAirplaneAttitude() {
+        guard currentDataIndex < sessionFlightData.count else { return }
         let data = sessionFlightData[currentDataIndex]
-        
-        // 将角度转换为弧度并应用到飞机模型
-        let pitchRadians = Float(data.pitch * .pi / 180.0)
-        let rollRadians = Float(data.roll * .pi / 180.0)
-        let yawRadians = Float(data.yaw * .pi / 180.0)
-        
-        // 应用旋转（注意SceneKit的坐标系）
-        airplaneNode.eulerAngles = SCNVector3(pitchRadians, yawRadians, rollRadians)
+        airplane3DModel.updateAirplaneAttitude(pitch: data.pitch, roll: data.roll, yaw: data.yaw)
     }
     
     private func togglePlayback() {
