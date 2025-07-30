@@ -27,8 +27,8 @@ class Airplane3DModel {
     }
     
     private func createAirplaneNode() -> SCNNode {
-        // 创建飞机主体 - 使用更真实的飞机形状
-        let bodyGeometry = SCNBox(width: 0.15, height: 0.05, length: 0.8, chamferRadius: 0.02)
+        // 创建飞机主体 - 放大3倍
+        let bodyGeometry = SCNBox(width: 0.4, height: 0.15, length: 2.4, chamferRadius: 0.06)
         bodyGeometry.firstMaterial?.diffuse.contents = UIColor.systemBlue
         bodyGeometry.firstMaterial?.specular.contents = UIColor.white
         bodyGeometry.firstMaterial?.shininess = 0.8
@@ -36,19 +36,22 @@ class Airplane3DModel {
         let airplaneNode = SCNNode(geometry: bodyGeometry)
         airplaneNode.name = "airplane"
         
-        // 添加机翼
-        let wingGeometry = SCNBox(width: 0.8, height: 0.02, length: 0.15, chamferRadius: 0.01)
+        // 添加机翼 - 放大3倍
+        let wingGeometry = SCNBox(width: 2.4, height: 0.06, length: 0.45, chamferRadius: 0.03)
         wingGeometry.firstMaterial?.diffuse.contents = UIColor.systemBlue
         let wingNode = SCNNode(geometry: wingGeometry)
         wingNode.position = SCNVector3(0, 0, 0)
         airplaneNode.addChildNode(wingNode)
         
-        // 添加尾翼
-        let tailGeometry = SCNBox(width: 0.2, height: 0.15, length: 0.02, chamferRadius: 0.01)
+        // 添加尾翼 - 放大3倍
+        let tailGeometry = SCNBox(width: 0.6, height: 0.45, length: 0.06, chamferRadius: 0.03)
         tailGeometry.firstMaterial?.diffuse.contents = UIColor.systemBlue
         let tailNode = SCNNode(geometry: tailGeometry)
-        tailNode.position = SCNVector3(0, 0.05, -0.35)
+        tailNode.position = SCNVector3(0, 0.15, -1.05)
         airplaneNode.addChildNode(tailNode)
+        
+        // 旋转180度，让飞机头朝里，屁股朝向用户
+        airplaneNode.eulerAngles = SCNVector3(0, Float.pi, 0)
         
         return airplaneNode
     }
@@ -56,7 +59,7 @@ class Airplane3DModel {
     private func setupCamera(in scene: SCNScene) {
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
-        cameraNode.position = SCNVector3(x: 0, y: 2, z: 5)
+        cameraNode.position = SCNVector3(x: 0, y: 1, z: 2.5)
         cameraNode.look(at: SCNVector3(0, 0, 0))
         scene.rootNode.addChildNode(cameraNode)
     }
