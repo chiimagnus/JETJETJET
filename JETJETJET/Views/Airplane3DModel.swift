@@ -93,13 +93,13 @@ class Airplane3DModel {
     func updateAirplaneAttitude(pitch: Double, roll: Double, yaw: Double) {
         guard let airplaneNode = airplaneNode else { return }
         
-        // 将角度转换为弧度并应用到飞机模型
+        // 将角度转换为弧度
         let pitchRadians = Float(pitch * Double.pi / 180.0)
         let rollRadians = Float(roll * Double.pi / 180.0)
         let yawRadians = Float(yaw * Double.pi / 180.0)
         
-        // 应用旋转（注意SceneKit的坐标系）
-        airplaneNode.eulerAngles = SCNVector3(pitchRadians, yawRadians, rollRadians)
+        // 应用旋转，同时保留初始的180度Y轴旋转（让飞机头朝里）
+        airplaneNode.eulerAngles = SCNVector3(pitchRadians, yawRadians + Float.pi, rollRadians)
     }
     
     func resetAirplanePosition() {
