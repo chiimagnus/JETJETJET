@@ -4,7 +4,8 @@ struct FlightDataDetailView: View {
     let session: FlightSession
     let flightData: [FlightData]
     @Environment(\.dismiss) private var dismiss
-    
+    @State private var viewModel = FlightDataDetailVM()
+
     var body: some View {
         NavigationView {
             List {
@@ -13,24 +14,24 @@ struct FlightDataDetailView: View {
                     HStack {
                         Text("开始时间")
                         Spacer()
-                        Text(formatDateTime(session.startTime))
+                        Text(viewModel.formatDateTime(session.startTime))
                             .foregroundColor(.secondary)
                     }
-                    
+
                     HStack {
                         Text("结束时间")
                         Spacer()
-                        Text(formatDateTime(session.endTime))
+                        Text(viewModel.formatDateTime(session.endTime))
                             .foregroundColor(.secondary)
                     }
-                    
+
                     HStack {
                         Text("持续时间")
                         Spacer()
                         Text(session.formattedDuration)
                             .foregroundColor(.secondary)
                     }
-                    
+
                     HStack {
                         Text("数据点数")
                         Spacer()
@@ -38,38 +39,26 @@ struct FlightDataDetailView: View {
                             .foregroundColor(.secondary)
                     }
                 }
-                
+
                 // 角度含义说明
                 Section("角度说明") {
                     VStack(alignment: .leading, spacing: 8) {
-                        AngleExplanationRow(
-                            title: "俯仰角 (Pitch)",
-                            description: "飞机机头向上或向下的角度",
-                            emoji: "✈️",
-                            gesture: "点头动作"
-                        )
-                        
-                        AngleExplanationRow(
-                            title: "横滚角 (Roll)",
-                            description: "飞机左右翅膀的倾斜角度",
-                            emoji: "🔄",
-                            gesture: "摇头动作"
-                        )
-                        
-                        AngleExplanationRow(
-                            title: "偏航角 (Yaw)",
-                            description: "飞机机头左右转向的角度",
-                            emoji: "↩️",
-                            gesture: "转头动作"
-                        )
+                        ForEach(viewModel.getAngleExplanations(), id: \.title) { explanation in
+                            AngleExplanationRow(
+                                title: explanation.title,
+                                description: explanation.description,
+                                emoji: explanation.emoji,
+                                gesture: explanation.gesture
+                            )
+                        }
                     }
                     .padding(.vertical, 4)
                 }
-                
+
                 // 详细数据
                 Section("详细数据") {
                     ForEach(Array(flightData.enumerated()), id: \.offset) { index, data in
-                        FlightDataDetailRow(data: data, index: index + 1)
+                        FlightDataDetailRow(data: data, index: index + 1, viewModel: viewModel)
                     }
                 }
             }
@@ -83,13 +72,6 @@ struct FlightDataDetailView: View {
                 }
             }
         }
-    }
-    
-    private func formatDateTime(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .medium
-        return formatter.string(from: date)
     }
 }
 
@@ -125,7 +107,8 @@ struct AngleExplanationRow: View {
 struct FlightDataDetailRow: View {
     let data: FlightData
     let index: Int
-    
+    let viewModel: FlightDataDetailVM
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
@@ -133,31 +116,25 @@ struct FlightDataDetailRow: View {
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .frame(width: 30, alignment: .leading)
-                
+
                 Spacer()
-                
-                Text(formatTime(data.timestamp))
+
+                Text(viewModel.formatTime(data.timestamp))
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
-            
+
             LazyVGrid(columns: [
                 GridItem(.flexible()),
                 GridItem(.flexible())
             ], spacing: 8) {
-                DataDetailCard(title: "速度", value: data.speed, unit: "m/s²", color: .blue)
-                DataDetailCard(title: "俯仰角", value: data.pitch, unit: "°", color: .green)
-                DataDetailCard(title: "横滚角", value: data.roll, unit: "°", color: .orange)
-                DataDetailCard(title: "偏航角", value: data.yaw, unit: "°", color: .purple)
+                DataDetailCard(title: "速度", value: data.speed, unit: "m/s²", color: .blue, viewModel: viewModel)
+                DataDetailCard(title: "俯仰角", value: data.pitch, unit: "°", color: .green, viewModel: viewModel)
+                DataDetailCard(title: "横滚角", value: data.roll, unit: "°", color: .orange, viewModel: viewModel)
+                DataDetailCard(title: "偏航角", value: data.yaw, unit: "°", color: .purple, viewModel: viewModel)
             }
         }
         .padding(.vertical, 4)
-    }
-    
-    private func formatTime(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .medium
-        return formatter.string(from: date)
     }
 }
 
@@ -166,19 +143,20 @@ struct DataDetailCard: View {
     let value: Double
     let unit: String
     let color: Color
-    
+    let viewModel: FlightDataDetailVM
+
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
             Text(title)
                 .font(.caption2)
                 .foregroundColor(.secondary)
-            
+
             HStack(alignment: .firstTextBaseline, spacing: 2) {
-                Text(String(format: "%.2f", value))
+                Text(viewModel.formatValue(value))
                     .font(.caption)
                     .fontWeight(.medium)
                     .foregroundColor(color)
-                
+
                 Text(unit)
                     .font(.caption2)
                     .foregroundColor(.secondary)
@@ -198,6 +176,6 @@ struct DataDetailCard: View {
         FlightData(timestamp: Date().addingTimeInterval(1), speed: 1.5, pitch: 10.0, roll: 2.0, yaw: 25.0),
         FlightData(timestamp: Date().addingTimeInterval(2), speed: 0.8, pitch: 5.0, roll: -8.0, yaw: 35.0)
     ]
-    
+
     return FlightDataDetailView(session: session, flightData: sampleData)
 }
