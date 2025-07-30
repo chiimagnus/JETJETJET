@@ -59,7 +59,7 @@ class Airplane3DModel {
     private func setupCamera(in scene: SCNScene) {
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
-        cameraNode.position = SCNVector3(x: 0, y: 1, z: 2.5)
+        cameraNode.position = SCNVector3(x: 0, y: 1, z: 2.2)
         cameraNode.look(at: SCNVector3(0, 0, 0))
         scene.rootNode.addChildNode(cameraNode)
     }
