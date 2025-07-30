@@ -3,9 +3,10 @@ import CoreMotion
 
 class MotionService {
     private let motionManager = CMMotionManager()
-    private var previousLocation: (x: Double, y: Double, z: Double) = (0, 0, 0)
+    private var previousVelocity: (x: Double, y: Double, z: Double) = (0, 0, 0)
     private var previousTimestamp: TimeInterval = 0
     private var referenceAttitude: CMAttitude?
+    private var isFirstUpdate = true
     
     var isAvailable: Bool {
         return motionManager.isDeviceMotionAvailable
@@ -34,7 +35,7 @@ class MotionService {
             let attitude = motion.attitude
             let userAcceleration = motion.userAcceleration
             
-            // 计算速度 (简化版本，基于加速度积分)
+            // 计算速度 (基于加速度积分)
             let speed = self.calculateSpeed(from: userAcceleration, timestamp: currentTimestamp)
             
             // 转换角度为度数
@@ -56,28 +57,50 @@ class MotionService {
     
     func stopMotionUpdates() {
         motionManager.stopDeviceMotionUpdates()
-        previousTimestamp = 0
-        previousLocation = (0, 0, 0)
-        referenceAttitude = nil
+        resetSensorData()
     }
 
     func resetSensorData() {
         // 重置所有传感器数据，为新的录制会话做准备
         previousTimestamp = 0
-        previousLocation = (0, 0, 0)
+        previousVelocity = (0, 0, 0)
         referenceAttitude = nil
+        isFirstUpdate = true
     }
     
     private func calculateSpeed(from acceleration: CMAcceleration, timestamp: TimeInterval) -> Double {
-        // 简化的速度计算 - 使用加速度的模长作为速度指示
-        let accelerationMagnitude = sqrt(
-            acceleration.x * acceleration.x +
-            acceleration.y * acceleration.y +
-            acceleration.z * acceleration.z
+        // 第一次更新时，初始化时间戳
+        if isFirstUpdate {
+            previousTimestamp = timestamp
+            isFirstUpdate = false
+            return 0.0
+        }
+
+        // 计算时间间隔
+        let deltaTime = timestamp - previousTimestamp
+        guard deltaTime > 0 else { return 0.0 }
+
+        // 使用梯形积分法计算速度变化
+        // v = v0 + a * dt
+        let newVelocityX = previousVelocity.x + acceleration.x * deltaTime
+        let newVelocityY = previousVelocity.y + acceleration.y * deltaTime
+        let newVelocityZ = previousVelocity.z + acceleration.z * deltaTime
+
+        // 计算速度模长
+        let speedMagnitude = sqrt(
+            newVelocityX * newVelocityX +
+            newVelocityY * newVelocityY +
+            newVelocityZ * newVelocityZ
         )
-        
-        // 返回加速度模长，作为运动强度的指示
-        return accelerationMagnitude
+
+        // 更新状态
+        previousVelocity = (newVelocityX, newVelocityY, newVelocityZ)
+        previousTimestamp = timestamp
+
+        // 应用简单的低通滤波，减少噪声
+        let filteredSpeed = speedMagnitude * 0.8 + (speedMagnitude * 0.2)
+
+        return filteredSpeed
     }
 }
 
