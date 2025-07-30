@@ -6,13 +6,9 @@ struct AirplaneModelView: View {
     let session: FlightSession
     @Environment(\.modelContext) private var modelContext
     @State private var showingDataSheet = false
-    @State private var isPlaying = false
-    @State private var currentDataIndex = 0
-    @State private var playbackTimer: Timer?
-    
-    @State private var sessionFlightData: [FlightData] = []
+    @State private var viewModel = AirplaneModelVM()
     @State private var airplane3DModel = Airplane3DModel()
-    
+
     var body: some View {
         VStack {
             // 3D场景视图
@@ -22,17 +18,17 @@ struct AirplaneModelView: View {
                 showControls: true
             )
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .onChange(of: currentDataIndex) { _, newIndex in
+            .onChange(of: viewModel.currentDataIndex) { _, newIndex in
                 updateAirplaneAttitude()
             }
-            
+
             // 播放控制
             PlaybackControlsView(
-                isPlaying: isPlaying,
-                currentIndex: currentDataIndex,
-                totalCount: sessionFlightData.count,
-                onPlayPause: togglePlayback,
-                onSeek: seekToIndex
+                isPlaying: viewModel.isPlaying,
+                currentIndex: viewModel.currentDataIndex,
+                totalCount: viewModel.sessionFlightData.count,
+                onPlayPause: viewModel.togglePlayback,
+                onSeek: viewModel.seekToIndex
             )
             .padding()
         }
@@ -46,68 +42,27 @@ struct AirplaneModelView: View {
             }
         }
         .sheet(isPresented: $showingDataSheet) {
-            FlightDataDetailView(session: session, flightData: sessionFlightData)
+            FlightDataDetailView(session: session, flightData: viewModel.sessionFlightData)
         }
         .onAppear {
-            loadSessionData()
+            viewModel.setModelContext(modelContext)
+            viewModel.loadSessionData(for: session)
         }
         .onDisappear {
-            stopPlayback()
+            viewModel.stopPlayback()
+        }
+
+        // 错误信息显示
+        if let errorMessage = viewModel.errorMessage {
+            Text(errorMessage)
+                .foregroundColor(.red)
+                .padding()
         }
     }
-    
+
     private func updateAirplaneAttitude() {
-        guard currentDataIndex < sessionFlightData.count else { return }
-        let data = sessionFlightData[currentDataIndex]
+        guard let data = viewModel.getCurrentFlightData() else { return }
         airplane3DModel.updateAirplaneAttitude(pitch: data.pitch, roll: data.roll, yaw: data.yaw)
-    }
-    
-    private func togglePlayback() {
-        if isPlaying {
-            stopPlayback()
-        } else {
-            startPlayback()
-        }
-    }
-    
-    private func startPlayback() {
-        guard !sessionFlightData.isEmpty else { return }
-        
-        isPlaying = true
-        playbackTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-            if currentDataIndex < sessionFlightData.count - 1 {
-                currentDataIndex += 1
-            } else {
-                stopPlayback()
-            }
-        }
-    }
-    
-    private func stopPlayback() {
-        isPlaying = false
-        playbackTimer?.invalidate()
-        playbackTimer = nil
-    }
-    
-    private func seekToIndex(_ index: Int) {
-        currentDataIndex = max(0, min(index, sessionFlightData.count - 1))
-    }
-
-    private func loadSessionData() {
-        let sessionId = session.id
-        let request = FetchDescriptor<FlightData>(
-            predicate: #Predicate<FlightData> { data in
-                data.sessionId == sessionId
-            },
-            sortBy: [SortDescriptor(\.timestamp)]
-        )
-
-        do {
-            sessionFlightData = try modelContext.fetch(request)
-        } catch {
-            print("加载会话数据失败: \(error)")
-            sessionFlightData = []
-        }
     }
 }
 
