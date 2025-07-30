@@ -11,17 +11,6 @@ struct FlightRecordingView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
-                // 3D飞机模型显示
-                if let scene = scene {
-                    SceneView(
-                        scene: scene,
-                        options: [.allowsCameraControl, .autoenablesDefaultLighting]
-                    )
-                    .frame(height: 200)
-                    .cornerRadius(12)
-                    .padding(.horizontal)
-                }
-                
                 // 标题
                 Text("JET!")
                     .font(.largeTitle)
@@ -60,6 +49,17 @@ struct FlightRecordingView: View {
                         .foregroundColor(.blue)
                 }
                 
+                // 3D飞机模型显示
+                if let scene = scene {
+                    SceneView(
+                        scene: scene,
+                        options: [.allowsCameraControl, .autoenablesDefaultLighting]
+                    )
+                    .frame(height: 200)
+                    .cornerRadius(12)
+                    .padding(.horizontal)
+                }
+
                 Spacer()
                 
                 // 录制控制按钮
