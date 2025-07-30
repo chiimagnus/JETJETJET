@@ -8,7 +8,7 @@ struct FlightRecordingView: View {
     @State private var airplane3DModel = Airplane3DModel()
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(spacing: 20) {
                 // 标题
                 Text("JET!")
