@@ -32,7 +32,7 @@ struct FlightRecordingView: View {
                         .onAppear {
                             updateAirplaneAttitude()
                         }
-                        .onChange(of: snapshot) { _ in
+                        .onChange(of: snapshot) {
                             updateAirplaneAttitude()
                         }
                 } else if !viewModel.isCountingDown {
