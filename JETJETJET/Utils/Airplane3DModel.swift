@@ -1,42 +1,8 @@
-import SwiftUI
+import Foundation
 import SceneKit
+import UIKit
 
-// MARK: - 通用3D模型展示组件
-struct Airplane3DSceneView: View {
-    let airplane3DModel: Airplane3DModel
-    let height: CGFloat?
-    let showControls: Bool
-
-    init(airplane3DModel: Airplane3DModel, height: CGFloat? = nil, showControls: Bool = true) {
-        self.airplane3DModel = airplane3DModel
-        self.height = height
-        self.showControls = showControls
-    }
-
-    var body: some View {
-        SceneView(
-            scene: airplane3DModel.getScene(),
-            options: showControls ? [.allowsCameraControl, .autoenablesDefaultLighting] : [.autoenablesDefaultLighting]
-        )
-        .frame(height: height)
-        .if(height != nil) { view in
-            view.cornerRadius(12).padding(.horizontal)
-        }
-    }
-}
-
-// MARK: - View扩展，用于条件修饰符
-extension View {
-    @ViewBuilder func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
-        if condition {
-            transform(self)
-        } else {
-            self
-        }
-    }
-}
-
-// MARK: - 3D模型类
+// MARK: - 3D飞机模型工具类
 class Airplane3DModel {
     private var scene: SCNScene?
     private var airplaneNode: SCNNode?
@@ -142,4 +108,4 @@ class Airplane3DModel {
         guard let airplaneNode = airplaneNode else { return }
         airplaneNode.eulerAngles = SCNVector3(0, 0, 0)
     }
-} 
+}
