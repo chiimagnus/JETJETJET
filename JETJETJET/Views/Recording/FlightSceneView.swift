@@ -3,8 +3,7 @@ import SceneKit
 
 struct FlightSceneView: View {
     let airplane3DModel: Airplane3DModel
-    @State private var floatingOffset: CGFloat = 0
-    
+
     // 自适应高度
     private var adaptiveHeight: CGFloat {
         UIScreen.main.bounds.height > 800 ? 320 : 300
@@ -39,15 +38,6 @@ struct FlightSceneView: View {
                 height: nil,
                 showControls: false
             )
-            .offset(y: floatingOffset)
-            .onAppear {
-                withAnimation(
-                    .easeInOut(duration: 6.0)
-                    .repeatForever(autoreverses: true)
-                ) {
-                    floatingOffset = -15
-                }
-            }
             
             // 位置标记
             VStack {

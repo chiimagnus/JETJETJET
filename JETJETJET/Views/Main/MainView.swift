@@ -118,10 +118,6 @@ struct MainView: View {
         UIScreen.main.bounds.height > 800 ? 32 : 24
     }
 
-    private var adaptiveSpacing: CGFloat {
-        UIScreen.main.bounds.height > 800 ? 28 : 24
-    }
-
     private func updateAirplaneAttitude() {
         guard let snapshot = viewModel.currentSnapshot,
               let airplane3DModel = airplane3DModel else { return }

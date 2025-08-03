@@ -135,13 +135,6 @@ extension AppConfig {
             : Layout.smallScreenVerticalPadding
     }
     
-    /// 获取自适应间距
-    static func adaptiveSpacing() -> CGFloat {
-        UIScreen.main.bounds.height > Layout.tallScreenHeightThreshold 
-            ? Layout.largeScreenSpacing 
-            : Layout.smallScreenSpacing
-    }
-    
     /// 获取3D场景自适应高度
     static func sceneHeight() -> CGFloat {
         UIScreen.main.bounds.height > Layout.tallScreenHeightThreshold 

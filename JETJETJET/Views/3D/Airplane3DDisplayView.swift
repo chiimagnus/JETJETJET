@@ -3,7 +3,6 @@ import SceneKit
 
 struct Airplane3DDisplayView: View {
     let airplane3DModel: Airplane3DModel
-    @State private var floatingOffset: CGFloat = 0
 
     // 自适应高度 - iPhone 16 Pro Max 使用更大的高度
     private var adaptiveHeight: CGFloat {
@@ -29,24 +28,13 @@ struct Airplane3DDisplayView: View {
                     RoundedRectangle(cornerRadius: 20)
                         .stroke(Color.white.opacity(0.1), lineWidth: 1)
                 )
-            
-            // 移除粒子效果以提升性能
-            
+                
             // 3D飞机场景
             Airplane3DSceneView(
                 airplane3DModel: airplane3DModel,
                 height: nil,
                 showControls: false
             )
-            .offset(y: floatingOffset)
-            .onAppear {
-                withAnimation(
-                    .easeInOut(duration: 4.0)
-                    .repeatForever(autoreverses: true)
-                ) {
-                    floatingOffset = -10
-                }
-            }
         }
         .frame(height: adaptiveHeight)
     }
