@@ -47,42 +47,8 @@ struct Airplane3DDisplayView: View {
                     floatingOffset = -10
                 }
             }
-            
-            // 轨道指示器
-            VStack {
-                Spacer()
-                HStack(spacing: 8) {
-                    ForEach(0..<5, id: \.self) { index in
-                        OrbitIndicatorView(index: index)
-                    }
-                }
-                .padding(.bottom, 16)
-            }
         }
         .frame(height: adaptiveHeight)
-    }
-}
-
-struct OrbitIndicatorView: View {
-    let index: Int
-    @State private var isActive: Bool = false
-    
-    var body: some View {
-        Circle()
-            .fill(Color.cyan)
-            .frame(width: 8, height: 8)
-            .opacity(isActive ? 1.0 : 0.3)
-            .scaleEffect(isActive ? 1.2 : 1.0)
-            .shadow(color: .cyan, radius: isActive ? 8 : 2)
-            .onAppear {
-                withAnimation(
-                    .easeInOut(duration: 2.0)
-                    .repeatForever(autoreverses: true)
-                    .delay(Double(index) * 0.3)
-                ) {
-                    isActive.toggle()
-                }
-            }
     }
 }
 
