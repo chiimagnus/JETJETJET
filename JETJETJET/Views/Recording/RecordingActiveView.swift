@@ -25,8 +25,12 @@ struct RecordingActiveView: View {
                 Spacer()
 
                 // 飞行场景
-                FlightSceneView(airplane3DModel: airplane3DModel)
-                    .padding(.horizontal, horizontalPadding)
+                Airplane3DSceneView(
+                    airplane3DModel: airplane3DModel,
+                    height: nil,
+                    showControls: false
+                )
+                .padding(.horizontal, horizontalPadding)
 
                 Spacer()
 
