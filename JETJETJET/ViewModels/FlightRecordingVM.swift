@@ -125,6 +125,32 @@ class FlightRecordingVM {
         }
     }
     
+    // MARK: - 运动监听方法（非录制模式）
+
+    /// 启动运动传感器监听（用于主界面预览）
+    func startMotionMonitoring() {
+        guard !isRecording else { return } // 如果正在录制，不启动预览监听
+        guard motionService.isAvailable else {
+            errorMessage = "运动传感器不可用"
+            return
+        }
+
+        motionService.startMotionUpdates { [weak self] snapshot in
+            DispatchQueue.main.async {
+                // 只更新当前快照，不记录数据
+                self?.currentSnapshot = snapshot
+            }
+        }
+    }
+
+    /// 停止运动传感器监听
+    func stopMotionMonitoring() {
+        if !isRecording { // 只有在非录制状态下才停止
+            motionService.stopMotionUpdates()
+            currentSnapshot = nil
+        }
+    }
+
     // 格式化显示用的辅助方法
     func formattedDuration() -> String {
         let minutes = Int(recordingDuration) / 60
