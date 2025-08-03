@@ -11,6 +11,7 @@ extension Array {
 }
 
 @Observable
+@MainActor
 class FlightRecordingVM {
     private let motionService = MotionService()
     private var modelContext: ModelContext?
@@ -121,8 +122,10 @@ class FlightRecordingVM {
         recordedData.removeAll() // 立即清理内存
 
         // 后台保存数据
-        Task.detached { [weak self] in
-            await self?.saveBatchData(dataToSave, sessionId: sessionId, context: modelContext)
+        Task.detached {
+            await MainActor.run { [weak self] in
+                self?.saveBatchData(dataToSave, sessionId: sessionId, context: modelContext)
+            }
         }
     }
     
@@ -158,8 +161,8 @@ class FlightRecordingVM {
         }
     }
 
-    /// 批量保存数据（异步）
-    private func saveBatchData(_ data: [FlightDataSnapshot], sessionId: UUID, context: ModelContext) async {
+    /// 批量保存数据
+    private func saveBatchData(_ data: [FlightDataSnapshot], sessionId: UUID, context: ModelContext) {
         let chunks = data.chunked(into: AppConfig.Recording.batchSaveSize)
 
         for chunk in chunks {
@@ -186,9 +189,7 @@ class FlightRecordingVM {
                     print("批量保存 \(chunk.count) 条数据成功")
                 }
             } catch {
-                DispatchQueue.main.async { [weak self] in
-                    self?.errorMessage = "\(AppConfig.ErrorMessages.dataSaveFailed): \(error.localizedDescription)"
-                }
+                self.errorMessage = "\(AppConfig.ErrorMessages.dataSaveFailed): \(error.localizedDescription)"
             }
         }
     }
