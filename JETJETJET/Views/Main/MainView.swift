@@ -45,12 +45,8 @@ struct MainView: View {
                                 .adaptiveHorizontalPadding()
                         }
 
-                        // 仪表盘 - 紧凑布局
-                        InstrumentPanelView(snapshot: viewModel.currentSnapshot)
-                            .adaptiveHorizontalPadding()
-
-                        // 状态指示器 - 只显示准备状态
-                        MainStatusIndicatorView()
+                        // HUD数据条 - 与录制界面一致
+                        HUDDataBarView(snapshot: viewModel.currentSnapshot)
                             .adaptiveHorizontalPadding()
 
                         // 主要操作按钮 - 只负责启动录制
