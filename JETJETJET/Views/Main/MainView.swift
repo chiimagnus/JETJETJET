@@ -49,22 +49,15 @@ struct MainView: View {
                         InstrumentPanelView(snapshot: viewModel.currentSnapshot)
                             .padding(.horizontal, horizontalPadding)
 
-                        // 状态指示器 - 紧凑显示
-                        MainStatusIndicatorView(isRecording: viewModel.isRecording)
+                        // 状态指示器 - 只显示准备状态
+                        MainStatusIndicatorView()
                         .padding(.horizontal, horizontalPadding)
 
-                        // 主要操作按钮
-                        MainActionButtonView(
-                            isRecording: viewModel.isRecording,
-                            onStart: {
-                                // 显示倒计时界面而不是直接开始录制
-                                showingCountdownView = true
-                            },
-                            onStop: {
-                                viewModel.stopRecording()
-                                showingCountdownView = false
-                            }
-                        )
+                        // 主要操作按钮 - 只负责启动录制
+                        MainActionButtonView {
+                            // 显示倒计时界面
+                            showingCountdownView = true
+                        }
                         .padding(.horizontal, horizontalPadding)
                     }
                     .padding(.vertical, 16)

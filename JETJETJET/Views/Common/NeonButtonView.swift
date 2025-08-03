@@ -57,33 +57,15 @@ struct NeonButton: View {
 }
 
 struct MainActionButtonView: View {
-    let isRecording: Bool
     let onStart: () -> Void
-    let onStop: () -> Void
-
-    private var buttonTitle: String {
-        isRecording ? "STOP FLIGHT" : "START FLIGHT"
-    }
-
-    private var buttonIcon: String {
-        isRecording ? "stop.circle.fill" : "play.circle.fill"
-    }
-
-    private var buttonColor: Color {
-        isRecording ? .red : .cyan
-    }
 
     var body: some View {
         NeonButton(
-            title: buttonTitle,
-            icon: buttonIcon,
-            color: buttonColor
+            title: "START FLIGHT",
+            icon: "play.circle.fill",
+            color: .cyan
         ) {
-            if isRecording {
-                onStop()
-            } else {
-                onStart()
-            }
+            onStart()
         }
     }
 }
@@ -182,17 +164,9 @@ struct FunctionButtonView: View {
 
 #Preview {
     VStack(spacing: 30) {
-        MainActionButtonView(
-            isRecording: false,
-            onStart: {},
-            onStop: {}
-        )
-
-        MainActionButtonView(
-            isRecording: true,
-            onStart: {},
-            onStop: {}
-        )
+        MainActionButtonView {
+            print("Start flight")
+        }
 
         BottomFunctionView()
     }
