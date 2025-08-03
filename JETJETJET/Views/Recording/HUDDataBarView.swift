@@ -5,7 +5,7 @@ struct HUDDataBarView: View {
     
     var body: some View {
         VStack(spacing: 16) {
-            // HUD数据条
+            // HUD数据条 - 第一行：姿态数据
             HStack(spacing: 16) {
                 HUDDataItem(
                     label: "PITCH",
@@ -13,14 +13,14 @@ struct HUDDataBarView: View {
                     progress: normalizedProgress(snapshot?.pitch ?? 0, range: -90...90),
                     color: .green
                 )
-                
+
                 HUDDataItem(
                     label: "ROLL",
                     value: String(format: "%.0f°", snapshot?.roll ?? 0),
                     progress: normalizedProgress(snapshot?.roll ?? 0, range: -90...90),
                     color: .blue
                 )
-                
+
                 HUDDataItem(
                     label: "YAW",
                     value: String(format: "%.0f°", snapshot?.yaw ?? 0),
@@ -28,26 +28,50 @@ struct HUDDataBarView: View {
                     color: .purple
                 )
             }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 16)
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.black.opacity(0.7))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.cyan.opacity(0.3), lineWidth: 1)
-                    )
-                    .background(
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(.ultraThinMaterial)
-                    )
-            )
+
+            // HUD数据条 - 第二行：速度和其他数据
+            HStack(spacing: 16) {
+                HUDDataItem(
+                    label: "SPEED",
+                    value: String(format: "%.1f", snapshot?.speed ?? 0),
+                    progress: normalizedProgress(snapshot?.speed ?? 0, range: 0...50),
+                    color: .orange
+                )
+
+                HUDDataItem(
+                    label: "G-FORCE",
+                    value: String(format: "%.1fG", calculateGForce()),
+                    progress: normalizedProgress(calculateGForce(), range: 0...5),
+                    color: .red
+                )
+
+                HUDDataItem(
+                    label: "ALT",
+                    value: "0m",
+                    progress: 0.0,
+                    color: .cyan
+                )
+            }
         }
     }
     
     private func normalizedProgress(_ value: Double, range: ClosedRange<Double>) -> Double {
         let normalizedValue = (value - range.lowerBound) / (range.upperBound - range.lowerBound)
         return max(0, min(1, normalizedValue))
+    }
+
+    private func calculateGForce() -> Double {
+        guard let snapshot = snapshot else { return 0.0 }
+        // 基于速度和姿态变化计算近似G力
+        let acceleration = abs(snapshot.speed)
+        let pitchRadians = snapshot.pitch * .pi / 180.0
+        let rollRadians = snapshot.roll * .pi / 180.0
+
+        // 简化的G力计算：基于加速度和姿态角度
+        let gForce = sqrt(acceleration * acceleration +
+                         sin(pitchRadians) * sin(pitchRadians) +
+                         sin(rollRadians) * sin(rollRadians))
+        return min(gForce / 9.81, 10.0) // 限制最大值为10G
     }
 }
 
@@ -56,7 +80,7 @@ struct HUDDataItem: View {
     let value: String
     let progress: Double
     let color: Color
-    
+
     @State private var animatedProgress: Double = 0
     
     var body: some View {
@@ -68,16 +92,16 @@ struct HUDDataItem: View {
                     .foregroundColor(.gray)
                     .fontWeight(.medium)
                     .tracking(1)
-                
+
                 Spacer()
-                
+
                 Text(value)
                     .font(.caption)
                     .foregroundColor(color)
                     .fontWeight(.bold)
                     .monospacedDigit()
             }
-            
+
             // 进度条
             HUDProgressBarView(progress: animatedProgress, color: color)
         }
@@ -138,12 +162,12 @@ struct HUDProgressBarView: View {
     VStack(spacing: 20) {
         HUDDataBarView(snapshot: FlightDataSnapshot(
             timestamp: Date(),
-            speed: 120.5,
+            speed: 25.5,
             pitch: 45.0,
             roll: 12.0,
             yaw: -3.0
         ))
-        
+
         HUDDataBarView(snapshot: nil)
     }
     .preferredColorScheme(.dark)
