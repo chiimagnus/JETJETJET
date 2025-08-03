@@ -20,6 +20,16 @@ struct SimplePageTransition<FirstPage: View, SecondPage: View>: View {
             }
         }
         .animation(.easeInOut(duration: 0.5), value: showSecondPage)
+        .onChange(of: showSecondPage) { _, newValue in
+            if newValue {
+                // 页面切换时播放音效
+                SoundService.shared.playTransitionSound()
+            }
+        }
+        .onAppear {
+            // 预加载音效以减少播放延迟
+            SoundService.shared.preloadCommonSounds()
+        }
     }
 }
 
