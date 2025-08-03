@@ -113,9 +113,11 @@ struct MainView: View {
                     }
                 }
             }
+            .environment(lightSettings)
         }
         .fullScreenCover(isPresented: $showingRecordingView) {
             RecordingActiveView(viewModel: viewModel)
+                .environment(lightSettings)
         }
     }
 

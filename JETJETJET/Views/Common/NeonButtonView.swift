@@ -73,6 +73,7 @@ struct MainActionButtonView: View {
 struct BottomFunctionView: View {
     @State private var showingFlightHistory = false
     @State private var showingSettings = false
+    @Environment(LightSourceSettings.self) private var lightSettings
 
     var body: some View {
         HStack(spacing: 40) {
@@ -140,9 +141,11 @@ struct BottomFunctionView: View {
         }
         .navigationDestination(isPresented: $showingFlightHistory) {
             FlightHistoryView()
+                .environment(lightSettings)
         }
         .navigationDestination(isPresented: $showingSettings) {
             SettingsView()
+                .environment(lightSettings)
         }
     }
 }
