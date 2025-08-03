@@ -147,11 +147,11 @@ class SoundService {
 extension SoundService {
     /// 播放页面切换音效（只播放前2秒）
     func playTransitionSound() {
-        playSound("Whoosh1", volume: 0.7, duration: 2.0)
+        playSound("Whoosh Epic Explosion", volume: 0.7, duration: 2.0)
     }
 
     /// 预加载常用音效
     func preloadCommonSounds() {
-        preloadSound("Whoosh1")
+        preloadSound("Whoosh Epic Explosion")
     }
 }
