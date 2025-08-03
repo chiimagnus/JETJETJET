@@ -13,7 +13,7 @@ struct FlightHistoryView: View {
 
     var body: some View {
         ZStack {
-            // 星空背景
+            // 静态星空背景 - 历史记录页面使用默认参数
             StarfieldBackgroundView()
                 .ignoresSafeArea()
 

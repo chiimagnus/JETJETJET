@@ -11,8 +11,12 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                // 星空背景
-                StarfieldBackgroundView()
+                // 动态星空背景 - 根据飞机姿态调整
+                StarfieldBackgroundView(
+                    pitch: viewModel.currentSnapshot?.pitch ?? 0.0,
+                    roll: viewModel.currentSnapshot?.roll ?? 0.0,
+                    yaw: viewModel.currentSnapshot?.yaw ?? 0.0
+                )
 
                 // 主要内容 - 使用均匀分散布局
                 VStack(spacing: 0) {
