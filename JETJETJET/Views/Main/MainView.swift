@@ -100,7 +100,7 @@ struct MainView: View {
                 updateAirplaneAttitude()
             }
         }
-        .slideUpPresentation(isPresented: $showingCountdownView) {
+        .simplePageTransition(showSecondPage: $showingCountdownView) {
             CountdownView(
                 onAbort: {
                     // 点击abort按钮时回退到MainView

@@ -58,7 +58,7 @@ struct CountdownView: View {
         .onDisappear {
             stopCountdown()
         }
-        .slideUpPresentation(isPresented: $showingRecordingView) {
+        .simplePageTransition(showSecondPage: $showingRecordingView) {
             RecordingActiveView(
                 viewModel: viewModel,
                 onStopRecording: {
