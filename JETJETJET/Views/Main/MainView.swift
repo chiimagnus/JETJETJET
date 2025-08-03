@@ -6,6 +6,7 @@ struct MainView: View {
     @State private var viewModel = FlightRecordingVM()
     @State private var airplane3DModel: Airplane3DModel?
     @State private var showingRecordingView = false
+    @State private var showingCountdownView = false
     
     var body: some View {
         NavigationStack {
@@ -61,15 +62,13 @@ struct MainView: View {
                             isRecording: viewModel.isRecording,
                             isCountingDown: viewModel.isCountingDown,
                             onStart: {
-                                viewModel.startRecording()
-                                // 开始录制后跳转到录制界面
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
-                                    if viewModel.isRecording {
-                                        showingRecordingView = true
-                                    }
-                                }
+                                // 显示倒计时界面而不是直接开始录制
+                                showingCountdownView = true
                             },
-                            onStop: { viewModel.stopRecording() }
+                            onStop: {
+                                viewModel.stopRecording()
+                                showingCountdownView = false
+                            }
                         )
                         .padding(.horizontal, horizontalPadding)
                     }
@@ -94,6 +93,20 @@ struct MainView: View {
         }
         .onChange(of: viewModel.currentSnapshot) { _, snapshot in
             updateAirplaneAttitude()
+        }
+        .fullScreenCover(isPresented: $showingCountdownView) {
+            CountdownView {
+                // 倒计时完成后的处理
+                showingCountdownView = false
+                viewModel.startRecording()
+
+                // 开始录制后跳转到录制界面
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    if viewModel.isRecording {
+                        showingRecordingView = true
+                    }
+                }
+            }
         }
         .fullScreenCover(isPresented: $showingRecordingView) {
             RecordingActiveView()
