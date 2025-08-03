@@ -4,6 +4,11 @@ import SceneKit
 struct Airplane3DDisplayView: View {
     let airplane3DModel: Airplane3DModel
     @State private var floatingOffset: CGFloat = 0
+
+    // 自适应高度 - iPhone 16 Pro Max 使用更大的高度
+    private var adaptiveHeight: CGFloat {
+        UIScreen.main.bounds.height > 800 ? 280 : 250
+    }
     
     var body: some View {
         ZStack {
@@ -57,7 +62,7 @@ struct Airplane3DDisplayView: View {
                 .padding(.bottom, 16)
             }
         }
-        .frame(height: 250)
+        .frame(height: adaptiveHeight)
     }
 }
 

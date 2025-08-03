@@ -10,7 +10,12 @@ struct NeonButton: View {
     @State private var glowIntensity: Double = 0.5
     
     var body: some View {
-        Button(action: action) {
+        Button(action: {
+            // 添加触觉反馈
+            let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+            impactFeedback.impactOccurred()
+            action()
+        }) {
             HStack(spacing: 12) {
                 Image(systemName: icon)
                     .font(.title2)
@@ -158,6 +163,11 @@ struct FunctionButtonView: View {
         .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
             withAnimation(.easeInOut(duration: 0.1)) {
                 isPressed = pressing
+            }
+            if pressing {
+                // 轻微触觉反馈
+                let impactFeedback = UIImpactFeedbackGenerator(style: .light)
+                impactFeedback.impactOccurred()
             }
         }, perform: {})
     }
