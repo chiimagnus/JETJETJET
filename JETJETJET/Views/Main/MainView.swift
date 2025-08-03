@@ -78,6 +78,12 @@ struct MainView: View {
                     airplane3DModel = Airplane3DModel()
                 }
             }
+            // 启动运动传感器监听（非录制模式）
+            viewModel.startMotionMonitoring()
+        }
+        .onDisappear {
+            // 停止运动传感器监听
+            viewModel.stopMotionMonitoring()
         }
         .onChange(of: viewModel.currentSnapshot) { _, snapshot in
             updateAirplaneAttitude()
