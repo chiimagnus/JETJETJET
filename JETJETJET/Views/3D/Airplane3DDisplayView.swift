@@ -30,10 +30,7 @@ struct Airplane3DDisplayView: View {
                         .stroke(Color.white.opacity(0.1), lineWidth: 1)
                 )
             
-            // 粒子效果背景 - 减少数量提升性能
-            ForEach(0..<4, id: \.self) { index in
-                ParticleView(index: index)
-            }
+            // 移除粒子效果以提升性能
             
             // 3D飞机场景
             Airplane3DSceneView(
@@ -63,43 +60,6 @@ struct Airplane3DDisplayView: View {
             }
         }
         .frame(height: adaptiveHeight)
-    }
-}
-
-struct ParticleView: View {
-    let index: Int
-    @State private var animationOffset: CGFloat = 0
-    
-    private var position: CGPoint {
-        let positions: [CGPoint] = [
-            CGPoint(x: 0.2, y: 0.3),
-            CGPoint(x: 0.4, y: 0.7),
-            CGPoint(x: 0.6, y: 0.2),
-            CGPoint(x: 0.8, y: 0.6),
-            CGPoint(x: 0.3, y: 0.8),
-            CGPoint(x: 0.7, y: 0.4)
-        ]
-        return positions[index % positions.count]
-    }
-    
-    var body: some View {
-        Circle()
-            .fill(Color.white)
-            .frame(width: 2, height: 2)
-            .opacity(0.6)
-            .position(
-                x: position.x * 300,
-                y: position.y * 250 + animationOffset
-            )
-            .onAppear {
-                withAnimation(
-                    .linear(duration: 6.0)
-                    .repeatForever(autoreverses: false)
-                    .delay(Double(index) * 0.5)
-                ) {
-                    animationOffset = -300
-                }
-            }
     }
 }
 
