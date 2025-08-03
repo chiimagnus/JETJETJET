@@ -38,7 +38,7 @@ struct JETJETJETApp: App {
 
     var body: some Scene {
         WindowGroup {
-            FlightRecordingView()
+            MainView()
         }
         .modelContainer(sharedModelContainer)
     }
