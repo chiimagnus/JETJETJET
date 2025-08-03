@@ -1,100 +1,10 @@
 import SwiftUI
 
-/// 布局工具类 - 提供统一的布局计算和样式
-struct LayoutUtils {
-    
-    // MARK: - 响应式布局计算
-    
-    /// 获取自适应水平边距
-    static var horizontalPadding: CGFloat {
-        AppConfig.horizontalPadding()
-    }
-    
-    /// 获取自适应垂直边距
-    static var verticalPadding: CGFloat {
-        AppConfig.verticalPadding()
-    }
-    
-    /// 获取自适应间距
-    static var adaptiveSpacing: CGFloat {
-        AppConfig.adaptiveSpacing()
-    }
-    
-    /// 获取3D场景自适应高度
-    static var sceneHeight: CGFloat {
-        AppConfig.sceneHeight()
-    }
-    
-    // MARK: - 设备类型判断
-    
-    /// 是否为大屏设备
-    static var isLargeScreen: Bool {
-        UIScreen.main.bounds.width > AppConfig.Layout.largeScreenWidthThreshold
-    }
-    
-    /// 是否为高屏设备
-    static var isTallScreen: Bool {
-        UIScreen.main.bounds.height > AppConfig.Layout.tallScreenHeightThreshold
-    }
-    
-    /// 获取屏幕尺寸类型
-    static var screenSizeType: ScreenSizeType {
-        switch (isLargeScreen, isTallScreen) {
-        case (true, true): return .largeTall
-        case (true, false): return .largeShort
-        case (false, true): return .smallTall
-        case (false, false): return .smallShort
-        }
-    }
-}
-
-// MARK: - 屏幕尺寸类型
-enum ScreenSizeType {
-    case largeTall    // iPhone 16 Pro Max, iPhone 15 Plus等
-    case largeShort   // iPad mini等
-    case smallTall    // iPhone 14, iPhone 13等
-    case smallShort   // iPhone SE等
-    
-    var description: String {
-        switch self {
-        case .largeTall: return "大屏高分辨率"
-        case .largeShort: return "大屏标准分辨率"
-        case .smallTall: return "标准屏高分辨率"
-        case .smallShort: return "小屏标准分辨率"
-        }
-    }
-}
+// MARK: - 设计系统工具类
+// 提供统一的动画、颜色、字体和样式修饰符
 
 // MARK: - 通用样式修饰符
 extension View {
-    /// 应用自适应水平边距
-    func adaptiveHorizontalPadding() -> some View {
-        self.padding(.horizontal, LayoutUtils.horizontalPadding)
-    }
-    
-    /// 应用自适应垂直边距
-    func adaptiveVerticalPadding() -> some View {
-        self.padding(.vertical, LayoutUtils.verticalPadding)
-    }
-    
-    /// 应用自适应边距
-    func adaptivePadding() -> some View {
-        self.padding(.horizontal, LayoutUtils.horizontalPadding)
-            .padding(.vertical, LayoutUtils.verticalPadding)
-    }
-    
-    /// 应用玻璃卡片样式
-    func glassCardStyle() -> some View {
-        self.background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(.ultraThinMaterial)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.white.opacity(0.1), lineWidth: 1)
-                )
-        )
-    }
-    
     /// 应用霓虹发光效果
     func neonGlow(color: Color, radius: CGFloat = 8) -> some View {
         self.shadow(color: color.opacity(0.5), radius: radius)
