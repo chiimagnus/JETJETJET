@@ -27,7 +27,7 @@ struct RecordingActiveView: View {
                 // 飞行场景
                 Airplane3DSceneView(
                     airplane3DModel: airplane3DModel,
-                    height: nil,
+                    height: 280,
                     showControls: false
                 )
                 .padding(.horizontal, horizontalPadding)

@@ -25,8 +25,12 @@ struct MainView: View {
 
                     // 3D飞机显示区域
                     if let airplane3DModel = airplane3DModel {
-                        Airplane3DDisplayView(airplane3DModel: airplane3DModel)
-                            .padding(.horizontal, horizontalPadding)
+                        Airplane3DSceneView(
+                            airplane3DModel: airplane3DModel,
+                            height: 280,
+                            showControls: false
+                        )
+                        .padding(.horizontal, horizontalPadding)
                     } else {
                         // 3D模型加载占位符
                         RoundedRectangle(cornerRadius: 16)
