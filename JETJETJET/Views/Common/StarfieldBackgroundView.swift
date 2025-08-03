@@ -68,16 +68,27 @@ struct StarfieldBackgroundView: View {
 
     // 动态光亮颜色 - 基于飞行姿态和光源模式
     private var lightColor: Color {
-        // 根据pitch调整亮度 - 机头向上时更亮
-        let brightness = 0.3 + max(0, pitch / 90) * 0.4
-        let baseColor = lightSettings.currentMode.lightColor
+        let mode = lightSettings.currentMode
 
-        // 应用亮度调整
-        return Color(
-            red: min(1.0, baseColor.components.red * (0.5 + brightness)),
-            green: min(1.0, baseColor.components.green * (0.5 + brightness)),
-            blue: min(1.0, baseColor.components.blue * (0.5 + brightness))
-        )
+        if mode == .default {
+            // 默认模式使用原始的动态计算方式
+            let brightness = 0.3 + max(0, pitch / 90) * 0.4
+            return Color(
+                red: 0.2 + brightness * 0.3,
+                green: 0.3 + brightness * 0.4,
+                blue: 0.5 + brightness * 0.3
+            )
+        } else {
+            // 其他模式使用基础颜色加亮度调整
+            let brightness = 0.3 + max(0, pitch / 90) * 0.4
+            let baseColor = mode.lightColor
+
+            return Color(
+                red: min(1.0, baseColor.components.red * (0.5 + brightness)),
+                green: min(1.0, baseColor.components.green * (0.5 + brightness)),
+                blue: min(1.0, baseColor.components.blue * (0.5 + brightness))
+            )
+        }
     }
 
     // 中等亮度颜色 - 基于光源模式
