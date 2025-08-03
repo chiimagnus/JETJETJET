@@ -5,8 +5,8 @@ struct HUDDataBarView: View {
     
     var body: some View {
         VStack(spacing: 16) {
-            // HUD数据条 - 第一行：姿态数据
-            HStack(spacing: 16) {
+            // HUD数据条 - 飞行数据
+            HStack(spacing: 12) {
                 HUDDataItem(
                     label: "PITCH",
                     value: String(format: "%.0f°", snapshot?.pitch ?? 0),
@@ -27,29 +27,12 @@ struct HUDDataBarView: View {
                     progress: normalizedProgress(snapshot?.yaw ?? 0, range: -180...180),
                     color: .purple
                 )
-            }
 
-            // HUD数据条 - 第二行：速度和其他数据
-            HStack(spacing: 16) {
                 HUDDataItem(
                     label: "SPEED",
                     value: String(format: "%.1f", snapshot?.speed ?? 0),
                     progress: normalizedProgress(snapshot?.speed ?? 0, range: 0...50),
                     color: .orange
-                )
-
-                HUDDataItem(
-                    label: "G-FORCE",
-                    value: String(format: "%.1fG", calculateGForce()),
-                    progress: normalizedProgress(calculateGForce(), range: 0...5),
-                    color: .red
-                )
-
-                HUDDataItem(
-                    label: "ALT",
-                    value: "0m",
-                    progress: 0.0,
-                    color: .cyan
                 )
             }
         }
@@ -60,19 +43,7 @@ struct HUDDataBarView: View {
         return max(0, min(1, normalizedValue))
     }
 
-    private func calculateGForce() -> Double {
-        guard let snapshot = snapshot else { return 0.0 }
-        // 基于速度和姿态变化计算近似G力
-        let acceleration = abs(snapshot.speed)
-        let pitchRadians = snapshot.pitch * .pi / 180.0
-        let rollRadians = snapshot.roll * .pi / 180.0
 
-        // 简化的G力计算：基于加速度和姿态角度
-        let gForce = sqrt(acceleration * acceleration +
-                         sin(pitchRadians) * sin(pitchRadians) +
-                         sin(rollRadians) * sin(rollRadians))
-        return min(gForce / 9.81, 10.0) // 限制最大值为10G
-    }
 }
 
 struct HUDDataItem: View {
