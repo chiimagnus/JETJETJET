@@ -98,7 +98,7 @@ struct HeaderCard: View {
                     HStack(spacing: 4) {
                         Text("🚀")
                             .font(.title2)
-                        Text("FLIGHT PREPARATION")
+                        Text("PRE-JETING")
                             .font(.custom("Orbitron", size: 20))
                             .fontWeight(.bold)
                             .foregroundStyle(

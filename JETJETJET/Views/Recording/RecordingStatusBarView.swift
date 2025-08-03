@@ -13,7 +13,7 @@ struct RecordingStatusBarView: View {
                 HStack(spacing: 12) {
                     Text("✈️")
                         .font(.title2)
-                    Text("FLIGHT ACTIVE")
+                    Text("JETING")
                         .font(.custom("Orbitron", size: 18))
                         .fontWeight(.bold)
                         .foregroundStyle(
