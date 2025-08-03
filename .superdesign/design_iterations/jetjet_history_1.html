@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JETJETJET - 飞行记录</title>
+    
+    <!-- 字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- 图标 -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 自定义主题 -->
+    <link rel="stylesheet" href="jetjet_theme.css">
+    
+    <style>
+        /* 飞行记录卡片 */
+        .flight-card {
+            background: var(--bg-glass);
+            backdrop-filter: var(--glass-backdrop);
+            border: var(--glass-border);
+            border-radius: var(--radius-large);
+            padding: 20px;
+            margin-bottom: 16px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--glass-shadow);
+        }
+        
+        .flight-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 212, 255, 0.2);
+            border-color: var(--neon-blue);
+        }
+        
+        .flight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-green), var(--neon-purple));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .flight-card:hover::before {
+            opacity: 1;
+        }
+        
+        /* 飞行状态指示器 */
+        .flight-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--neon-green);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .flight-status-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        /* 数据标签 */
+        .data-tag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 8px 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .data-tag:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--neon-blue);
+        }
+        
+        .data-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--neon-blue);
+            text-shadow: var(--glow-blue);
+        }
+        
+        .data-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
+        
+        /* 回放按钮 */
+        .replay-button {
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+            border: none;
+            border-radius: 12px;
+            padding: 12px 20px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .replay-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        }
+        
+        /* 搜索栏 */
+        .search-bar {
+            background: var(--bg-glass);
+            backdrop-filter: var(--glass-backdrop);
+            border: var(--glass-border);
+            border-radius: var(--radius);
+            padding: 12px 16px;
+            color: var(--text-primary);
+            width: 100%;
+            font-family: var(--font-primary);
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--neon-blue);
+            box-shadow: var(--glow-blue);
+        }
+        
+        /* 新建飞行按钮 */
+        .new-flight-button {
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-blue));
+            border: none;
+            border-radius: var(--radius-large);
+            padding: 20px;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .new-flight-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 255, 136, 0.3);
+        }
+        
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+        
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- 星空背景 -->
+    <div class="starfield">
+        <div class="star" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+        <div class="star" style="top: 40%; left: 30%; animation-delay: 1s;"></div>
+        <div class="star" style="top: 60%; left: 70%; animation-delay: 2s;"></div>
+        <div class="star" style="top: 80%; left: 20%; animation-delay: 0.5s;"></div>
+        <div class="star" style="top: 30%; left: 80%; animation-delay: 1.5s;"></div>
+        <div class="star" style="top: 70%; left: 50%; animation-delay: 2.5s;"></div>
+    </div>
+
+    <!-- 主界面容器 -->
+    <div class="container mx-auto px-4 py-6 max-w-md">
+        <!-- 顶部导航栏 -->
+        <div class="glass-card p-4 mb-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <button class="text-blue-400 hover:text-blue-300">
+                        <i data-lucide="arrow-left" class="w-6 h-6"></i>
+                    </button>
+                    <div class="title-main text-lg">FLIGHT LOGS</div>
+                </div>
+                <button class="text-blue-400 hover:text-blue-300">
+                    <i data-lucide="search" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 搜索栏 -->
+        <div class="mb-6">
+            <input type="text" class="search-bar" placeholder="搜索飞行记录...">
+        </div>
+
+        <!-- 飞行记录列表 -->
+        <div class="space-y-4">
+            <!-- 飞行记录 1 -->
+            <div class="flight-card">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-3">
+                        <div class="text-2xl">📅</div>
+                        <div>
+                            <div class="text-white font-semibold">2024-01-15</div>
+                            <div class="text-gray-400 text-sm">下午 14:32</div>
+                        </div>
+                    </div>
+                    <div class="flight-status">
+                        <div class="flight-status-dot"></div>
+                        <span>完成</span>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-2 mb-3">
+                    <div class="text-lg">⏱️</div>
+                    <span class="text-blue-400 font-bold">02:34</span>
+                    <div class="text-lg ml-4">🛫</div>
+                    <span class="text-gray-400 text-sm">精彩飞行</span>
+                </div>
+                
+                <div class="grid grid-cols-4 gap-3 mb-4">
+                    <div class="data-tag">
+                        <div class="data-value">15.2</div>
+                        <div class="data-label">Max Speed</div>
+                    </div>
+                    <div class="data-tag">
+                        <div class="data-value">45°</div>
+                        <div class="data-label">Max Pitch</div>
+                    </div>
+                    <div class="data-tag">
+                        <div class="data-value">30°</div>
+                        <div class="data-label">Max Roll</div>
+                    </div>
+                    <div class="data-tag">
+                        <div class="data-value">3.2G</div>
+                        <div class="data-label">Max G</div>
+                    </div>
+                </div>
+                
+                <button class="replay-button w-full">
+                    <div class="flex items-center justify-center gap-2">
+                        <i data-lucide="play" class="w-4 h-4"></i>
+                        <span>REPLAY</span>
+                    </div>
+                </button>
+            </div>
+
+            <!-- 飞行记录 2 -->
+            <div class="flight-card">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-3">
+                        <div class="text-2xl">📅</div>
+                        <div>
+                            <div class="text-white font-semibold">2024-01-14</div>
+                            <div class="text-gray-400 text-sm">上午 10:15</div>
+                        </div>
+                    </div>
+                    <div class="flight-status">
+                        <div class="flight-status-dot"></div>
+                        <span>完成</span>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-2 mb-3">
+                    <div class="text-lg">⏱️</div>
+                    <span class="text-blue-400 font-bold">01:45</span>
+                    <div class="text-lg ml-4">🛫</div>
+                    <span class="text-gray-400 text-sm">平稳飞行</span>
+                </div>
+                
+                <div class="grid grid-cols-4 gap-3 mb-4">
+                    <div class="data-tag">
+                        <div class="data-value">12.8</div>
+                        <div class="data-label">Max Speed</div>
+                    </div>
+                    <div class="data-tag">
+                        <div class="data-value">38°</div>
+                        <div class="data-label">Max Pitch</div>
+                    </div>
+                    <div class="data-tag">
+                        <div class="data-value">25°</div>
+                        <div class="data-label">Max Roll</div>
+                    </div>
+                    <div class="data-tag">
+                        <div class="data-value">2.1G</div>
+                        <div class="data-label">Max G</div>
+                    </div>
+                </div>
+                
+                <button class="replay-button w-full">
+                    <div class="flex items-center justify-center gap-2">
+                        <i data-lucide="play" class="w-4 h-4"></i>
+                        <span>REPLAY</span>
+                    </div>
+                </button>
+            </div>
+
+            <!-- 飞行记录 3 -->
+            <div class="flight-card">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-3">
+                        <div class="text-2xl">📅</div>
+                        <div>
+                            <div class="text-white font-semibold">2024-01-13</div>
+                            <div class="text-gray-400 text-sm">晚上 19:20</div>
+                        </div>
+                    </div>
+                    <div class="flight-status">
+                        <div class="flight-status-dot"></div>
+                        <span>完成</span>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-2 mb-3">
+                    <div class="text-lg">⏱️</div>
+                    <span class="text-blue-400 font-bold">03:12</span>
+                    <div class="text-lg ml-4">🛫</div>
+                    <span class="text-gray-400 text-sm">激烈机动</span>
+                </div>
+                
+                <div class="grid grid-cols-4 gap-3 mb-4">
+                    <div class="data-tag">
+                        <div class="data-value">18.5</div>
+                        <div class="data-label">Max Speed</div>
+                    </div>
+                    <div class="data-tag">
+                        <div class="data-value">52°</div>
+                        <div class="data-label">Max Pitch</div>
+                    </div>
+                    <div class="data-tag">
+                        <div class="data-value">42°</div>
+                        <div class="data-label">Max Roll</div>
+                    </div>
+                    <div class="data-tag">
+                        <div class="data-value">4.1G</div>
+                        <div class="data-label">Max G</div>
+                    </div>
+                </div>
+                
+                <button class="replay-button w-full">
+                    <div class="flex items-center justify-center gap-2">
+                        <i data-lucide="play" class="w-4 h-4"></i>
+                        <span>REPLAY</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- 新建飞行按钮 -->
+        <button class="new-flight-button">
+            <div class="flex items-center justify-center gap-3">
+                <i data-lucide="plus" class="w-6 h-6"></i>
+                <span>NEW FLIGHT</span>
+            </div>
+        </button>
+    </div>
+
+    <script>
+        // 初始化图标
+        lucide.createIcons();
+        
+        // 动态生成更多星星
+        function createStars() {
+            const starfield = document.querySelector('.starfield');
+            for (let i = 0; i < 40; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starfield.appendChild(star);
+            }
+        }
+        
+        createStars();
+        
+        // 搜索功能
+        const searchInput = document.querySelector('.search-bar');
+        const flightCards = document.querySelectorAll('.flight-card');
+        
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            flightCards.forEach(card => {
+                const cardText = card.textContent.toLowerCase();
+                if (cardText.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+        
+        // 回放按钮点击效果
+        document.querySelectorAll('.replay-button').forEach(button => {
+            button.addEventListener('click', () => {
+                button.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    button.style.transform = '';
+                }, 150);
+            });
+        });
+    </script>
+</body>
+</html>
