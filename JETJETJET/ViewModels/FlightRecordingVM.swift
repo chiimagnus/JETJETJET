@@ -93,8 +93,10 @@ class FlightRecordingVM {
         recordingDuration = 0
         recordingStartTime = nil
 
-        // 录制停止后，重新启动预览监听（如果需要）
-        // 这将在返回主界面时由MainView的onAppear处理
+        // 录制停止后，立即重新启动预览监听
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.startMotionMonitoring()
+        }
     }
     
     private func handleMotionUpdate(_ snapshot: FlightDataSnapshot) {
