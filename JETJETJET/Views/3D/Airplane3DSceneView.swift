@@ -33,9 +33,15 @@ struct TransparentSceneView: UIViewRepresentable {
     func makeUIView(context: Context) -> SCNView {
         let sceneView = SCNView()
         sceneView.scene = scene
+
+        // 设置透明背景的多种方式
         sceneView.backgroundColor = UIColor.clear
+        sceneView.isOpaque = false
+
+        // 设置控制选项
         sceneView.allowsCameraControl = showControls
         sceneView.autoenablesDefaultLighting = true
+
         return sceneView
     }
 
@@ -57,21 +63,35 @@ extension View {
 }
 
 #Preview {
-    VStack(spacing: 20) {
-        // 带控制的3D场景
-        Airplane3DSceneView(
-            airplane3DModel: Airplane3DModel(),
-            height: 300,
-            showControls: true
+    ZStack {
+        // 测试背景 - 如果3D场景透明，应该能看到这个渐变
+        LinearGradient(
+            colors: [.red, .blue, .green],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
         )
+        .ignoresSafeArea()
 
-        // 无控制的3D场景
-        Airplane3DSceneView(
-            airplane3DModel: Airplane3DModel(),
-            height: 200,
-            showControls: false
-        )
+        VStack(spacing: 20) {
+            Text("透明度测试")
+                .font(.title)
+                .foregroundColor(.white)
+
+            // 带控制的3D场景
+            Airplane3DSceneView(
+                airplane3DModel: Airplane3DModel(),
+                height: 300,
+                showControls: true
+            )
+
+            // 无控制的3D场景
+            Airplane3DSceneView(
+                airplane3DModel: Airplane3DModel(),
+                height: 200,
+                showControls: false
+            )
+        }
+        .padding()
     }
     .preferredColorScheme(.dark)
-    .padding()
 }
