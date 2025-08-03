@@ -6,6 +6,7 @@ struct RecordingActiveView: View {
     let viewModel: FlightRecordingVM
     @State private var airplane3DModel = Airplane3DModel()
     @Environment(\.dismiss) private var dismiss
+    let onStopRecording: (() -> Void)?
     
     var body: some View {
         ZStack {
@@ -47,7 +48,8 @@ struct RecordingActiveView: View {
                 // 停止按钮
                 StopRecordingButtonView {
                     viewModel.stopRecording()
-                    dismiss()
+                    // 使用回调通知上层关闭
+                    onStopRecording?()
                 }
                 .padding(.horizontal, horizontalPadding)
                 .padding(.bottom, 20)
@@ -94,7 +96,7 @@ struct RecordingActiveView: View {
 
             // 如果仍然不是录制状态，返回主界面
             if !viewModel.isRecording {
-                dismiss()
+                onStopRecording?()
             }
         } else if !viewModel.isStateConsistent {
             // 状态不一致，尝试恢复
@@ -104,6 +106,11 @@ struct RecordingActiveView: View {
 }
 
 #Preview {
-    RecordingActiveView(viewModel: FlightRecordingVM())
-        .modelContainer(for: FlightData.self, inMemory: true)
+    RecordingActiveView(
+        viewModel: FlightRecordingVM(),
+        onStopRecording: {
+            print("停止录制")
+        }
+    )
+    .modelContainer(for: FlightData.self, inMemory: true)
 }

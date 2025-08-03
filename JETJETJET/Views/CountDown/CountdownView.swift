@@ -9,6 +9,7 @@ struct CountdownView: View {
     @State private var showingRecordingView = false
 
     let onAbort: (() -> Void)?
+    let onRecordingComplete: (() -> Void)?
     let viewModel: FlightRecordingVM
     let lightSettings: LightSourceSettings
     
@@ -58,8 +59,15 @@ struct CountdownView: View {
             stopCountdown()
         }
         .slideUpPresentation(isPresented: $showingRecordingView) {
-            RecordingActiveView(viewModel: viewModel)
-                .environment(lightSettings)
+            RecordingActiveView(
+                viewModel: viewModel,
+                onStopRecording: {
+                    // 录制完成，直接退回到MainView
+                    showingRecordingView = false
+                    onRecordingComplete?()
+                }
+            )
+            .environment(lightSettings)
         }
     }
     
@@ -283,6 +291,9 @@ struct FloatingParticle: View {
     CountdownView(
         onAbort: {
             print("取消倒计时")
+        },
+        onRecordingComplete: {
+            print("录制完成")
         },
         viewModel: FlightRecordingVM(),
         lightSettings: LightSourceSettings()

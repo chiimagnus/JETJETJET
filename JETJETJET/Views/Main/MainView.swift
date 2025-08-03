@@ -106,6 +106,10 @@ struct MainView: View {
                     // 点击abort按钮时回退到MainView
                     showingCountdownView = false
                 },
+                onRecordingComplete: {
+                    // 录制完成时直接退回到MainView
+                    showingCountdownView = false
+                },
                 viewModel: viewModel,
                 lightSettings: lightSettings
             )
