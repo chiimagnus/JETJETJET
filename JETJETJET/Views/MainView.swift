@@ -30,7 +30,7 @@ struct MainView: View {
                                 .padding(.horizontal, 16)
                             
                             // 状态指示器
-                            StatusIndicatorView(
+                            MainStatusIndicatorView(
                                 isRecording: viewModel.isRecording,
                                 isCountingDown: viewModel.isCountingDown,
                                 countdownValue: viewModel.countdownValue
