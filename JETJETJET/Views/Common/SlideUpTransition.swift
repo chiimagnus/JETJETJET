@@ -22,6 +22,7 @@ struct SimplePageTransition<FirstPage: View, SecondPage: View>: View {
         .animation(.easeInOut(duration: 0.5), value: showSecondPage)
         .onChange(of: showSecondPage) { _, newValue in
             if newValue {
+                print("🔄 页面切换触发，播放音效")
                 // 页面切换时播放音效
                 SoundService.shared.playTransitionSound()
             }
