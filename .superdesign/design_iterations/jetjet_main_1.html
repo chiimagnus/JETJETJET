@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JETJETJET - 航空飞行记录系统</title>
+    
+    <!-- 字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- 图标 -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 自定义主题 -->
+    <link rel="stylesheet" href="jetjet_theme.css">
+    
+    <style>
+        /* 3D场景样式 */
+        .scene-3d {
+            perspective: 1000px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .airplane-3d {
+            transform-style: preserve-3d;
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotateY(0deg); }
+            50% { transform: translateY(-10px) rotateY(5deg); }
+        }
+        
+        /* 星空粒子 */
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: particle-float 6s linear infinite;
+        }
+        
+        @keyframes particle-float {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) scale(1); opacity: 0; }
+        }
+        
+        /* 数据条动画 */
+        .data-bar {
+            background: linear-gradient(90deg, transparent 0%, var(--neon-green) 50%, transparent 100%);
+            animation: data-scan 2s ease-in-out infinite;
+        }
+        
+        @keyframes data-scan {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+        
+        /* 倒计时数字动画 */
+        .countdown-number {
+            animation: countdown-pulse 1s ease-in-out;
+        }
+        
+        @keyframes countdown-pulse {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        /* 轨道指示器 */
+        .orbit-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--neon-blue);
+            box-shadow: var(--glow-blue);
+            animation: orbit-pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes orbit-pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        /* HUD样式进度条 */
+        .hud-progress {
+            background: linear-gradient(90deg, 
+                var(--neon-green) 0%, 
+                var(--neon-blue) 50%, 
+                transparent 100%);
+            height: 4px;
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hud-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255,255,255,0.3) 50%, 
+                transparent 100%);
+            animation: hud-scan 1.5s linear infinite;
+        }
+        
+        @keyframes hud-scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- 星空背景 -->
+    <div class="starfield">
+        <div class="star" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+        <div class="star" style="top: 40%; left: 30%; animation-delay: 1s;"></div>
+        <div class="star" style="top: 60%; left: 70%; animation-delay: 2s;"></div>
+        <div class="star" style="top: 80%; left: 20%; animation-delay: 0.5s;"></div>
+        <div class="star" style="top: 30%; left: 80%; animation-delay: 1.5s;"></div>
+        <div class="star" style="top: 70%; left: 50%; animation-delay: 2.5s;"></div>
+    </div>
+
+    <!-- 主界面容器 -->
+    <div class="container mx-auto px-4 py-6 max-w-md">
+        <!-- 顶部标题栏 -->
+        <div class="glass-card p-4 mb-6">
+            <div class="flex items-center justify-between">
+                <div class="title-main">
+                    ✈️ J E T J E T J E T
+                </div>
+                <div class="flex items-center gap-2">
+                    <i data-lucide="zap" class="w-5 h-5 text-green-400"></i>
+                    <span class="text-sm text-green-400">89%</span>
+                </div>
+            </div>
+            <div class="text-center mt-2">
+                <span class="text-sm text-gray-400 tracking-wider">F L I G H T   S Y S T E M</span>
+            </div>
+        </div>
+
+        <!-- 3D飞机显示区域 -->
+        <div class="scene-3d h-64 mb-6 relative">
+            <!-- 粒子效果 -->
+            <div class="particle" style="left: 20%; animation-delay: 0s;"></div>
+            <div class="particle" style="left: 40%; animation-delay: 2s;"></div>
+            <div class="particle" style="left: 60%; animation-delay: 4s;"></div>
+            <div class="particle" style="left: 80%; animation-delay: 1s;"></div>
+            
+            <!-- 3D飞机模型 -->
+            <div class="absolute inset-0 flex items-center justify-center">
+                <div class="airplane-3d">
+                    <div class="text-6xl glow-text" style="color: var(--neon-blue);">✈️</div>
+                </div>
+            </div>
+            
+            <!-- 轨道指示器 -->
+            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+                <div class="orbit-indicator" style="animation-delay: 0s;"></div>
+                <div class="orbit-indicator" style="animation-delay: 0.3s;"></div>
+                <div class="orbit-indicator" style="animation-delay: 0.6s;"></div>
+                <div class="orbit-indicator" style="animation-delay: 0.9s;"></div>
+                <div class="orbit-indicator" style="animation-delay: 1.2s;"></div>
+            </div>
+        </div>
+
+        <!-- 仪表盘 -->
+        <div class="grid grid-cols-4 gap-3 mb-6">
+            <div class="instrument-panel">
+                <div class="text-2xl mb-1">⬆️</div>
+                <div class="instrument-value">0°</div>
+                <div class="instrument-label">PITCH</div>
+            </div>
+            <div class="instrument-panel">
+                <div class="text-2xl mb-1">🔄</div>
+                <div class="instrument-value">0°</div>
+                <div class="instrument-label">ROLL</div>
+            </div>
+            <div class="instrument-panel">
+                <div class="text-2xl mb-1">↔️</div>
+                <div class="instrument-value">0°</div>
+                <div class="instrument-label">YAW</div>
+            </div>
+            <div class="instrument-panel">
+                <div class="text-2xl mb-1">⚡</div>
+                <div class="instrument-value">0</div>
+                <div class="instrument-label">SPEED</div>
+            </div>
+        </div>
+
+        <!-- 状态指示器 -->
+        <div class="text-center mb-6">
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span class="text-sm font-medium tracking-wide">🚀 READY</span>
+            </div>
+        </div>
+
+        <!-- 主要操作按钮 -->
+        <div class="text-center mb-6">
+            <button class="neon-button text-lg px-8 py-4">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="play" class="w-6 h-6"></i>
+                    <span>START FLIGHT</span>
+                </div>
+            </button>
+        </div>
+
+        <!-- 底部功能区 -->
+        <div class="flex justify-between">
+            <button class="glass-card p-4 flex flex-col items-center gap-2 hover:bg-white/10 transition-all">
+                <i data-lucide="bar-chart-3" class="w-6 h-6 text-blue-400"></i>
+                <span class="text-xs text-gray-400">LOGS</span>
+            </button>
+            <button class="glass-card p-4 flex flex-col items-center gap-2 hover:bg-white/10 transition-all">
+                <i data-lucide="settings" class="w-6 h-6 text-blue-400"></i>
+                <span class="text-xs text-gray-400">SETUP</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // 初始化图标
+        lucide.createIcons();
+        
+        // 动态生成更多星星
+        function createStars() {
+            const starfield = document.querySelector('.starfield');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starfield.appendChild(star);
+            }
+        }
+        
+        createStars();
+    </script>
+</body>
+</html>
