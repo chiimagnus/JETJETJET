@@ -25,32 +25,7 @@ struct AppConfig {
         static let minTimeInterval: TimeInterval = 0.001
     }
     
-    // MARK: - 布局配置
-    struct Layout {
-        /// 大屏设备宽度阈值
-        static let largeScreenWidthThreshold: CGFloat = 400
-        
-        /// 高屏设备高度阈值
-        static let tallScreenHeightThreshold: CGFloat = 800
-        
-        /// 小屏设备水平边距
-        static let smallScreenHorizontalPadding: CGFloat = 16
-        
-        /// 大屏设备水平边距
-        static let largeScreenHorizontalPadding: CGFloat = 24
-        
-        /// 小屏设备垂直边距
-        static let smallScreenVerticalPadding: CGFloat = 24
-        
-        /// 大屏设备垂直边距
-        static let largeScreenVerticalPadding: CGFloat = 32
-        
-        /// 小屏设备间距
-        static let smallScreenSpacing: CGFloat = 24
-        
-        /// 大屏设备间距
-        static let largeScreenSpacing: CGFloat = 28
-    }
+
     
     // MARK: - 动画配置
     struct Animation {
@@ -116,29 +91,5 @@ struct AppConfig {
         
         /// 是否启用状态验证
         static let enableStateValidation = true
-    }
-}
-
-// MARK: - 便捷访问扩展
-extension AppConfig {
-    /// 获取自适应水平边距
-    static func horizontalPadding() -> CGFloat {
-        UIScreen.main.bounds.width > Layout.largeScreenWidthThreshold 
-            ? Layout.largeScreenHorizontalPadding 
-            : Layout.smallScreenHorizontalPadding
-    }
-    
-    /// 获取自适应垂直边距
-    static func verticalPadding() -> CGFloat {
-        UIScreen.main.bounds.height > Layout.tallScreenHeightThreshold 
-            ? Layout.largeScreenVerticalPadding 
-            : Layout.smallScreenVerticalPadding
-    }
-    
-    /// 获取3D场景自适应高度
-    static func sceneHeight() -> CGFloat {
-        UIScreen.main.bounds.height > Layout.tallScreenHeightThreshold 
-            ? Model3D.largeScreenSceneHeight 
-            : Model3D.smallScreenSceneHeight
     }
 }
