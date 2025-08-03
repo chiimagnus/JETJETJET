@@ -5,6 +5,7 @@ struct MainView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var viewModel = FlightRecordingVM()
     @State private var airplane3DModel = Airplane3DModel()
+    @State private var showingRecordingView = false
     
     var body: some View {
         NavigationStack {
@@ -40,7 +41,15 @@ struct MainView: View {
                             MainActionButtonView(
                                 isRecording: viewModel.isRecording,
                                 isCountingDown: viewModel.isCountingDown,
-                                onStart: { viewModel.startRecording() },
+                                onStart: {
+                                    viewModel.startRecording()
+                                    // 开始录制后跳转到录制界面
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
+                                        if viewModel.isRecording {
+                                            showingRecordingView = true
+                                        }
+                                    }
+                                },
                                 onStop: { viewModel.stopRecording() }
                             )
 
@@ -59,6 +68,9 @@ struct MainView: View {
         }
         .onChange(of: viewModel.currentSnapshot) { _, snapshot in
             updateAirplaneAttitude()
+        }
+        .fullScreenCover(isPresented: $showingRecordingView) {
+            RecordingActiveView()
         }
     }
     
