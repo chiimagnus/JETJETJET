@@ -18,15 +18,15 @@ struct MainView: View {
                 VStack(spacing: 0) {
                     // 顶部标题栏 - 固定在顶部
                     HeaderView()
-                        .padding(.horizontal, horizontalPadding)
+                        .adaptiveHorizontalPadding()
                         .padding(.top, 8)
 
                     // 主要内容区域
-                    VStack(spacing: adaptiveSpacing) {
+                    VStack(spacing: LayoutUtils.adaptiveSpacing) {
                         // 3D飞机显示区域 - 占据主要空间
                         if let airplane3DModel = airplane3DModel {
                             Airplane3DDisplayView(airplane3DModel: airplane3DModel)
-                                .padding(.horizontal, horizontalPadding)
+                                .adaptiveHorizontalPadding()
                                 .frame(maxHeight: .infinity)
                         } else {
                             // 3D模型加载占位符
@@ -42,29 +42,29 @@ struct MainView: View {
                                             .foregroundColor(.secondary)
                                     }
                                 )
-                                .padding(.horizontal, horizontalPadding)
+                                .adaptiveHorizontalPadding()
                         }
 
                         // 仪表盘 - 紧凑布局
                         InstrumentPanelView(snapshot: viewModel.currentSnapshot)
-                            .padding(.horizontal, horizontalPadding)
+                            .adaptiveHorizontalPadding()
 
                         // 状态指示器 - 只显示准备状态
                         MainStatusIndicatorView()
-                        .padding(.horizontal, horizontalPadding)
+                            .adaptiveHorizontalPadding()
 
                         // 主要操作按钮 - 只负责启动录制
                         MainActionButtonView {
                             // 显示倒计时界面
                             showingCountdownView = true
                         }
-                        .padding(.horizontal, horizontalPadding)
+                        .adaptiveHorizontalPadding()
                     }
                     .padding(.vertical, 16)
 
                     // 底部功能区 - 固定在底部
                     BottomFunctionView()
-                        .padding(.horizontal, horizontalPadding)
+                        .adaptiveHorizontalPadding()
                         .padding(.bottom, 20)
                 }
             }
@@ -73,7 +73,7 @@ struct MainView: View {
         .onAppear {
             viewModel.setModelContext(modelContext)
             // 延迟初始化3D模型，避免阻塞UI
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + AppConfig.Model3D.initializationDelay) {
                 if airplane3DModel == nil {
                     airplane3DModel = Airplane3DModel()
                 }
@@ -95,7 +95,7 @@ struct MainView: View {
                 viewModel.startRecording()
 
                 // 开始录制后跳转到录制界面
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + AppConfig.Recording.transitionDelay) {
                     if viewModel.isRecording {
                         showingRecordingView = true
                     }
@@ -107,19 +107,7 @@ struct MainView: View {
         }
     }
     
-    // 响应式布局计算属性
-    private var horizontalPadding: CGFloat {
-        // iPhone 16 Pro Max 和其他大屏设备使用更大的边距
-        UIScreen.main.bounds.width > 400 ? 24 : 16
-    }
-
-    private var verticalPadding: CGFloat {
-        UIScreen.main.bounds.height > 800 ? 32 : 24
-    }
-
-    private var adaptiveSpacing: CGFloat {
-        UIScreen.main.bounds.height > 800 ? 28 : 24
-    }
+    // 布局计算已移至LayoutUtils
 
     private func updateAirplaneAttitude() {
         guard let snapshot = viewModel.currentSnapshot,

@@ -48,10 +48,8 @@ struct RecordingActiveView: View {
         .navigationBarHidden(true)
         .onAppear {
             // ViewModel已经在MainView中设置了modelContext，这里不需要重复设置
-            // 确保录制状态正确
-            if !viewModel.isRecording {
-                print("警告：进入录制界面但ViewModel未处于录制状态")
-            }
+            // 验证和恢复录制状态
+            validateAndRecoverRecordingState()
         }
         .onChange(of: viewModel.currentSnapshot) { _, snapshot in
             updateAirplaneAttitude()
@@ -78,6 +76,22 @@ struct RecordingActiveView: View {
             roll: snapshot.roll,
             yaw: snapshot.yaw
         )
+    }
+
+    /// 验证和恢复录制状态
+    private func validateAndRecoverRecordingState() {
+        if !viewModel.isRecording {
+            // 状态不一致，尝试恢复
+            viewModel.recoverState()
+
+            // 如果仍然不是录制状态，返回主界面
+            if !viewModel.isRecording {
+                dismiss()
+            }
+        } else if !viewModel.isStateConsistent {
+            // 状态不一致，尝试恢复
+            viewModel.recoverState()
+        }
     }
 }
 

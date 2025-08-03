@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 /// 应用程序配置管理
 struct AppConfig {
