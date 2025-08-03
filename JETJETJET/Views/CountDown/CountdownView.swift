@@ -5,7 +5,8 @@ struct CountdownView: View {
     @State private var countdownValue = 3
     @State private var isCountdownActive = true
     @State private var showRipples = true
-    
+    @State private var countdownTimer: Timer?
+
     let onCountdownComplete: () -> Void
     
     var body: some View {
@@ -36,6 +37,8 @@ struct CountdownView: View {
                 
                 // 取消按钮
                 AbortButton {
+                    // 停止倒计时
+                    stopCountdown()
                     dismiss()
                 }
             }
@@ -46,28 +49,42 @@ struct CountdownView: View {
         .onAppear {
             startCountdown()
         }
+        .onDisappear {
+            stopCountdown()
+        }
     }
     
     private func startCountdown() {
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-            if countdownValue > 0 {
+        countdownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+            if countdownValue > 0 && isCountdownActive {
                 // 触发震动
                 HapticService.shared.medium()
                 countdownValue -= 1
             } else {
                 timer.invalidate()
-                isCountdownActive = false
-                showRipples = false
-                
-                // 倒计时结束，触发成功震动
-                HapticService.shared.success()
-                
-                // 延迟1秒后执行完成回调
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    onCountdownComplete()
+                countdownTimer = nil
+
+                if isCountdownActive {
+                    // 正常完成倒计时
+                    isCountdownActive = false
+                    showRipples = false
+
+                    // 倒计时结束，触发成功震动
+                    HapticService.shared.success()
+
+                    // 延迟1秒后执行完成回调
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        onCountdownComplete()
+                    }
                 }
             }
         }
+    }
+
+    private func stopCountdown() {
+        isCountdownActive = false
+        countdownTimer?.invalidate()
+        countdownTimer = nil
     }
 }
 
