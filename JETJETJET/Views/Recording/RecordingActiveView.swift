@@ -31,10 +31,6 @@ struct RecordingActiveView: View {
                     HUDDataBarView(snapshot: viewModel.currentSnapshot)
                         .padding(.horizontal, horizontalPadding)
 
-                    // 关键指标
-                    KeyMetricsView(snapshot: viewModel.currentSnapshot)
-                        .padding(.horizontal, horizontalPadding)
-
                     // 停止按钮
                     StopRecordingButtonView {
                         viewModel.stopRecording()

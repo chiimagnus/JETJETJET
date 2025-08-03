@@ -30,9 +30,6 @@ struct FlightSceneView: View {
                         .stroke(Color.white.opacity(0.3), lineWidth: 1)
                 )
             
-            // 云朵动画
-            CloudLayerView()
-            
             // 飞行轨迹
             FlightTrailView()
             
@@ -99,40 +96,6 @@ struct FlightSceneView: View {
             }
         }
         .frame(height: adaptiveHeight)
-    }
-}
-
-struct CloudLayerView: View {
-    @State private var cloudOffset1: CGFloat = -100
-    @State private var cloudOffset2: CGFloat = -150
-    
-    var body: some View {
-        ZStack {
-            // 云朵1
-            CloudView(size: .medium)
-                .offset(x: cloudOffset1, y: -80)
-                .onAppear {
-                    withAnimation(
-                        .linear(duration: 20)
-                        .repeatForever(autoreverses: false)
-                    ) {
-                        cloudOffset1 = UIScreen.main.bounds.width + 100
-                    }
-                }
-            
-            // 云朵2
-            CloudView(size: .large)
-                .offset(x: cloudOffset2, y: -40)
-                .onAppear {
-                    withAnimation(
-                        .linear(duration: 25)
-                        .repeatForever(autoreverses: false)
-                        .delay(10)
-                    ) {
-                        cloudOffset2 = UIScreen.main.bounds.width + 150
-                    }
-                }
-        }
     }
 }
 
