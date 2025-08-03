@@ -2,23 +2,14 @@ import SwiftUI
 
 struct MainStatusIndicatorView: View {
     let isRecording: Bool
-    let isCountingDown: Bool
-    let countdownValue: Int
-    
+
     var body: some View {
         HStack(spacing: 12) {
             // 状态点
-            StatusDotView(
-                isRecording: isRecording,
-                isCountingDown: isCountingDown
-            )
-            
+            StatusDotView(isRecording: isRecording)
+
             // 状态文本
-            StatusTextView(
-                isRecording: isRecording,
-                isCountingDown: isCountingDown,
-                countdownValue: countdownValue
-            )
+            StatusTextView(isRecording: isRecording)
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 12)
@@ -35,22 +26,15 @@ struct MainStatusIndicatorView: View {
 
 struct StatusDotView: View {
     let isRecording: Bool
-    let isCountingDown: Bool
-    
+
     @State private var isPulsing = false
-    
+
     private var dotColor: Color {
-        if isRecording {
-            return .red
-        } else if isCountingDown {
-            return .orange
-        } else {
-            return .green
-        }
+        isRecording ? .red : .green
     }
-    
+
     private var shouldPulse: Bool {
-        isRecording || isCountingDown
+        isRecording
     }
     
     var body: some View {
@@ -88,29 +72,15 @@ struct StatusDotView: View {
 
 struct StatusTextView: View {
     let isRecording: Bool
-    let isCountingDown: Bool
-    let countdownValue: Int
-    
+
     private var statusText: String {
-        if isRecording {
-            return "🔴 RECORDING"
-        } else if isCountingDown {
-            return "⏱️ PREPARING"
-        } else {
-            return "🚀 READY"
-        }
+        isRecording ? "🔴 RECORDING" : "🚀 READY"
     }
-    
+
     private var textColor: Color {
-        if isRecording {
-            return .red
-        } else if isCountingDown {
-            return .orange
-        } else {
-            return .green
-        }
+        isRecording ? .red : .green
     }
-    
+
     var body: some View {
         Text(statusText)
             .font(.caption)
@@ -122,23 +92,8 @@ struct StatusTextView: View {
 
 #Preview {
     VStack(spacing: 20) {
-        MainStatusIndicatorView(
-            isRecording: false,
-            isCountingDown: false,
-            countdownValue: 0
-        )
-
-        MainStatusIndicatorView(
-            isRecording: false,
-            isCountingDown: true,
-            countdownValue: 3
-        )
-
-        MainStatusIndicatorView(
-            isRecording: true,
-            isCountingDown: false,
-            countdownValue: 0
-        )
+        MainStatusIndicatorView(isRecording: false)
+        MainStatusIndicatorView(isRecording: true)
     }
     .preferredColorScheme(.dark)
     .padding()

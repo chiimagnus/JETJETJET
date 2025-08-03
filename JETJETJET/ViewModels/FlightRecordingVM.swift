@@ -14,10 +14,7 @@ class FlightRecordingVM {
     var recordingDuration: TimeInterval = 0
     var recordingStartTime: Date?
 
-    // 倒计时状态
-    var isCountingDown = false
-    var countdownValue = 0
-    private var countdownTimer: Timer?
+    // 移除了倒计时相关属性，现在由CountdownView处理
 
     // 错误状态
     var errorMessage: String?
@@ -37,37 +34,17 @@ class FlightRecordingVM {
     }
     
     func startRecording() {
-        guard !isRecording && !isCountingDown else { return }
+        guard !isRecording else { return }
         guard motionService.isAvailable else {
             errorMessage = "运动传感器不可用"
             return
         }
 
-        // 开始3秒倒计时
-        startCountdown()
+        // 直接开始录制（CountdownView已经处理了倒计时）
+        beginActualRecording()
     }
 
-    private func startCountdown() {
-        isCountingDown = true
-        countdownValue = 3
-        errorMessage = nil
-
-        countdownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
-            guard let self = self else {
-                timer.invalidate()
-                return
-            }
-
-            if self.countdownValue > 0 {
-                self.countdownValue -= 1
-            } else {
-                timer.invalidate()
-                self.countdownTimer = nil
-                self.isCountingDown = false
-                self.beginActualRecording()
-            }
-        }
-    }
+    // 倒计时逻辑已移除，现在由CountdownView处理
 
     private func beginActualRecording() {
         // 重置所有传感器数据 - 归零
@@ -87,15 +64,6 @@ class FlightRecordingVM {
     }
     
     func stopRecording() {
-        // 如果正在倒计时，取消倒计时
-        if isCountingDown {
-            countdownTimer?.invalidate()
-            countdownTimer = nil
-            isCountingDown = false
-            countdownValue = 0
-            return
-        }
-
         guard isRecording else { return }
 
         isRecording = false

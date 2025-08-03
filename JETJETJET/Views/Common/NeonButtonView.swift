@@ -58,47 +58,28 @@ struct NeonButton: View {
 
 struct MainActionButtonView: View {
     let isRecording: Bool
-    let isCountingDown: Bool
     let onStart: () -> Void
     let onStop: () -> Void
-    
+
     private var buttonTitle: String {
-        if isCountingDown {
-            return "CANCEL"
-        } else if isRecording {
-            return "STOP FLIGHT"
-        } else {
-            return "START FLIGHT"
-        }
+        isRecording ? "STOP FLIGHT" : "START FLIGHT"
     }
-    
+
     private var buttonIcon: String {
-        if isCountingDown {
-            return "xmark.circle.fill"
-        } else if isRecording {
-            return "stop.circle.fill"
-        } else {
-            return "play.circle.fill"
-        }
+        isRecording ? "stop.circle.fill" : "play.circle.fill"
     }
-    
+
     private var buttonColor: Color {
-        if isCountingDown {
-            return .orange
-        } else if isRecording {
-            return .red
-        } else {
-            return .cyan
-        }
+        isRecording ? .red : .cyan
     }
-    
+
     var body: some View {
         NeonButton(
             title: buttonTitle,
             icon: buttonIcon,
             color: buttonColor
         ) {
-            if isRecording || isCountingDown {
+            if isRecording {
                 onStop()
             } else {
                 onStart()
@@ -203,25 +184,16 @@ struct FunctionButtonView: View {
     VStack(spacing: 30) {
         MainActionButtonView(
             isRecording: false,
-            isCountingDown: false,
             onStart: {},
             onStop: {}
         )
-        
-        MainActionButtonView(
-            isRecording: false,
-            isCountingDown: true,
-            onStart: {},
-            onStop: {}
-        )
-        
+
         MainActionButtonView(
             isRecording: true,
-            isCountingDown: false,
             onStart: {},
             onStop: {}
         )
-        
+
         BottomFunctionView()
     }
     .preferredColorScheme(.dark)

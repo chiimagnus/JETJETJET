@@ -50,17 +50,12 @@ struct MainView: View {
                             .padding(.horizontal, horizontalPadding)
 
                         // 状态指示器 - 紧凑显示
-                        MainStatusIndicatorView(
-                            isRecording: viewModel.isRecording,
-                            isCountingDown: viewModel.isCountingDown,
-                            countdownValue: viewModel.countdownValue
-                        )
+                        MainStatusIndicatorView(isRecording: viewModel.isRecording)
                         .padding(.horizontal, horizontalPadding)
 
                         // 主要操作按钮
                         MainActionButtonView(
                             isRecording: viewModel.isRecording,
-                            isCountingDown: viewModel.isCountingDown,
                             onStart: {
                                 // 显示倒计时界面而不是直接开始录制
                                 showingCountdownView = true
