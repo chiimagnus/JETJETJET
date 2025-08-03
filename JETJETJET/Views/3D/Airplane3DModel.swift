@@ -13,17 +13,20 @@ class Airplane3DModel {
     
     private func setupScene() {
         let newScene = SCNScene()
-        
+
+        // 设置透明背景
+        newScene.background.contents = UIColor.clear
+
         // 创建飞机模型
         let airplane = createAirplaneNode()
         newScene.rootNode.addChildNode(airplane)
-        
+
         // 设置相机
         setupCamera(in: newScene)
-        
+
         // 设置光源
         setupLighting(in: newScene)
-        
+
         self.scene = newScene
         self.airplaneNode = airplane
     }
