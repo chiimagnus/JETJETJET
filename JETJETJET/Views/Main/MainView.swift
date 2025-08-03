@@ -100,7 +100,7 @@ struct MainView: View {
                 updateAirplaneAttitude()
             }
         }
-        .fullScreenCover(isPresented: $showingCountdownView) {
+        .slideUpPresentation(isPresented: $showingCountdownView) {
             CountdownView {
                 // 倒计时完成后的处理
                 showingCountdownView = false
