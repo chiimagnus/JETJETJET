@@ -58,15 +58,27 @@ Utils/          // 工具类
 ### 禁止方式
 - ❌ 使用 `static let shared` 单例模式
 - ❌ 在ViewModel中创建全局状态
-- ❌ 多个视图共享同一个ViewModel实例
+- ❌ 跨业务共享ViewModel实例
+
+### 业务级ViewModel共享规则
+- ✅ **同一业务流程内**：可以共享ViewModel实例
+- ✅ **业务连续性**：如录制流程（主界面→倒计时→录制界面）
+- ❌ **跨业务模块**：不同业务必须使用独立实例
 
 ### 正确示例
 ```swift
-// ✅ 正确：按需创建
+// ✅ 正确：按需创建（不同业务）
 @State private var viewModel = ItemViewModel()
 
 // ✅ 正确：依赖注入
 .environment(ItemViewModel())
+
+// ✅ 正确：业务内共享（同一业务流程）
+struct MainView: View {
+    @State private var recordingVM = FlightRecordingVM()
+    // 传递给同业务的其他视图
+    RecordingActiveView(viewModel: recordingVM)
+}
 
 // ❌ 错误：单例模式
 // static let shared = ItemViewModel() // 禁止
