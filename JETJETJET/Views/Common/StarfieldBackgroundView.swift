@@ -53,7 +53,7 @@ struct StarfieldBackgroundView: View {
     private var lightCenter: UnitPoint {
         // 将yaw角度转换为屏幕坐标
         // yaw: -180到180度，0度为正北
-        let normalizedYaw = (yaw + 180) / 360 // 转换为0-1范围
+        let _ = (yaw + 180) / 360 // 转换为0-1范围（暂未使用）
         let x = 0.5 + sin(yaw * .pi / 180) * 0.3 // 左右偏移
         let y = 0.5 - cos(yaw * .pi / 180) * 0.3 // 上下偏移
 
