@@ -60,8 +60,9 @@ struct FlightHistoryView: View {
                 }
             }
         }
-        .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
         .onAppear {
+            print("FlightHistoryView appeared!")
             viewModel.setModelContext(modelContext)
         }
     }

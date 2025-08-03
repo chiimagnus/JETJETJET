@@ -111,15 +111,33 @@ struct MainActionButtonView: View {
 struct BottomFunctionView: View {
     var body: some View {
         HStack(spacing: 40) {
-            // 日志按钮
-            NavigationLink(destination: FlightHistoryView()) {
-                FunctionButtonView(
-                    icon: "chart.bar.fill",
-                    label: "LOGS",
-                    color: .blue
+            // 日志按钮 - 使用简化的NavigationLink
+            NavigationLink {
+                FlightHistoryView()
+            } label: {
+                VStack(spacing: 8) {
+                    Image(systemName: "chart.bar.fill")
+                        .font(.title2)
+                        .foregroundColor(.blue)
+
+                    Text("LOGS")
+                        .font(.caption2)
+                        .fontWeight(.medium)
+                        .foregroundColor(.secondary)
+                        .tracking(1)
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 16)
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(.ultraThinMaterial)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                        )
                 )
             }
-            
+
             // 设置按钮
             FunctionButtonView(
                 icon: "gearshape.fill",
@@ -130,19 +148,51 @@ struct BottomFunctionView: View {
     }
 }
 
-struct FunctionButtonView: View {
+// 用于NavigationLink的按钮内容（无手势处理）
+struct FunctionButtonContent: View {
     let icon: String
     let label: String
     let color: Color
-    
-    @State private var isPressed = false
-    
+
     var body: some View {
         VStack(spacing: 8) {
             Image(systemName: icon)
                 .font(.title2)
                 .foregroundColor(color)
-            
+
+            Text(label)
+                .font(.caption2)
+                .fontWeight(.medium)
+                .foregroundColor(.secondary)
+                .tracking(1)
+        }
+        .padding(.horizontal, 20)
+        .padding(.vertical, 16)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(.ultraThinMaterial)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                )
+        )
+    }
+}
+
+// 用于普通按钮的组件（带手势处理）
+struct FunctionButtonView: View {
+    let icon: String
+    let label: String
+    let color: Color
+
+    @State private var isPressed = false
+
+    var body: some View {
+        VStack(spacing: 8) {
+            Image(systemName: icon)
+                .font(.title2)
+                .foregroundColor(color)
+
             Text(label)
                 .font(.caption2)
                 .fontWeight(.medium)
