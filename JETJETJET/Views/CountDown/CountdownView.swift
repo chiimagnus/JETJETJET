@@ -16,6 +16,7 @@ struct CountdownView: View {
         ZStack {
             // 静态星空背景 - 倒计时页面使用默认参数
             StarfieldBackgroundView()
+                .environment(lightSettings)
                 .ignoresSafeArea()
             
             VStack(spacing: 32) {
