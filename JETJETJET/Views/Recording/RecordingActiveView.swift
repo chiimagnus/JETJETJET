@@ -52,7 +52,10 @@ struct RecordingActiveView: View {
             validateAndRecoverRecordingState()
         }
         .onChange(of: viewModel.currentSnapshot) { _, snapshot in
-            updateAirplaneAttitude()
+            // 使用异步更新避免多次更新警告
+            Task { @MainActor in
+                updateAirplaneAttitude()
+            }
         }
     }
     

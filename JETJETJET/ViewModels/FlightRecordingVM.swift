@@ -128,7 +128,7 @@ class FlightRecordingVM {
     
     private func saveRecordedData() {
         guard let modelContext = modelContext,
-              let sessionId = currentSessionId,
+              let _ = currentSessionId, // sessionId在savePartialData中使用
               let startTime = recordingStartTime else {
             errorMessage = AppConfig.ErrorMessages.dataContextUnavailable
             return
