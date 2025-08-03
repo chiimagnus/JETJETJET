@@ -20,22 +20,22 @@ struct MainView: View {
                         .padding(.top, 8)
                     
                     ScrollView {
-                        VStack(spacing: 24) {
+                        VStack(spacing: adaptiveSpacing) {
                             // 3D飞机显示区域
                             Airplane3DDisplayView(airplane3DModel: airplane3DModel)
-                                .padding(.horizontal, 16)
-                            
+                                .padding(.horizontal, horizontalPadding)
+
                             // 仪表盘
                             InstrumentPanelView(snapshot: viewModel.currentSnapshot)
-                                .padding(.horizontal, 16)
-                            
+                                .padding(.horizontal, horizontalPadding)
+
                             // 状态指示器
                             MainStatusIndicatorView(
                                 isRecording: viewModel.isRecording,
                                 isCountingDown: viewModel.isCountingDown,
                                 countdownValue: viewModel.countdownValue
                             )
-                            
+
                             // 主要操作按钮
                             MainActionButtonView(
                                 isRecording: viewModel.isRecording,
@@ -43,12 +43,12 @@ struct MainView: View {
                                 onStart: { viewModel.startRecording() },
                                 onStop: { viewModel.stopRecording() }
                             )
-                            
+
                             // 底部功能区
                             BottomFunctionView()
-                                .padding(.horizontal, 16)
+                                .padding(.horizontal, horizontalPadding)
                         }
-                        .padding(.vertical, 24)
+                        .padding(.vertical, verticalPadding)
                     }
                 }
             }
@@ -62,6 +62,20 @@ struct MainView: View {
         }
     }
     
+    // 响应式布局计算属性
+    private var horizontalPadding: CGFloat {
+        // iPhone 16 Pro Max 和其他大屏设备使用更大的边距
+        UIScreen.main.bounds.width > 400 ? 24 : 16
+    }
+
+    private var verticalPadding: CGFloat {
+        UIScreen.main.bounds.height > 800 ? 32 : 24
+    }
+
+    private var adaptiveSpacing: CGFloat {
+        UIScreen.main.bounds.height > 800 ? 28 : 24
+    }
+
     private func updateAirplaneAttitude() {
         guard let snapshot = viewModel.currentSnapshot else { return }
         airplane3DModel.updateAirplaneAttitude(
