@@ -101,23 +101,14 @@ struct MainView: View {
             }
         }
         .slideUpPresentation(isPresented: $showingCountdownView) {
-            CountdownView {
-                // 倒计时完成后的处理
-                showingCountdownView = false
-                viewModel.startRecording()
-
-                // 开始录制后跳转到录制界面
-                DispatchQueue.main.asyncAfter(deadline: .now() + AppConfig.Recording.transitionDelay) {
-                    if viewModel.isRecording {
-                        showingRecordingView = true
-                    }
-                }
-            }
-            .environment(lightSettings)
-        }
-        .fullScreenCover(isPresented: $showingRecordingView) {
-            RecordingActiveView(viewModel: viewModel)
-                .environment(lightSettings)
+            CountdownView(
+                onAbort: {
+                    // 点击abort按钮时回退到MainView
+                    showingCountdownView = false
+                },
+                viewModel: viewModel,
+                lightSettings: lightSettings
+            )
         }
     }
 

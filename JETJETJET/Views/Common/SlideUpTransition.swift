@@ -36,9 +36,9 @@ struct SlideUpTransition<Content: View>: View {
     }
 
     private func dismissView() {
-        // 页面向上滑出
+        // 页面向下滑出（回退效果）
         withAnimation(.easeInOut(duration: 0.4)) {
-            offset = -UIScreen.main.bounds.height
+            offset = UIScreen.main.bounds.height
         }
     }
 }
@@ -55,14 +55,17 @@ struct SlideUpPresentationModifier<PresentedContent: View>: ViewModifier {
             // 背景页面 - 当新页面出现时向上滑动
             content
                 .offset(y: backgroundOffset)
-                .animation(.easeInOut(duration: 0.5), value: backgroundOffset)
                 .onChange(of: isPresented) { _, newValue in
                     if newValue {
                         // 新页面出现时，背景页面向上滑动
-                        backgroundOffset = -UIScreen.main.bounds.height
+                        withAnimation(.easeInOut(duration: 0.5)) {
+                            backgroundOffset = -UIScreen.main.bounds.height
+                        }
                     } else {
-                        // 新页面消失时，背景页面回到原位
-                        backgroundOffset = 0
+                        // 新页面消失时，背景页面向下滑回原位
+                        withAnimation(.easeInOut(duration: 0.4)) {
+                            backgroundOffset = 0
+                        }
                     }
                 }
 

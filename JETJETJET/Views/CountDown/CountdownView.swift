@@ -6,8 +6,11 @@ struct CountdownView: View {
     @State private var isCountdownActive = true
     @State private var showRipples = true
     @State private var countdownTimer: Timer?
+    @State private var showingRecordingView = false
 
-    let onCountdownComplete: () -> Void
+    let onAbort: (() -> Void)?
+    let viewModel: FlightRecordingVM
+    let lightSettings: LightSourceSettings
     
     var body: some View {
         ZStack {
@@ -39,7 +42,8 @@ struct CountdownView: View {
                 AbortButton {
                     // 停止倒计时
                     stopCountdown()
-                    dismiss()
+                    // 调用abort回调
+                    onAbort?()
                 }
             }
             .padding(.horizontal, 20)
@@ -51,6 +55,10 @@ struct CountdownView: View {
         }
         .onDisappear {
             stopCountdown()
+        }
+        .slideUpPresentation(isPresented: $showingRecordingView) {
+            RecordingActiveView(viewModel: viewModel)
+                .environment(lightSettings)
         }
     }
     
@@ -72,9 +80,16 @@ struct CountdownView: View {
                     // 倒计时结束，触发成功震动
                     HapticService.shared.success()
 
-                    // 延迟1秒后执行完成回调
+                    // 延迟1秒后直接转场到录制界面
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        onCountdownComplete()
+                        viewModel.startRecording()
+
+                        // 开始录制后跳转到录制界面
+                        DispatchQueue.main.asyncAfter(deadline: .now() + AppConfig.Recording.transitionDelay) {
+                            if viewModel.isRecording {
+                                showingRecordingView = true
+                            }
+                        }
                     }
                 }
             }
@@ -264,8 +279,12 @@ struct FloatingParticle: View {
 }
 
 #Preview {
-    CountdownView {
-        print("倒计时完成")
-    }
+    CountdownView(
+        onAbort: {
+            print("取消倒计时")
+        },
+        viewModel: FlightRecordingVM(),
+        lightSettings: LightSourceSettings()
+    )
     .preferredColorScheme(.dark)
 }
