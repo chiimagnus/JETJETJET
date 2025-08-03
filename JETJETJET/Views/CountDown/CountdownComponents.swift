@@ -1,72 +1,11 @@
 import SwiftUI
 
 // MARK: - 手机位置指示器
-struct PhonePositionIndicator: View {
-    @State private var phoneRotation: Double = 0
-    @State private var arrowOffset: CGFloat = 0
-    
+struct PhonePositionIndicator: View { 
     var body: some View {
-        GlassCard {
-            VStack(spacing: 16) {
-                // 图标指示行
-                HStack(spacing: 20) {
-                    // 手机图标
-                    Text("📱")
-                        .font(.system(size: 48))
-                        .rotationEffect(.degrees(phoneRotation))
-                    
-                    // 箭头
-                    Text("➡️")
-                        .font(.system(size: 32))
-                        .offset(x: arrowOffset)
-                    
-                    // 飞机图标
-                    Text("✈️")
-                        .font(.system(size: 32))
-                }
-                
-                // 文字说明
-                VStack(spacing: 8) {
-                    HStack(spacing: 8) {
-                        Text("📱")
-                            .font(.body)
-                        Text("POSITION PHONE")
-                            .font(.system(.body, design: .rounded, weight: .semibold))
-                            .foregroundColor(.orange)
-                    }
-                    
-                    Text("HORIZONTALLY")
-                        .font(.system(.body, design: .rounded, weight: .medium))
-                        .foregroundColor(.orange.opacity(0.8))
-                    
-                    Text("手机顶部指向飞行方向")
-                        .font(.system(.caption, design: .rounded))
-                        .foregroundColor(.gray)
-                }
-            }
-            .padding(.vertical, 8)
-        }
-        .onAppear {
-            startAnimations()
-        }
-    }
-    
-    private func startAnimations() {
-        // 手机旋转动画
-        withAnimation(
-            .easeInOut(duration: 3.0)
-            .repeatForever(autoreverses: true)
-        ) {
-            phoneRotation = 10
-        }
-        
-        // 箭头移动动画
-        withAnimation(
-            .easeInOut(duration: 2.0)
-            .repeatForever(autoreverses: true)
-        ) {
-            arrowOffset = 10
-        }
+        Text("手机顶部指向飞行方向")
+            .font(.system(.caption, design: .rounded))
+            .foregroundColor(.gray)
     }
 }
 
