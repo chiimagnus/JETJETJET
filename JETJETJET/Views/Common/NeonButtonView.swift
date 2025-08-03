@@ -61,7 +61,7 @@ struct MainActionButtonView: View {
 
     var body: some View {
         NeonButton(
-            title: "START FLIGHT",
+            title: "JET!",
             icon: "play.circle.fill",
             color: .cyan
         ) {
@@ -196,7 +196,7 @@ struct FunctionButtonView: View {
 #Preview {
     VStack(spacing: 30) {
         MainActionButtonView {
-            print("Start flight")
+            print("JET!")
         }
 
         BottomFunctionView()

@@ -55,7 +55,7 @@ struct GlassCard<Content: View>: View {
                     .font(.title)
                     .foregroundColor(.blue)
                 VStack(alignment: .leading) {
-                    Text("Flight Status")
+                    Text("JET Status")
                         .font(.headline)
                     Text("Ready for takeoff")
                         .font(.caption)

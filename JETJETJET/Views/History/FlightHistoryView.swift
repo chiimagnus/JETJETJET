@@ -81,7 +81,7 @@ struct FlightHistoryView: View {
 
                 Spacer()
 
-                Text("FLIGHT LOGS")
+                Text("JET LOGS")
                     .font(.system(.title2, design: .rounded, weight: .bold))
                     .foregroundColor(.white)
                     .tracking(1)
