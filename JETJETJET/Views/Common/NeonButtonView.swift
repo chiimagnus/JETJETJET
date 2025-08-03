@@ -72,6 +72,7 @@ struct MainActionButtonView: View {
 
 struct BottomFunctionView: View {
     @State private var showingFlightHistory = false
+    @State private var showingSettings = false
 
     var body: some View {
         HStack(spacing: 40) {
@@ -106,15 +107,42 @@ struct BottomFunctionView: View {
             }
             .buttonStyle(PlainButtonStyle())
 
-            // 设置按钮
-            FunctionButtonView(
-                icon: "gearshape.fill",
-                label: "SETUP",
-                color: .blue
-            )
+            // 设置按钮 - 使用Button + 手动导航
+            Button(action: {
+                // 先触发震动
+                HapticService.shared.light()
+                // 然后导航
+                showingSettings = true
+            }) {
+                VStack(spacing: 8) {
+                    Image(systemName: "gearshape.fill")
+                        .font(.title2)
+                        .foregroundColor(.blue)
+
+                    Text("SETUP")
+                        .font(.caption2)
+                        .fontWeight(.medium)
+                        .foregroundColor(.secondary)
+                        .tracking(1)
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 16)
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(.ultraThinMaterial)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                        )
+                )
+            }
+            .buttonStyle(PlainButtonStyle())
         }
         .navigationDestination(isPresented: $showingFlightHistory) {
             FlightHistoryView()
+        }
+        .navigationDestination(isPresented: $showingSettings) {
+            SettingsView()
         }
     }
 }

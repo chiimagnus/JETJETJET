@@ -7,6 +7,7 @@ struct MainView: View {
     @State private var airplane3DModel: Airplane3DModel?
     @State private var showingRecordingView = false
     @State private var showingCountdownView = false
+    @State private var lightSettings = LightSourceSettings()
     
     var body: some View {
         NavigationStack {
@@ -77,6 +78,7 @@ struct MainView: View {
             }
             .preferredColorScheme(.dark)
         }
+        .environment(lightSettings)
         .onAppear {
             viewModel.setModelContext(modelContext)
             // 延迟初始化3D模型，避免阻塞UI
