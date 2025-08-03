@@ -12,38 +12,36 @@ struct RecordingActiveView: View {
             // 星空背景
             StarfieldBackgroundView()
             
-            // 主要内容
-            VStack(spacing: 0) {
-                // 录制状态栏
-                RecordingStatusBarView(
-                    isRecording: viewModel.isRecording,
-                    duration: viewModel.formattedDuration()
-                )
-                .padding(.horizontal, horizontalPadding)
-                .padding(.top, 8)
-                
-                ScrollView {
-                    VStack(spacing: adaptiveSpacing) {
-                        // 飞行场景
-                        FlightSceneView(airplane3DModel: airplane3DModel)
-                            .padding(.horizontal, horizontalPadding)
-                        
-                        // HUD数据条
-                        HUDDataBarView(snapshot: viewModel.currentSnapshot)
-                            .padding(.horizontal, horizontalPadding)
-                        
-                        // 关键指标
-                        KeyMetricsView(snapshot: viewModel.currentSnapshot)
-                            .padding(.horizontal, horizontalPadding)
-                        
-                        // 停止按钮
-                        StopRecordingButtonView {
-                            viewModel.stopRecording()
-                            dismiss()
-                        }
+            // 主要内容 - 所有内容都在ScrollView内，可以一起滚动
+            ScrollView {
+                VStack(spacing: adaptiveSpacing) {
+                    // 录制状态栏 - 现在会随着滚动移动
+                    RecordingStatusBarView(
+                        isRecording: viewModel.isRecording,
+                        duration: viewModel.formattedDuration()
+                    )
+                    .padding(.horizontal, horizontalPadding)
+                    .padding(.top, 8)
+
+                    // 飞行场景
+                    FlightSceneView(airplane3DModel: airplane3DModel)
+                        .padding(.horizontal, horizontalPadding)
+
+                    // HUD数据条
+                    HUDDataBarView(snapshot: viewModel.currentSnapshot)
+                        .padding(.horizontal, horizontalPadding)
+
+                    // 关键指标
+                    KeyMetricsView(snapshot: viewModel.currentSnapshot)
+                        .padding(.horizontal, horizontalPadding)
+
+                    // 停止按钮
+                    StopRecordingButtonView {
+                        viewModel.stopRecording()
+                        dismiss()
                     }
-                    .padding(.vertical, verticalPadding)
                 }
+                .padding(.vertical, verticalPadding)
             }
         }
         .preferredColorScheme(.dark)

@@ -13,52 +13,50 @@ struct MainView: View {
                 // 星空背景
                 StarfieldBackgroundView()
                 
-                // 主要内容
-                VStack(spacing: 0) {
-                    // 顶部标题栏
-                    HeaderView()
-                        .padding(.horizontal, 16)
-                        .padding(.top, 8)
-                    
-                    ScrollView {
-                        VStack(spacing: adaptiveSpacing) {
-                            // 3D飞机显示区域
-                            Airplane3DDisplayView(airplane3DModel: airplane3DModel)
-                                .padding(.horizontal, horizontalPadding)
+                // 主要内容 - 所有内容都在ScrollView内，可以一起滚动
+                ScrollView {
+                    VStack(spacing: adaptiveSpacing) {
+                        // 顶部标题栏 - 现在会随着滚动移动
+                        HeaderView()
+                            .padding(.horizontal, horizontalPadding)
+                            .padding(.top, 8)
 
-                            // 仪表盘
-                            InstrumentPanelView(snapshot: viewModel.currentSnapshot)
-                                .padding(.horizontal, horizontalPadding)
+                        // 3D飞机显示区域
+                        Airplane3DDisplayView(airplane3DModel: airplane3DModel)
+                            .padding(.horizontal, horizontalPadding)
 
-                            // 状态指示器
-                            MainStatusIndicatorView(
-                                isRecording: viewModel.isRecording,
-                                isCountingDown: viewModel.isCountingDown,
-                                countdownValue: viewModel.countdownValue
-                            )
+                        // 仪表盘
+                        InstrumentPanelView(snapshot: viewModel.currentSnapshot)
+                            .padding(.horizontal, horizontalPadding)
 
-                            // 主要操作按钮
-                            MainActionButtonView(
-                                isRecording: viewModel.isRecording,
-                                isCountingDown: viewModel.isCountingDown,
-                                onStart: {
-                                    viewModel.startRecording()
-                                    // 开始录制后跳转到录制界面
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
-                                        if viewModel.isRecording {
-                                            showingRecordingView = true
-                                        }
+                        // 状态指示器
+                        MainStatusIndicatorView(
+                            isRecording: viewModel.isRecording,
+                            isCountingDown: viewModel.isCountingDown,
+                            countdownValue: viewModel.countdownValue
+                        )
+
+                        // 主要操作按钮
+                        MainActionButtonView(
+                            isRecording: viewModel.isRecording,
+                            isCountingDown: viewModel.isCountingDown,
+                            onStart: {
+                                viewModel.startRecording()
+                                // 开始录制后跳转到录制界面
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
+                                    if viewModel.isRecording {
+                                        showingRecordingView = true
                                     }
-                                },
-                                onStop: { viewModel.stopRecording() }
-                            )
+                                }
+                            },
+                            onStop: { viewModel.stopRecording() }
+                        )
 
-                            // 底部功能区
-                            BottomFunctionView()
-                                .padding(.horizontal, horizontalPadding)
-                        }
-                        .padding(.vertical, verticalPadding)
+                        // 底部功能区
+                        BottomFunctionView()
+                            .padding(.horizontal, horizontalPadding)
                     }
+                    .padding(.vertical, verticalPadding)
                 }
             }
             .preferredColorScheme(.dark)
