@@ -12,9 +12,9 @@ struct RecordingActiveView: View {
             // 星空背景
             StarfieldBackgroundView()
             
-            // 主要内容 - 所有内容都在ScrollView内，可以一起滚动
-            VStack(spacing: adaptiveSpacing) {
-                // 录制状态栏 - 现在会随着滚动移动
+            // 主要内容 - 使用均匀分散布局
+            VStack(spacing: 0) {
+                // 录制状态栏
                 RecordingStatusBarView(
                     isRecording: viewModel.isRecording,
                     duration: viewModel.formattedDuration()
@@ -22,21 +22,28 @@ struct RecordingActiveView: View {
                 .padding(.horizontal, horizontalPadding)
                 .padding(.top, 8)
 
+                Spacer()
+
                 // 飞行场景
                 FlightSceneView(airplane3DModel: airplane3DModel)
                     .padding(.horizontal, horizontalPadding)
 
+                Spacer()
+
                 // HUD数据条
                 HUDDataBarView(snapshot: viewModel.currentSnapshot)
                     .padding(.horizontal, horizontalPadding)
+
+                Spacer()
 
                 // 停止按钮
                 StopRecordingButtonView {
                     viewModel.stopRecording()
                     dismiss()
                 }
+                .padding(.horizontal, horizontalPadding)
+                .padding(.bottom, 20)
             }
-            .padding(.vertical, verticalPadding)
         }
         .preferredColorScheme(.dark)
         .navigationBarHidden(true)
