@@ -47,6 +47,9 @@ class FlightRecordingVM {
     // 倒计时逻辑已移除，现在由CountdownView处理
 
     private func beginActualRecording() {
+        // 先停止预览监听（如果正在运行）
+        motionService.stopMotionUpdates()
+
         // 重置所有传感器数据 - 归零
         motionService.resetSensorData()
 
@@ -56,6 +59,7 @@ class FlightRecordingVM {
         currentSessionId = UUID()
         currentSnapshot = nil // 重置当前快照
 
+        // 重新启动运动传感器用于录制
         motionService.startMotionUpdates { [weak self] snapshot in
             DispatchQueue.main.async {
                 self?.handleMotionUpdate(snapshot)
@@ -76,6 +80,9 @@ class FlightRecordingVM {
         currentSnapshot = nil
         recordingDuration = 0
         recordingStartTime = nil
+
+        // 录制停止后，重新启动预览监听（如果需要）
+        // 这将在返回主界面时由MainView的onAppear处理
     }
     
     private func handleMotionUpdate(_ snapshot: FlightDataSnapshot) {

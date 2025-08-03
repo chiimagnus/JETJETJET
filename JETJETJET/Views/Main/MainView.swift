@@ -103,7 +103,7 @@ struct MainView: View {
             }
         }
         .fullScreenCover(isPresented: $showingRecordingView) {
-            RecordingActiveView()
+            RecordingActiveView(viewModel: viewModel)
         }
     }
     

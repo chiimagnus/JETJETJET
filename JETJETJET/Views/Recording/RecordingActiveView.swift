@@ -3,7 +3,7 @@ import SwiftData
 
 struct RecordingActiveView: View {
     @Environment(\.modelContext) private var modelContext
-    @State private var viewModel = FlightRecordingVM()
+    let viewModel: FlightRecordingVM
     @State private var airplane3DModel = Airplane3DModel()
     @Environment(\.dismiss) private var dismiss
     
@@ -47,7 +47,11 @@ struct RecordingActiveView: View {
         .preferredColorScheme(.dark)
         .navigationBarHidden(true)
         .onAppear {
-            viewModel.setModelContext(modelContext)
+            // ViewModel已经在MainView中设置了modelContext，这里不需要重复设置
+            // 确保录制状态正确
+            if !viewModel.isRecording {
+                print("警告：进入录制界面但ViewModel未处于录制状态")
+            }
         }
         .onChange(of: viewModel.currentSnapshot) { _, snapshot in
             updateAirplaneAttitude()
@@ -78,6 +82,6 @@ struct RecordingActiveView: View {
 }
 
 #Preview {
-    RecordingActiveView()
+    RecordingActiveView(viewModel: FlightRecordingVM())
         .modelContainer(for: FlightData.self, inMemory: true)
 }
