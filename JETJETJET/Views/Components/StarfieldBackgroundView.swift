@@ -16,13 +16,13 @@ struct StarfieldBackgroundView: View {
             )
             .ignoresSafeArea()
             
-            // 星星层
-            ForEach(0..<50, id: \.self) { index in
+            // 星星层 - 减少数量以提升性能
+            ForEach(0..<30, id: \.self) { index in
                 StarView(index: index)
             }
-            
-            // 移动粒子效果
-            ForEach(0..<8, id: \.self) { index in
+
+            // 移动粒子效果 - 减少数量
+            ForEach(0..<5, id: \.self) { index in
                 MovingParticleView(index: index, animationOffset: animationOffset)
             }
         }

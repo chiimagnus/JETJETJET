@@ -25,8 +25,8 @@ struct Airplane3DDisplayView: View {
                         .stroke(Color.white.opacity(0.1), lineWidth: 1)
                 )
             
-            // 粒子效果背景
-            ForEach(0..<6, id: \.self) { index in
+            // 粒子效果背景 - 减少数量提升性能
+            ForEach(0..<4, id: \.self) { index in
                 ParticleView(index: index)
             }
             
