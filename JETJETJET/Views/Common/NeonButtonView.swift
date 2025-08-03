@@ -11,9 +11,8 @@ struct NeonButton: View {
     
     var body: some View {
         Button(action: {
-            // 添加触觉反馈
-            let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
-            impactFeedback.impactOccurred()
+            // 使用统一的震动服务
+            HapticService.shared.medium()
             action()
         }) {
             HStack(spacing: 12) {
@@ -111,30 +110,14 @@ struct MainActionButtonView: View {
 struct BottomFunctionView: View {
     var body: some View {
         HStack(spacing: 40) {
-            // 日志按钮 - 使用简化的NavigationLink
+            // 日志按钮 - 带震动效果的NavigationLink
             NavigationLink {
                 FlightHistoryView()
             } label: {
-                VStack(spacing: 8) {
-                    Image(systemName: "chart.bar.fill")
-                        .font(.title2)
-                        .foregroundColor(.blue)
-
-                    Text("LOGS")
-                        .font(.caption2)
-                        .fontWeight(.medium)
-                        .foregroundColor(.secondary)
-                        .tracking(1)
-                }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 16)
-                .background(
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(.ultraThinMaterial)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.white.opacity(0.1), lineWidth: 1)
-                        )
+                FunctionButtonView(
+                    icon: "chart.bar.fill",
+                    label: "LOGS",
+                    color: .blue
                 )
             }
 
@@ -148,36 +131,7 @@ struct BottomFunctionView: View {
     }
 }
 
-// 用于NavigationLink的按钮内容（无手势处理）
-struct FunctionButtonContent: View {
-    let icon: String
-    let label: String
-    let color: Color
-
-    var body: some View {
-        VStack(spacing: 8) {
-            Image(systemName: icon)
-                .font(.title2)
-                .foregroundColor(color)
-
-            Text(label)
-                .font(.caption2)
-                .fontWeight(.medium)
-                .foregroundColor(.secondary)
-                .tracking(1)
-        }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 16)
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(.ultraThinMaterial)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.white.opacity(0.1), lineWidth: 1)
-                )
-        )
-    }
-}
+// 删除了不必要的FunctionButtonContent组件
 
 // 用于普通按钮的组件（带手势处理）
 struct FunctionButtonView: View {
@@ -215,9 +169,8 @@ struct FunctionButtonView: View {
                 isPressed = pressing
             }
             if pressing {
-                // 轻微触觉反馈
-                let impactFeedback = UIImpactFeedbackGenerator(style: .light)
-                impactFeedback.impactOccurred()
+                // 使用统一的震动服务
+                HapticService.shared.light()
             }
         }, perform: {})
     }

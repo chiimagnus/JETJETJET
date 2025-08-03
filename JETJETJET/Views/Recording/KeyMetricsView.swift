@@ -99,9 +99,8 @@ struct StopRecordingButtonView: View {
     
     var body: some View {
         Button(action: {
-            // 添加触觉反馈
-            let impactFeedback = UIImpactFeedbackGenerator(style: .heavy)
-            impactFeedback.impactOccurred()
+            // 使用统一的震动服务 - 重要操作使用重度震动
+            HapticService.shared.heavy()
             action()
         }) {
             HStack(spacing: 12) {

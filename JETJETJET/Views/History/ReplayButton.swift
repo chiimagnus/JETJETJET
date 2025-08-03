@@ -6,6 +6,9 @@ struct ReplayButton: View {
     
     var body: some View {
         Button(action: {
+            // 使用统一的震动服务
+            HapticService.shared.medium()
+
             // 按压动画
             withAnimation(.easeInOut(duration: 0.15)) {
                 isPressed = true
