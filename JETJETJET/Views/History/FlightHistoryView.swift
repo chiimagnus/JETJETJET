@@ -59,6 +59,8 @@ struct FlightHistoryView: View {
         .onAppear {
             print("FlightHistoryView appeared!")
             viewModel.setModelContext(modelContext)
+            // 预加载搜索音效
+            SoundService.shared.preloadSound("Whoosh Sound Effect")
         }
     }
 
@@ -82,6 +84,9 @@ struct FlightHistoryView: View {
                         SearchBar(searchText: $viewModel.searchText)
 
                         Button(action: {
+                            // 播放音效
+                            SoundService.shared.playSound("Whoosh Sound Effect", volume: 0.6, duration: 1.5)
+
                             withAnimation(.easeInOut(duration: 0.3)) {
                                 showSearchBar = false
                                 viewModel.searchText = ""
@@ -104,6 +109,9 @@ struct FlightHistoryView: View {
                         .transition(.move(edge: .leading).combined(with: .opacity))
 
                     Button(action: {
+                        // 播放音效
+                        SoundService.shared.playSound("Whoosh Sound Effect", volume: 0.6, duration: 1.5)
+
                         withAnimation(.easeInOut(duration: 0.3)) {
                             showSearchBar = true
                         }
