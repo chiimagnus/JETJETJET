@@ -1,16 +1,11 @@
 import SwiftUI
 
 struct FlightStatusIndicator: View {
-    @State private var isPulsing = false
-    
     var body: some View {
         HStack(spacing: 8) {
             Circle()
                 .fill(Color.green)
                 .frame(width: 6, height: 6)
-                .scaleEffect(isPulsing ? 1.2 : 1.0)
-                .opacity(isPulsing ? 0.7 : 1.0)
-                .animation(.easeInOut(duration: 1.0).repeatForever(autoreverses: true), value: isPulsing)
             
             Text("完成")
                 .font(.system(.caption, design: .rounded, weight: .semibold))
@@ -26,9 +21,6 @@ struct FlightStatusIndicator: View {
                         .stroke(Color.green, lineWidth: 1)
                 )
         )
-        .onAppear {
-            isPulsing = true
-        }
     }
 }
 
