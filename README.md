@@ -88,6 +88,7 @@ JETJETJET/
 - [ ] **真实飞机模型** - 替换3D箭头
 - [ ] **数据导出** - CSV/JSON格式
 - [ ] **Apple Vision Pro** - 空间计算体验
+- [ ] **RoNIN技术升级** - 基于[RoNIN](https://ronin.cs.sfu.ca/)论文的神经网络惯性导航，实现不依赖GPS的精确速度计算
 
 ## 🤝 参与开发
 
