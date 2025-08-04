@@ -3,7 +3,6 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(LightSourceSettings.self) private var lightSettings
-    @State private var modelService = AirplaneModelService.shared
     
     var body: some View {
         ZStack {
@@ -18,9 +17,6 @@ struct SettingsView: View {
                 // 设置内容
                 ScrollView {
                     VStack(spacing: 24) {
-                        // 飞机模型设置区域
-                        airplaneModelSection
-
                         // 光源设置区域
                         lightSourceSection
                     }
@@ -66,42 +62,7 @@ struct SettingsView: View {
         }
         .padding(.horizontal, 20)
     }
-
-    // MARK: - 飞机模型设置区域
-    private var airplaneModelSection: some View {
-        GlassCard {
-            VStack(alignment: .leading, spacing: 20) {
-                // 标题
-                HStack {
-                    Image(systemName: "airplane")
-                        .font(.title2)
-                        .foregroundColor(.cyan)
-
-                    Text("飞机模型")
-                        .font(.system(.title3, design: .rounded, weight: .bold))
-                        .foregroundColor(.white)
-
-                    Spacer()
-                }
-
-                // 模型选项
-                VStack(spacing: 12) {
-                    ForEach(AirplaneModelType.allCases, id: \.self) { modelType in
-                        AirplaneModelOptionView(
-                            modelType: modelType,
-                            isSelected: modelService.currentModelType == modelType
-                        ) {
-                            // 切换飞机模型
-                            HapticService.shared.medium()
-                            modelService.selectModel(modelType)
-                        }
-                    }
-                }
-            }
-            .padding(20)
-        }
-    }
-
+    
     // MARK: - 光源设置区域
     private var lightSourceSection: some View {
         GlassCard {
@@ -135,72 +96,6 @@ struct SettingsView: View {
             }
             .padding(20)
         }
-    }
-}
-
-// MARK: - 飞机模型选项视图
-struct AirplaneModelOptionView: View {
-    let modelType: AirplaneModelType
-    let isSelected: Bool
-    let action: () -> Void
-
-    @State private var isPressed = false
-
-    var body: some View {
-        Button(action: {
-            withAnimation(.easeInOut(duration: 0.15)) {
-                isPressed = true
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                withAnimation(.easeInOut(duration: 0.15)) {
-                    isPressed = false
-                }
-                action()
-            }
-        }) {
-            HStack(spacing: 16) {
-                // 模型图标
-                Image(systemName: modelType == .defaultModel ? "cube.box" : "airplane.circle")
-                    .font(.title2)
-                    .foregroundColor(isSelected ? .cyan : .gray)
-                    .frame(width: 24)
-
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(modelType.displayName)
-                        .font(.system(.body, design: .rounded, weight: .semibold))
-                        .foregroundColor(.white)
-
-                    Text(modelType.description)
-                        .font(.system(.caption, design: .rounded))
-                        .foregroundColor(.gray)
-                }
-
-                Spacer()
-
-                // 选中状态指示器
-                if isSelected {
-                    Image(systemName: "checkmark.circle.fill")
-                        .font(.title3)
-                        .foregroundColor(.cyan)
-                } else {
-                    Image(systemName: "circle")
-                        .font(.title3)
-                        .foregroundColor(.gray)
-                }
-            }
-            .padding(.vertical, 12)
-            .padding(.horizontal, 16)
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(isSelected ? Color.cyan.opacity(0.1) : Color.clear)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(isSelected ? Color.cyan.opacity(0.3) : Color.gray.opacity(0.2), lineWidth: 1)
-                    )
-            )
-            .scaleEffect(isPressed ? 0.98 : 1.0)
-        }
-        .buttonStyle(PlainButtonStyle())
     }
 }
 

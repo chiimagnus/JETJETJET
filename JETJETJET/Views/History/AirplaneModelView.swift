@@ -8,7 +8,6 @@ struct AirplaneModelView: View {
     @State private var showingDataSheet = false
     @State private var viewModel = AirplaneModelVM()
     @State private var airplane3DModel = Airplane3DModel()
-    @State private var modelService = AirplaneModelService.shared
 
     var body: some View {
         VStack {
@@ -48,12 +47,6 @@ struct AirplaneModelView: View {
         .onAppear {
             viewModel.setModelContext(modelContext)
             viewModel.loadSessionData(for: session)
-            // 使用当前选择的模型类型初始化3D模型
-            airplane3DModel = Airplane3DModel(modelType: modelService.currentModelType)
-        }
-        .onChange(of: modelService.currentModelType) { _, newModelType in
-            // 当模型类型改变时，重新创建3D模型
-            airplane3DModel = Airplane3DModel(modelType: newModelType)
         }
         .onDisappear {
             viewModel.stopPlayback()
