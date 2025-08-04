@@ -5,9 +5,11 @@ import SwiftData
 struct AirplaneModelView: View {
     let session: FlightSession
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
     @State private var showingDataSheet = false
     @State private var viewModel = AirplaneModelVM()
     @State private var airplane3DModel: Airplane3DModel
+    @State private var lightSettings = LightSourceSettings()
     private var userPreferences = UserPreferences.shared
 
     init(session: FlightSession) {
@@ -17,37 +19,49 @@ struct AirplaneModelView: View {
     }
 
     var body: some View {
-        VStack {
-            // 3D场景视图
-            Airplane3DSceneView(
-                airplane3DModel: airplane3DModel,
-                height: nil,
-                showControls: true
-            )
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .onChange(of: viewModel.currentDataIndex) { _, newIndex in
-                updateAirplaneAttitude()
-            }
+        ZStack {
+            // 星空背景
+            StarfieldBackgroundView()
+                .environment(lightSettings)
+                .ignoresSafeArea()
 
-            // 播放控制
-            PlaybackControlsView(
-                isPlaying: viewModel.isPlaying,
-                currentIndex: viewModel.currentDataIndex,
-                totalCount: viewModel.sessionFlightData.count,
-                onPlayPause: viewModel.togglePlayback,
-                onSeek: viewModel.seekToIndex
-            )
-            .padding()
-        }
-        .navigationTitle(session.title)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button("数据详情") {
-                    showingDataSheet = true
+            VStack(spacing: 0) {
+                // 顶部导航栏
+                topNavigationBar
+                    .padding(.horizontal, 20)
+                    .padding(.top, 10)
+
+                // 3D回放场景
+                replay3DScene
+                    .padding(.horizontal, 20)
+                    .padding(.top, 20)
+
+                // 播放控制条
+                ModernPlaybackControlsView(
+                    isPlaying: viewModel.isPlaying,
+                    currentIndex: viewModel.currentDataIndex,
+                    totalCount: viewModel.sessionFlightData.count,
+                    currentTime: viewModel.currentPlaybackTime,
+                    totalTime: viewModel.totalPlaybackTime,
+                    onPlayPause: viewModel.togglePlayback,
+                    onSeek: viewModel.seekToIndex,
+                    onSkipBackward: { viewModel.seekToIndex(0) },
+                    onSkipForward: { viewModel.seekToIndex(viewModel.sessionFlightData.count - 1) }
+                )
+                .padding(.horizontal, 20)
+                .padding(.top, 20)
+
+                // 当前时刻飞行数据
+                if let currentData = viewModel.getCurrentFlightData() {
+                    RealtimeFlightDataView(flightData: currentData)
+                        .padding(.horizontal, 20)
+                        .padding(.top, 20)
                 }
+
+                Spacer()
             }
         }
+        .navigationBarHidden(true)
         .sheet(isPresented: $showingDataSheet) {
             FlightDataDetailView(session: session, flightData: viewModel.sessionFlightData)
         }
@@ -58,6 +72,9 @@ struct AirplaneModelView: View {
         .onDisappear {
             viewModel.stopPlayback()
         }
+        .onChange(of: viewModel.currentDataIndex) { _, newIndex in
+            updateAirplaneAttitude()
+        }
         .onChange(of: userPreferences.selectedAirplaneModelType) { _, newModelType in
             // 当用户更改模型类型时，重新创建3D模型
             airplane3DModel = Airplane3DModel(modelType: newModelType)
@@ -65,9 +82,16 @@ struct AirplaneModelView: View {
 
         // 错误信息显示
         if let errorMessage = viewModel.errorMessage {
-            Text(errorMessage)
-                .foregroundColor(.red)
-                .padding()
+            VStack {
+                Spacer()
+                Text(errorMessage)
+                    .foregroundColor(.red)
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(12)
+                    .padding()
+                Spacer()
+            }
         }
     }
 
@@ -77,67 +101,111 @@ struct AirplaneModelView: View {
     }
 }
 
-// 播放控制组件
-struct PlaybackControlsView: View {
-    let isPlaying: Bool
-    let currentIndex: Int
-    let totalCount: Int
-    let onPlayPause: () -> Void
-    let onSeek: (Int) -> Void
-    
-    var body: some View {
-        VStack(spacing: 10) {
-            // 进度条
-            if totalCount > 0 {
-                HStack {
-                    Text("0")
-                        .font(.caption)
-                    
-                    Slider(
-                        value: Binding(
-                            get: { Double(currentIndex) },
-                            set: { onSeek(Int($0)) }
-                        ),
-                        in: 0...Double(max(0, totalCount - 1)),
-                        step: 1
-                    )
-                    
-                    Text("\(totalCount - 1)")
-                        .font(.caption)
+// MARK: - 视图组件扩展
+extension AirplaneModelView {
+
+    // 顶部导航栏
+    private var topNavigationBar: some View {
+        HStack {
+            // 返回按钮
+            Button(action: {
+                dismiss()
+            }) {
+                HStack(spacing: 8) {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 16, weight: .medium))
+                    Text("返回")
+                        .font(.system(size: 16, weight: .medium))
                 }
+                .foregroundColor(.white)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(.ultraThinMaterial)
+                )
             }
-            
-            // 播放控制按钮
-            HStack(spacing: 20) {
-                Button(action: { onSeek(0) }) {
-                    Image(systemName: "backward.end.fill")
-                        .font(.title2)
+
+            Spacer()
+
+            // 标题
+            Text("REPLAY")
+                .font(.headline)
+                .fontWeight(.semibold)
+                .foregroundColor(.white)
+
+            Spacer()
+
+            // 数据详情按钮
+            Button(action: {
+                showingDataSheet = true
+            }) {
+                HStack(spacing: 6) {
+                    Image(systemName: "doc.text")
+                        .font(.system(size: 14, weight: .medium))
+                    Text("数据")
+                        .font(.system(size: 14, weight: .medium))
                 }
-                .disabled(totalCount == 0)
-                
-                Button(action: onPlayPause) {
-                    Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                        .font(.title)
-                }
-                .disabled(totalCount == 0)
-                
-                Button(action: { onSeek(totalCount - 1) }) {
-                    Image(systemName: "forward.end.fill")
-                        .font(.title2)
-                }
-                .disabled(totalCount == 0)
-            }
-            
-            // 当前数据信息
-            if totalCount > 0 && currentIndex < totalCount {
-                Text("数据点: \(currentIndex + 1) / \(totalCount)")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                .foregroundColor(.white)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .background(
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(.ultraThinMaterial)
+                )
             }
         }
-        .padding()
-        .background(Color(.systemGray6))
-        .cornerRadius(12)
+    }
+
+    // 3D回放场景
+    private var replay3DScene: some View {
+        ZStack {
+            // 3D场景容器
+            RoundedRectangle(cornerRadius: 20)
+                .fill(
+                    LinearGradient(
+                        colors: [
+                            Color(red: 0.1, green: 0.1, blue: 0.18),
+                            Color(red: 0.09, green: 0.13, blue: 0.24),
+                            Color(red: 0.06, green: 0.2, blue: 0.38),
+                            Color(red: 0.33, green: 0.2, blue: 0.51)
+                        ],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+                .frame(height: 350)
+
+            // 3D飞机模型
+            Airplane3DSceneView(
+                airplane3DModel: airplane3DModel,
+                height: 350,
+                showControls: true
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 20))
+
+            // 实时数据覆盖层
+            VStack {
+                HStack {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("实时回放数据")
+                            .font(.caption)
+                            .foregroundColor(.blue)
+                        Text("时间: \(viewModel.formattedCurrentTime) / \(viewModel.formattedTotalTime)")
+                            .font(.caption2)
+                            .foregroundColor(.gray)
+                    }
+                    .padding(12)
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(12)
+
+                    Spacer()
+                }
+
+                Spacer()
+            }
+            .padding(16)
+        }
     }
 }
 
