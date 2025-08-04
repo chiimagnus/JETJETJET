@@ -3,6 +3,8 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(LightSourceSettings.self) private var lightSettings
+    @State private var userPreferences = UserPreferences.shared
+    @State private var showingModelSelection = false
     
     var body: some View {
         ZStack {
@@ -17,6 +19,9 @@ struct SettingsView: View {
                 // 设置内容
                 ScrollView {
                     VStack(spacing: 24) {
+                        // 飞机模型设置区域
+                        airplaneModelSection
+
                         // 光源设置区域
                         lightSourceSection
                     }
@@ -29,6 +34,9 @@ struct SettingsView: View {
         }
         .preferredColorScheme(.dark)
         .navigationBarHidden(true)
+        .sheet(isPresented: $showingModelSelection) {
+            AirplaneModelSelectionView(selectedModelType: $userPreferences.selectedAirplaneModelType)
+        }
     }
     
     // MARK: - 顶部导航栏
@@ -62,7 +70,67 @@ struct SettingsView: View {
         }
         .padding(.horizontal, 20)
     }
-    
+
+    // MARK: - 飞机模型设置区域
+    private var airplaneModelSection: some View {
+        GlassCard {
+            VStack(alignment: .leading, spacing: 20) {
+                // 标题
+                HStack {
+                    Image(systemName: "airplane")
+                        .font(.title2)
+                        .foregroundColor(.cyan)
+
+                    Text("飞机模型")
+                        .font(.system(.title3, design: .rounded, weight: .bold))
+                        .foregroundColor(.white)
+
+                    Spacer()
+                }
+
+                // 当前选择的模型
+                HStack {
+                    Text("当前模型:")
+                        .font(.system(.body, design: .rounded))
+                        .foregroundColor(.gray)
+
+                    Spacer()
+
+                    Text(userPreferences.selectedAirplaneModelType.displayName)
+                        .font(.system(.body, design: .rounded, weight: .semibold))
+                        .foregroundColor(.white)
+                }
+
+                // 选择按钮
+                Button(action: {
+                    HapticService.shared.light()
+                    showingModelSelection = true
+                }) {
+                    HStack {
+                        Text("选择模型")
+                            .font(.system(.body, design: .rounded, weight: .medium))
+                            .foregroundColor(.white)
+
+                        Spacer()
+
+                        Image(systemName: "chevron.right")
+                            .font(.system(.caption, weight: .medium))
+                            .foregroundColor(.gray)
+                    }
+                    .padding(.vertical, 12)
+                    .padding(.horizontal, 16)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(.ultraThinMaterial)
+                    )
+                }
+                .buttonStyle(PlainButtonStyle())
+            }
+            .padding(20)
+        }
+        .padding(.horizontal, 20)
+    }
+
     // MARK: - 光源设置区域
     private var lightSourceSection: some View {
         GlassCard {
