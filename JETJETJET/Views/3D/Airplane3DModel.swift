@@ -225,7 +225,7 @@ class Airplane3DModel {
             airplaneNode.eulerAngles = SCNVector3(pitchRadians, yawRadians + Float.pi, rollRadians)
         case .jet1:
             // JET1模型直接应用旋转，无需额外的初始旋转
-            airplaneNode.eulerAngles = SCNVector3(pitchRadians, yawRadians, rollRadians)
+            airplaneNode.eulerAngles = SCNVector3(-pitchRadians, yawRadians, rollRadians)
         }
     }
     
