@@ -9,9 +9,9 @@ struct FlightHistoryView: View {
     @State private var showSearchBar = false
     @FocusState private var isSearchFocused: Bool
 
-    private var filteredSessions: [FlightSession] {
-        viewModel.filteredSessions(flightSessions)
-    }
+    // 使用 @State 缓存过滤结果，避免频繁重新计算
+    @State private var filteredSessions: [FlightSession] = []
+    @State private var searchTask: Task<Void, Never>?
 
     var body: some View {
         ZStack {
@@ -25,16 +25,19 @@ struct FlightHistoryView: View {
 
                 ScrollView {
                     VStack(spacing: 20) {
-                        // 飞行记录列表
-                        LazyVStack(spacing: 16) {
+                        // 飞行记录列表 - 性能优化
+                        LazyVStack(spacing: 16, pinnedViews: []) {
                             if filteredSessions.isEmpty {
                                 emptyStateView
+                                    .id("empty-state") // 添加稳定的ID
                             } else {
                                 ForEach(filteredSessions, id: \.id) { session in
                                     FlightRecordCard(session: session, viewModel: viewModel)
+                                        .id(session.id) // 确保稳定的ID
                                 }
                             }
                         }
+                        .animation(.easeInOut(duration: 0.3), value: filteredSessions.count) // 只对数量变化添加动画
                         .padding(.horizontal, 20)
                         .padding(.top, 20) // 增加顶部间距，避免与导航栏重叠
 
@@ -60,8 +63,20 @@ struct FlightHistoryView: View {
         .onAppear {
             print("FlightHistoryView appeared!")
             viewModel.setModelContext(modelContext)
-            // 预加载搜索音效
-            SoundService.shared.preloadSound("Whoosh Sound Effect")
+
+            // 初始化过滤结果
+            updateFilteredSessions()
+
+            // 异步预加载音效，避免阻塞主线程
+            Task.detached(priority: .background) {
+                SoundService.shared.preloadSound("Whoosh Sound Effect")
+            }
+        }
+        .onChange(of: flightSessions) { _, _ in
+            updateFilteredSessions()
+        }
+        .onChange(of: viewModel.searchText) { _, _ in
+            performSearch()
         }
     }
 
@@ -85,8 +100,10 @@ struct FlightHistoryView: View {
                         SearchBar(searchText: $viewModel.searchText)
 
                         Button(action: {
-                            // // 播放音效
-                            // SoundService.shared.playSound("Whoosh Sound Effect", volume: 0.6, duration: 1.5)
+                            // // 异步播放音效，避免阻塞UI
+                            // Task.detached(priority: .userInitiated) {
+                            //     SoundService.shared.playSound("Whoosh Sound Effect", volume: 0.6, duration: 1.5)
+                            // }
 
                             withAnimation(.easeInOut(duration: 0.3)) {
                                 showSearchBar = false
@@ -110,8 +127,10 @@ struct FlightHistoryView: View {
                         .transition(.move(edge: .leading).combined(with: .opacity))
 
                     Button(action: {
-                        // 播放音效
-                        SoundService.shared.playSound("Whoosh Sound Effect", volume: 0.6, duration: 1.5)
+                        // 异步播放音效，避免阻塞UI
+                        Task.detached(priority: .userInitiated) {
+                            SoundService.shared.playSound("Whoosh Sound Effect", volume: 0.6, duration: 1.5)
+                        }
 
                         withAnimation(.easeInOut(duration: 0.3)) {
                             showSearchBar = true
@@ -188,6 +207,33 @@ struct FlightHistoryView: View {
         }
         .buttonStyle(PlainButtonStyle())
     }
+
+    // MARK: - 性能优化方法
+
+    /// 更新过滤结果（同步，用于初始化）
+    private func updateFilteredSessions() {
+        filteredSessions = viewModel.filteredSessions(flightSessions)
+    }
+
+    /// 执行搜索（异步，防抖）
+    private func performSearch() {
+        // 取消之前的搜索任务
+        searchTask?.cancel()
+
+        // 创建新的搜索任务，添加防抖延迟
+        searchTask = Task {
+            // 防抖延迟 300ms
+            try? await Task.sleep(nanoseconds: 300_000_000)
+
+            // 检查任务是否被取消
+            guard !Task.isCancelled else { return }
+
+            // 在主线程更新UI
+            await MainActor.run {
+                filteredSessions = viewModel.filteredSessions(flightSessions)
+            }
+        }
+    }
 }
 
 #Preview {
@@ -198,5 +244,3 @@ struct FlightHistoryView: View {
     .environment(LightSourceSettings())
     .preferredColorScheme(.dark)
 }
-
-
