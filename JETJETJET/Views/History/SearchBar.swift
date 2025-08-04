@@ -8,7 +8,8 @@ struct SearchBar: View {
         HStack(spacing: 12) {
             Image(systemName: "magnifyingglass")
                 .font(.system(.body, weight: .medium))
-                .foregroundColor(isFocused ? .cyan : .gray)
+                .foregroundColor(isFocused ? Color(red: 0, green: 0.83, blue: 1) : .gray) // 霓虹青色
+                .shadow(color: isFocused ? Color(red: 0, green: 0.83, blue: 1).opacity(0.6) : Color.clear, radius: 4) // 图标发光
                 .animation(.easeInOut(duration: 0.3), value: isFocused)
             
             TextField("搜索飞行记录...", text: $searchText)
@@ -42,15 +43,21 @@ struct SearchBar: View {
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
                         .stroke(
-                            isFocused ? Color.cyan : Color.white.opacity(0.1),
-                            lineWidth: 1
+                            isFocused ? Color(red: 0, green: 0.83, blue: 1) : Color.white.opacity(0.1), // 霓虹青色
+                            lineWidth: isFocused ? 1.5 : 1
                         )
                 )
                 .shadow(
-                    color: isFocused ? Color.cyan.opacity(0.2) : Color.black.opacity(0.1),
-                    radius: isFocused ? 8 : 4,
+                    color: isFocused ? Color(red: 0, green: 0.83, blue: 1).opacity(0.4) : Color.black.opacity(0.1), // 霓虹发光
+                    radius: isFocused ? 12 : 4,
                     x: 0,
                     y: 2
+                )
+                .shadow(
+                    color: isFocused ? Color(red: 0, green: 0.83, blue: 1).opacity(0.2) : Color.clear, // 双重发光
+                    radius: isFocused ? 20 : 0,
+                    x: 0,
+                    y: 0
                 )
         )
         .animation(.easeInOut(duration: 0.3), value: isFocused)
