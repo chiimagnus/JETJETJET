@@ -17,6 +17,7 @@ class FlightRecordingVM {
     private var modelContext: ModelContext?
     private var recordedData: [FlightDataSnapshot] = []
     private var currentSessionId: UUID?
+    private var totalDataCount: Int = 0 // 记录总数据条数
 
     // 状态属性
     var isRecording = false
@@ -68,6 +69,7 @@ class FlightRecordingVM {
         isRecording = true
         recordingStartTime = Date()
         recordedData.removeAll()
+        totalDataCount = 0 // 重置总数据计数
         currentSessionId = UUID()
         currentSnapshot = nil // 重置当前快照
 
@@ -102,6 +104,7 @@ class FlightRecordingVM {
     private func handleMotionUpdate(_ snapshot: FlightDataSnapshot) {
         currentSnapshot = snapshot
         recordedData.append(snapshot)
+        totalDataCount += 1 // 增加总数据计数
 
         // 更新录制时长
         if let startTime = recordingStartTime {
@@ -133,7 +136,7 @@ class FlightRecordingVM {
     
     private func saveRecordedData() {
         guard let modelContext = modelContext,
-              let _ = currentSessionId, // sessionId在savePartialData中使用
+              let sessionId = currentSessionId,
               let startTime = recordingStartTime else {
             errorMessage = AppConfig.ErrorMessages.dataContextUnavailable
             return
@@ -144,11 +147,12 @@ class FlightRecordingVM {
             savePartialData()
         }
 
-        // 创建飞行会话
+        // 创建飞行会话，使用正确的总数据条数和sessionId
         let session = FlightSession(
             startTime: startTime,
             endTime: Date(),
-            dataCount: recordedData.count
+            dataCount: totalDataCount,
+            id: sessionId
         )
 
         do {
@@ -156,7 +160,8 @@ class FlightRecordingVM {
             try modelContext.save()
 
             if AppConfig.Debug.enableVerboseLogging {
-                print("成功保存飞行会话，总数据条数: \(recordedData.count)")
+                print("成功保存飞行会话，总数据条数: \(totalDataCount)")
+                print("会话ID: \(sessionId)")
             }
         } catch {
             errorMessage = "\(AppConfig.ErrorMessages.dataSaveFailed): \(error.localizedDescription)"
@@ -296,6 +301,7 @@ class FlightRecordingVM {
         recordingDuration = 0
         recordingStartTime = nil
         currentSessionId = nil
+        totalDataCount = 0
         recordedData.removeAll()
     }
 

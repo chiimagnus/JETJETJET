@@ -56,6 +56,32 @@ struct AirplaneModelView: View {
                     RealtimeFlightDataView(flightData: currentData)
                         .padding(.horizontal, 20)
                         .padding(.top, 20)
+                } else {
+                    // 调试信息显示
+                    VStack(spacing: 8) {
+                        Text("数据加载状态")
+                            .font(.headline)
+                            .foregroundColor(.white)
+
+                        Text("总数据条数: \(viewModel.sessionFlightData.count)")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+
+                        Text("当前索引: \(viewModel.currentDataIndex)")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+
+                        if let error = viewModel.errorMessage {
+                            Text("错误: \(error)")
+                                .font(.caption)
+                                .foregroundColor(.red)
+                        }
+                    }
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(12)
+                    .padding(.horizontal, 20)
+                    .padding(.top, 20)
                 }
 
                 Spacer()
@@ -136,23 +162,40 @@ extension AirplaneModelView {
 
             Spacer()
 
-            // 数据详情按钮
-            Button(action: {
-                showingDataSheet = true
-            }) {
-                HStack(spacing: 6) {
-                    Image(systemName: "doc.text")
+            HStack(spacing: 8) {
+                // 调试按钮
+                Button(action: {
+                    viewModel.debugDataLoad()
+                }) {
+                    Image(systemName: "ladybug")
                         .font(.system(size: 14, weight: .medium))
-                    Text("数据")
-                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(.orange)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 6)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(.ultraThinMaterial)
+                        )
                 }
-                .foregroundColor(.white)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 6)
-                .background(
-                    RoundedRectangle(cornerRadius: 16)
-                        .fill(.ultraThinMaterial)
-                )
+
+                // 数据详情按钮
+                Button(action: {
+                    showingDataSheet = true
+                }) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "doc.text")
+                            .font(.system(size: 14, weight: .medium))
+                        Text("数据")
+                            .font(.system(size: 14, weight: .medium))
+                    }
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(.ultraThinMaterial)
+                    )
+                }
             }
         }
     }

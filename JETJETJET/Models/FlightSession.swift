@@ -9,8 +9,8 @@ final class FlightSession {
     var dataCount: Int = 0
     var title: String = ""
 
-    init(startTime: Date = Date(), endTime: Date = Date(), dataCount: Int = 0) {
-        self.id = UUID()
+    init(startTime: Date = Date(), endTime: Date = Date(), dataCount: Int = 0, id: UUID? = nil) {
+        self.id = id ?? UUID()
         self.startTime = startTime
         self.endTime = endTime
         self.dataCount = dataCount

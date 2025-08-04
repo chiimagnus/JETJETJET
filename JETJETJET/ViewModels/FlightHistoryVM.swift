@@ -34,9 +34,9 @@ class FlightHistoryVM {
     
     private func deleteSession(_ session: FlightSession) {
         guard let modelContext = modelContext else { return }
-        
+
         // 删除相关的飞行数据
-        let sessionId = session.id
+        let sessionId: UUID? = session.id
         let request = FetchDescriptor<FlightData>(
             predicate: #Predicate<FlightData> { data in
                 data.sessionId == sessionId
@@ -84,7 +84,7 @@ class FlightHistoryVM {
             return FlightStats()
         }
 
-        let sessionId = session.id
+        let sessionId: UUID? = session.id
         let request = FetchDescriptor<FlightData>(
             predicate: #Predicate<FlightData> { data in
                 data.sessionId == sessionId
