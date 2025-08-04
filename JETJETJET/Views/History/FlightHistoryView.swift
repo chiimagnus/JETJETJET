@@ -152,12 +152,16 @@ struct FlightHistoryView: View {
                 RoundedRectangle(cornerRadius: 16)
                     .fill(
                         LinearGradient(
-                            colors: [.green, .cyan],
+                            colors: [
+                                Color(red: 0, green: 1, blue: 0.53), // 霓虹绿色 #00ff88
+                                Color(red: 0, green: 0.83, blue: 1) // 霓虹青色 #00d4ff
+                            ],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         )
                     )
-                    .shadow(color: .green.opacity(0.3), radius: 12, x: 0, y: 6)
+                    .shadow(color: Color(red: 0, green: 1, blue: 0.53).opacity(0.5), radius: 16, x: 0, y: 6) // 增强绿色发光
+                    .shadow(color: Color(red: 0, green: 0.83, blue: 1).opacity(0.3), radius: 12, x: 0, y: 0) // 青色发光
             )
         }
         .buttonStyle(PlainButtonStyle())
@@ -172,7 +176,4 @@ struct FlightHistoryView: View {
     .preferredColorScheme(.dark)
 }
 
-#Preview {
-    FlightHistoryView()
-        .modelContainer(for: [FlightData.self, FlightSession.self], inMemory: true)
-}
+

@@ -117,8 +117,6 @@ struct FlightRecordCard: View {
         formatter.dateFormat = "HH:mm"
         return formatter.string(from: date)
     }
-    
-
 }
 
 #Preview {
