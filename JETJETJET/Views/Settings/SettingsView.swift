@@ -4,7 +4,6 @@ struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(LightSourceSettings.self) private var lightSettings
     @State private var userPreferences = UserPreferences.shared
-    @State private var showingModelSelection = false
     
     var body: some View {
         ZStack {
@@ -34,9 +33,6 @@ struct SettingsView: View {
         }
         .preferredColorScheme(.dark)
         .navigationBarHidden(true)
-        .sheet(isPresented: $showingModelSelection) {
-            AirplaneModelSelectionView(selectedModelType: $userPreferences.selectedAirplaneModelType)
-        }
     }
     
     // MARK: - 顶部导航栏
@@ -88,43 +84,19 @@ struct SettingsView: View {
                     Spacer()
                 }
 
-                // 当前选择的模型
-                HStack {
-                    Text("当前模型:")
-                        .font(.system(.body, design: .rounded))
-                        .foregroundColor(.gray)
-
-                    Spacer()
-
-                    Text(userPreferences.selectedAirplaneModelType.displayName)
-                        .font(.system(.body, design: .rounded, weight: .semibold))
-                        .foregroundColor(.white)
-                }
-
-                // 选择按钮
-                Button(action: {
-                    HapticService.shared.light()
-                    showingModelSelection = true
-                }) {
-                    HStack {
-                        Text("选择模型")
-                            .font(.system(.body, design: .rounded, weight: .medium))
-                            .foregroundColor(.white)
-
-                        Spacer()
-
-                        Image(systemName: "chevron.right")
-                            .font(.system(.caption, weight: .medium))
-                            .foregroundColor(.gray)
+                // 模型选项
+                VStack(spacing: 12) {
+                    ForEach(AirplaneModelType.allCases, id: \.self) { modelType in
+                        AirplaneModelOptionView(
+                            modelType: modelType,
+                            isSelected: userPreferences.selectedAirplaneModelType == modelType
+                        ) {
+                            // 切换飞机模型
+                            HapticService.shared.medium()
+                            userPreferences.selectedAirplaneModelType = modelType
+                        }
                     }
-                    .padding(.vertical, 12)
-                    .padding(.horizontal, 16)
-                    .background(
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(.ultraThinMaterial)
-                    )
                 }
-                .buttonStyle(PlainButtonStyle())
             }
             .padding(20)
         }
@@ -219,6 +191,65 @@ struct LightSourceOptionView: View {
                                 isSelected ? Color.cyan.opacity(0.5) : Color.white.opacity(0.1),
                                 lineWidth: isSelected ? 2 : 1
                             )
+                    )
+            )
+            .scaleEffect(isPressed ? 0.98 : 1.0)
+            .animation(.easeInOut(duration: 0.15), value: isPressed)
+            .animation(.easeInOut(duration: 0.3), value: isSelected)
+        }
+        .buttonStyle(PlainButtonStyle())
+    }
+}
+
+// MARK: - 飞机模型选项视图
+struct AirplaneModelOptionView: View {
+    let modelType: AirplaneModelType
+    let isSelected: Bool
+    let action: () -> Void
+
+    @State private var isPressed = false
+
+    var body: some View {
+        Button(action: {
+            withAnimation(.easeInOut(duration: 0.15)) {
+                isPressed = true
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                withAnimation(.easeInOut(duration: 0.15)) {
+                    isPressed = false
+                }
+            }
+            action()
+        }) {
+            HStack(spacing: 16) {
+                // 图标
+                Image(systemName: modelType == .defaultModel ? "airplane" : "airplane.circle")
+                    .font(.title2)
+                    .foregroundColor(isSelected ? .white : .gray)
+                    .frame(width: 30)
+
+                // 名称
+                Text(modelType.displayName)
+                    .font(.system(.body, design: .rounded, weight: .medium))
+                    .foregroundColor(isSelected ? .white : .gray)
+
+                Spacer()
+
+                // 选中状态指示器
+                if isSelected {
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.title3)
+                        .foregroundColor(.cyan)
+                }
+            }
+            .padding(.vertical, 16)
+            .padding(.horizontal, 20)
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(isSelected ? .cyan.opacity(0.15) : .clear)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(isSelected ? .cyan.opacity(0.3) : .gray.opacity(0.2), lineWidth: 1)
                     )
             )
             .scaleEffect(isPressed ? 0.98 : 1.0)
