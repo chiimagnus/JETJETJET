@@ -114,6 +114,7 @@ JETJETJET/
 
 - [Pixabay](https://pixabay.com/) - 提供高质量音效素材
 - [superdesign](https://github.com/superdesigndev/superdesign) - 提供设计稿提示词
+- [3D模型](https://www.thingiverse.com/thing:222309)
 
 <div align="center">
 
