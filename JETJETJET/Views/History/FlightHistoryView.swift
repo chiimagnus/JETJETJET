@@ -24,13 +24,6 @@ struct FlightHistoryView: View {
 
                 ScrollView {
                     VStack(spacing: 20) {
-                        // 搜索栏 - 按需显示
-                        if showSearchBar {
-                            SearchBar(searchText: $viewModel.searchText)
-                                .padding(.horizontal, 20)
-                                .transition(.move(edge: .top).combined(with: .opacity))
-                        }
-
                         // 飞行记录列表
                         LazyVStack(spacing: 16) {
                             if filteredSessions.isEmpty {
@@ -82,24 +75,44 @@ struct FlightHistoryView: View {
 
                 Spacer()
 
-                Text("JET LOGS")
-                    .font(.system(.title2, design: .rounded, weight: .bold))
-                    .foregroundColor(.white)
-                    .tracking(1)
+                if showSearchBar {
+                    // 搜索栏展开状态
+                    HStack(spacing: 12) {
+                        SearchBar(searchText: $viewModel.searchText)
 
-                Spacer()
+                        Button(action: {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                showSearchBar = false
+                                viewModel.searchText = ""
+                            }
+                        }) {
+                            Image(systemName: "xmark")
+                                .font(.system(.title3, weight: .medium))
+                                .foregroundColor(.cyan)
+                        }
+                    }
+                    .transition(.move(edge: .trailing).combined(with: .opacity))
+                } else {
+                    // 正常状态
+                    HStack {
+                        Text("JET LOGS")
+                            .font(.system(.title2, design: .rounded, weight: .bold))
+                            .foregroundColor(.white)
+                            .tracking(1)
 
-                Button(action: {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        showSearchBar.toggle()
+                        Spacer()
+
+                        Button(action: {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                showSearchBar = true
+                            }
+                        }) {
+                            Image(systemName: "magnifyingglass")
+                                .font(.system(.title3, weight: .medium))
+                                .foregroundColor(.cyan)
+                        }
                     }
-                    if !showSearchBar {
-                        viewModel.searchText = ""
-                    }
-                }) {
-                    Image(systemName: "magnifyingglass")
-                        .font(.system(.title3, weight: .medium))
-                        .foregroundColor(showSearchBar ? Color(red: 0, green: 0.83, blue: 1) : .cyan)
+                    .transition(.move(edge: .leading).combined(with: .opacity))
                 }
             }
             .padding()
