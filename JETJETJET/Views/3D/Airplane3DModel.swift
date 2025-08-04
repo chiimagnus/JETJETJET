@@ -45,7 +45,7 @@ struct AirplaneModelConfig {
     static let jet1Config = AirplaneModelConfig(
         position: SCNVector3(0, 0, 0),
         rotation: SCNVector3(0, 0, 0), // 无初始旋转
-        scale: SCNVector3(1, 1, 1),
+        scale: SCNVector3(0.02, 0.02, 0.02),
         cameraPosition: SCNVector3(x: 0, y: 1, z: 2.2),
         cameraLookAt: SCNVector3(0, 0, 0)
     )
