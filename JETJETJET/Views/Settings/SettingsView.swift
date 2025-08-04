@@ -3,7 +3,7 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(LightSourceSettings.self) private var lightSettings
-    @State private var userPreferences = UserPreferences.shared
+    private var userPreferences = UserPreferences.shared
     
     var body: some View {
         ZStack {
@@ -100,7 +100,6 @@ struct SettingsView: View {
             }
             .padding(20)
         }
-        .padding(.horizontal, 20)
     }
 
     // MARK: - 光源设置区域
