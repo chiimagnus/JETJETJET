@@ -204,6 +204,51 @@ struct SettingsView: View {
                     Divider()
                         .background(Color.white.opacity(0.2))
 
+                    // 音效资源版权信息
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack {
+                            Image(systemName: "speaker.wave.2.fill")
+                                .font(.body)
+                                .foregroundColor(.orange)
+
+                            Text("音效资源")
+                                .font(.system(.body, design: .rounded, weight: .semibold))
+                                .foregroundColor(.white)
+                        }
+
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("来源：Pixabay")
+                                .font(.system(.caption, design: .rounded))
+                                .foregroundColor(.gray)
+
+                            Text("许可：Pixabay Content License")
+                                .font(.system(.caption, design: .rounded))
+                                .foregroundColor(.gray)
+
+                            Text("免费商用，无需署名")
+                                .font(.system(.caption, design: .rounded))
+                                .foregroundColor(.gray)
+
+                            HStack {
+                                Text("详情：")
+                                    .font(.system(.caption, design: .rounded))
+                                    .foregroundColor(.gray)
+
+                                Button("Pixabay License") {
+                                    if let url = URL(string: "https://pixabay.com/service/license-summary/") {
+                                        UIApplication.shared.open(url)
+                                    }
+                                }
+                                .font(.system(.caption, design: .rounded))
+                                .foregroundColor(.blue)
+                            }
+                        }
+                        .padding(.leading, 24)
+                    }
+
+                    Divider()
+                        .background(Color.white.opacity(0.2))
+
                     // 应用版权信息
                     VStack(alignment: .leading, spacing: 8) {
                         HStack {
