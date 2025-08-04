@@ -106,16 +106,29 @@ JETJETJET/
 3. **开发功能** - 保持设计一致性
 4. **提交PR** - 我们会快速review
 
-## 📄 许可证
+## 📄 版权信息与致谢
 
-**GPL-3.0许可证** - 开源免费，欢迎fork！
+### 🎨 3D 模型资源
 
-## 📄 致谢
+**飞机3D模型**
+- **模型名称**: Little Jet Plane
+- **作者**: macouno
+- **发布日期**: 2014年1月10日
+- **许可类型**: [CC BY (Creative Commons - Attribution)](https://creativecommons.org/licenses/by/4.0/)
+- **原始来源**: [Thingiverse - Little Jet Plane](https://www.thingiverse.com/thing:222309)
 
-- [Pixabay](https://pixabay.com/) - 提供高质量音效素材
-- [superdesign](https://github.com/superdesigndev/superdesign) - 提供设计稿提示词
-- [3D模型](https://www.thingiverse.com/thing:222309)
+### 🎵 音效资源
 
+- **[Pixabay](https://pixabay.com/)** - 提供高质量音效素材，遵循 Pixabay License
+
+### 🛠️ 开发工具
+
+- **[superdesign](https://github.com/superdesigndev/superdesign)** - 提供设计稿生成提示词
+
+### 📱 应用版权
+
+- **JETJETJET** © 2025 Chii Magnus
+- **许可证**: GPL-3.0 License
 <div align="center">
 
 *Made with ❤️ by [Chii Magnus](https://github.com/chiimagnus)*

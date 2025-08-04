@@ -110,10 +110,32 @@ JETJETJET/
 
 **GPL-3.0 License** - Open source and free, welcome to fork!
 
-## 📄 Acknowledgments
+## 📄 Copyright Information & Acknowledgments
 
-- [Pixabay](https://pixabay.com/) - High-quality sound effects
-- [superdesign](https://github.com/superdesigndev/superdesign) - Design file prompts
+### 🎨 3D Model Resources
+
+**Aircraft 3D Model**
+- **Model Name**: Little Jet Plane
+- **Author**: macouno
+- **Release Date**: January 10, 2014
+- **License Type**: [CC BY (Creative Commons - Attribution)](https://creativecommons.org/licenses/by/4.0/)
+- **Original Source**: [Thingiverse - Little Jet Plane](https://www.thingiverse.com/thing:222309)
+
+**Usage Note**: Under CC BY license, we can freely use, modify, and distribute this model. The only requirement is to maintain attribution to the original author.
+
+### 🎵 Audio Resources
+
+- **[Pixabay](https://pixabay.com/)** - High-quality sound effects under Pixabay License
+
+### 🛠️ Development Tools
+
+- **[superdesign](https://github.com/superdesigndev/superdesign)** - Design file generation prompts
+
+### 📱 Application Copyright
+
+- **JETJETJET** © 2025 Chii Magnus
+- **License**: GPL-3.0 License
+- **Tech Stack**: Built on Apple native frameworks (SwiftUI, SceneKit, CoreMotion, SwiftData)
 
 <div align="center">
 

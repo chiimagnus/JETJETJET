@@ -23,6 +23,9 @@ struct SettingsView: View {
 
                         // 光源设置区域
                         lightSourceSection
+
+                        // 版权信息区域
+                        copyrightSection
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 20)
@@ -130,6 +133,99 @@ struct SettingsView: View {
                             HapticService.shared.medium()
                             lightSettings.switchMode(to: mode)
                         }
+                    }
+                }
+            }
+            .padding(20)
+        }
+    }
+
+    // MARK: - 版权信息区域
+    private var copyrightSection: some View {
+        GlassCard {
+            VStack(alignment: .leading, spacing: 20) {
+                // 标题
+                HStack {
+                    Image(systemName: "info.circle.fill")
+                        .font(.title2)
+                        .foregroundColor(.blue)
+
+                    Text("版权信息")
+                        .font(.system(.title3, design: .rounded, weight: .bold))
+                        .foregroundColor(.white)
+
+                    Spacer()
+                }
+
+                // 版权信息内容
+                VStack(alignment: .leading, spacing: 16) {
+                    // 3D模型版权信息
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack {
+                            Image(systemName: "cube.fill")
+                                .font(.body)
+                                .foregroundColor(.cyan)
+
+                            Text("3D 模型资源")
+                                .font(.system(.body, design: .rounded, weight: .semibold))
+                                .foregroundColor(.white)
+                        }
+
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("模型名称：Little Jet Plane")
+                                .font(.system(.caption, design: .rounded))
+                                .foregroundColor(.gray)
+
+                            Text("作者：macouno")
+                                .font(.system(.caption, design: .rounded))
+                                .foregroundColor(.gray)
+
+                            Text("许可：CC BY (Creative Commons - Attribution)")
+                                .font(.system(.caption, design: .rounded))
+                                .foregroundColor(.gray)
+
+                            HStack {
+                                Text("来源：")
+                                    .font(.system(.caption, design: .rounded))
+                                    .foregroundColor(.gray)
+
+                                Button("Thingiverse") {
+                                    if let url = URL(string: "https://www.thingiverse.com/thing:222309") {
+                                        UIApplication.shared.open(url)
+                                    }
+                                }
+                                .font(.system(.caption, design: .rounded))
+                                .foregroundColor(.blue)
+                            }
+                        }
+                        .padding(.leading, 24)
+                    }
+
+                    Divider()
+                        .background(Color.white.opacity(0.2))
+
+                    // 应用版权信息
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack {
+                            Image(systemName: "app.fill")
+                                .font(.body)
+                                .foregroundColor(.green)
+
+                            Text("应用信息")
+                                .font(.system(.body, design: .rounded, weight: .semibold))
+                                .foregroundColor(.white)
+                        }
+
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("JETJETJET")
+                                .font(.system(.caption, design: .rounded))
+                                .foregroundColor(.gray)
+
+                            Text("© 2025 Chii Magnus")
+                                .font(.system(.caption, design: .rounded))
+                                .foregroundColor(.gray)
+                        }
+                        .padding(.leading, 24)
                     }
                 }
             }
