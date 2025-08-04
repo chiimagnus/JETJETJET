@@ -85,8 +85,8 @@ struct FlightHistoryView: View {
                         SearchBar(searchText: $viewModel.searchText)
 
                         Button(action: {
-                            // 播放音效
-                            SoundService.shared.playSound("Whoosh Sound Effect", volume: 0.6, duration: 1.5)
+                            // // 播放音效
+                            // SoundService.shared.playSound("Whoosh Sound Effect", volume: 0.6, duration: 1.5)
 
                             withAnimation(.easeInOut(duration: 0.3)) {
                                 showSearchBar = false
@@ -191,7 +191,7 @@ struct FlightHistoryView: View {
 }
 
 #Preview {
-    NavigationView {
+    NavigationStack {
         FlightHistoryView()
     }
     .modelContainer(for: [FlightData.self, FlightSession.self], inMemory: true)
