@@ -36,6 +36,7 @@ struct FlightHistoryView: View {
                             }
                         }
                         .padding(.horizontal, 20)
+                        .padding(.top, 20) // 增加顶部间距，避免与导航栏重叠
 
                         // 新建飞行按钮
                         newFlightButton
