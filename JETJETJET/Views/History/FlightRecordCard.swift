@@ -3,8 +3,6 @@ import SwiftUI
 struct FlightRecordCard: View {
     let session: FlightSession
     let viewModel: FlightHistoryVM
-    @State private var isHovered = false
-    @State private var isPressed = false
 
     var body: some View {
         let stats = viewModel.getFlightStats(for: session)
@@ -64,10 +62,45 @@ struct FlightRecordCard: View {
             }
                 
             // 回放按钮
-            ReplayButton {
-                // 回放动作
-                print("回放飞行记录: \(session.id)")
+            NavigationLink(destination: AirplaneModelView(session: session)) {
+                HStack(spacing: 8) {
+                    Image(systemName: "play.fill")
+                        .font(.system(.body, weight: .semibold))
+
+                    Text("REJET")
+                        .font(.system(.body, design: .rounded, weight: .bold))
+                        .tracking(1)
+                }
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 12)
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(
+                            LinearGradient(
+                                colors: [
+                                    Color(red: 0.55, green: 0.36, blue: 0.96), // 霓虹紫色 #8b5cf6
+                                    Color(red: 0, green: 0.83, blue: 1) // 霓虹青色 #00d4ff
+                                ],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .shadow(
+                            color: Color(red: 0.55, green: 0.36, blue: 0.96).opacity(0.6), // 增强紫色发光
+                            radius: 12,
+                            x: 0,
+                            y: 4
+                        )
+                        .shadow(
+                            color: Color(red: 0, green: 0.83, blue: 1).opacity(0.4), // 青色发光
+                            radius: 8,
+                            x: 0,
+                            y: 0
+                        )
+                )
             }
+            .buttonStyle(PlainButtonStyle())
         }
         .padding(20)
         .background(
@@ -75,35 +108,10 @@ struct FlightRecordCard: View {
                 .fill(.ultraThinMaterial)
                 .overlay(
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(
-                            isHovered || isPressed ?
-                            Color(red: 0, green: 0.83, blue: 1) : // 霓虹青色
-                            Color.white.opacity(0.1),
-                            lineWidth: isHovered || isPressed ? 1.5 : 1
-                        )
+                        .stroke(Color.white.opacity(0.1), lineWidth: 1)
                 )
-                .shadow(
-                    color: isHovered || isPressed ?
-                    Color(red: 0, green: 0.83, blue: 1).opacity(0.4) : // 霓虹青色发光
-                    Color.black.opacity(0.3),
-                    radius: isHovered || isPressed ? 16 : 8,
-                    x: 0,
-                    y: isHovered || isPressed ? 8 : 4
-                )
+                .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 4)
         )
-        .scaleEffect(isPressed ? 0.98 : 1.0)
-        .onHover { hovering in
-            isHovered = hovering
-        }
-        .onTapGesture {
-            // 简化的点击反馈效果
-            isPressed = true
-            HapticService.shared.light()
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                isPressed = false
-            }
-        }
     }
     
     private func formatDate(_ date: Date) -> String {

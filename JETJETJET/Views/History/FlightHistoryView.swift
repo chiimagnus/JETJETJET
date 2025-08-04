@@ -37,10 +37,7 @@ struct FlightHistoryView: View {
                                 emptyStateView
                             } else {
                                 ForEach(filteredSessions, id: \.id) { session in
-                                    NavigationLink(destination: AirplaneModelView(session: session)) {
-                                        FlightRecordCard(session: session, viewModel: viewModel)
-                                    }
-                                    .buttonStyle(PlainButtonStyle())
+                                    FlightRecordCard(session: session, viewModel: viewModel)
                                 }
                             }
                         }
