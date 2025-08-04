@@ -38,7 +38,7 @@ struct FlightHistoryView: View {
                             } else {
                                 ForEach(filteredSessions, id: \.id) { session in
                                     NavigationLink(destination: AirplaneModelView(session: session)) {
-                                        FlightRecordCardWithStats(session: session, viewModel: viewModel)
+                                        FlightRecordCard(session: session, viewModel: viewModel)
                                     }
                                     .buttonStyle(PlainButtonStyle())
                                 }
@@ -161,111 +161,6 @@ struct FlightHistoryView: View {
             )
         }
         .buttonStyle(PlainButtonStyle())
-    }
-}
-
-// MARK: - 带统计数据的飞行记录卡片
-struct FlightRecordCardWithStats: View {
-    let session: FlightSession
-    let viewModel: FlightHistoryVM
-
-    var body: some View {
-        let stats = viewModel.getFlightStats(for: session)
-
-        VStack(spacing: 0) {
-            // 顶部彩色渐变条
-            Rectangle()
-                .fill(
-                    LinearGradient(
-                        colors: [.cyan, .green, .purple],
-                        startPoint: .leading,
-                        endPoint: .trailing
-                    )
-                )
-                .frame(height: 3)
-
-            VStack(spacing: 16) {
-                // 日期和状态行
-                HStack {
-                    HStack(spacing: 12) {
-                        Text("📅")
-                            .font(.title2)
-
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text(formatDate(session.startTime))
-                                .font(.system(.body, design: .rounded, weight: .semibold))
-                                .foregroundColor(.white)
-
-                            Text(formatTime(session.startTime))
-                                .font(.system(.caption, design: .rounded))
-                                .foregroundColor(.gray)
-                        }
-                    }
-
-                    Spacer()
-
-                    // 飞行状态指示器
-                    FlightStatusIndicator()
-                }
-
-                // 飞行时长和描述
-                HStack(spacing: 16) {
-                    HStack(spacing: 8) {
-                        Text("⏱️")
-                            .font(.body)
-                        Text(session.formattedDuration)
-                            .font(.system(.body, design: .rounded, weight: .bold))
-                            .foregroundColor(.cyan)
-                    }
-
-                    HStack(spacing: 8) {
-                        Text("🛫")
-                            .font(.body)
-                        Text(session.flightDescription)
-                            .font(.system(.caption, design: .rounded))
-                            .foregroundColor(.gray)
-                    }
-
-                    Spacer()
-                }
-
-                // 数据标签网格
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: 4), spacing: 12) {
-                    DataTag(value: stats.formattedMaxSpeed, label: "Max Speed", color: .cyan)
-                    DataTag(value: stats.formattedMaxPitch, label: "Max Pitch", color: .green)
-                    DataTag(value: stats.formattedMaxRoll, label: "Max Roll", color: .orange)
-                    DataTag(value: stats.formattedMaxG, label: "Max G", color: .purple)
-                }
-
-                // 回放按钮
-                ReplayButton {
-                    // 导航到3D回放视图
-                    print("回放飞行记录: \(session.id)")
-                }
-            }
-            .padding(20)
-        }
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(.ultraThinMaterial)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color.white.opacity(0.1), lineWidth: 1)
-                )
-                .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 4)
-        )
-    }
-
-    private func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter.string(from: date)
-    }
-
-    private func formatTime(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        return formatter.string(from: date)
     }
 }
 

@@ -2,10 +2,13 @@ import SwiftUI
 
 struct FlightRecordCard: View {
     let session: FlightSession
+    let viewModel: FlightHistoryVM
     @State private var isHovered = false
     @State private var isPressed = false
 
     var body: some View {
+        let stats = viewModel.getFlightStats(for: session)
+
         VStack(spacing: 16) {
             // 日期和状态行
             HStack {
@@ -44,7 +47,7 @@ struct FlightRecordCard: View {
                 HStack(spacing: 8) {
                     Text("🛫")
                         .font(.body)
-                    Text(getFlightDescription())
+                    Text(session.flightDescription)
                         .font(.system(.caption, design: .rounded))
                         .foregroundColor(.gray)
                 }
@@ -54,10 +57,10 @@ struct FlightRecordCard: View {
                 
             // 数据标签网格
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: 4), spacing: 12) {
-                DataTag(value: "15.2", label: "Max Speed", color: Color(red: 0, green: 0.83, blue: 1)) // 霓虹青色
-                DataTag(value: "45°", label: "Max Pitch", color: Color(red: 0, green: 1, blue: 0.53)) // 霓虹绿色
-                DataTag(value: "30°", label: "Max Roll", color: Color(red: 1, green: 0.42, blue: 0.21)) // 霓虹橙色
-                DataTag(value: "3.2G", label: "Max G", color: Color(red: 0.55, green: 0.36, blue: 0.96)) // 霓虹紫色
+                DataTag(value: stats.formattedMaxSpeed, label: "Max Speed", color: Color(red: 0, green: 0.83, blue: 1)) // 霓虹青色
+                DataTag(value: stats.formattedMaxPitch, label: "Max Pitch", color: Color(red: 0, green: 1, blue: 0.53)) // 霓虹绿色
+                DataTag(value: stats.formattedMaxRoll, label: "Max Roll", color: Color(red: 1, green: 0.42, blue: 0.21)) // 霓虹橙色
+                DataTag(value: stats.formattedMaxG, label: "Max G", color: Color(red: 0.55, green: 0.36, blue: 0.96)) // 霓虹紫色
             }
                 
             // 回放按钮
@@ -115,34 +118,28 @@ struct FlightRecordCard: View {
         return formatter.string(from: date)
     }
     
-    private func getFlightDescription() -> String {
-        // 根据飞行时长和数据量生成描述
-        let duration = session.duration
-        if duration > 180 { // 3分钟以上
-            return "激烈机动"
-        } else if duration > 120 { // 2分钟以上
-            return "精彩飞行"
-        } else {
-            return "平稳飞行"
-        }
-    }
-}
 
-// FlightStatusIndicator 已移动到单独的文件中
+}
 
 #Preview {
     VStack(spacing: 20) {
-        FlightRecordCard(session: FlightSession(
-            startTime: Date(),
-            endTime: Date().addingTimeInterval(154),
-            dataCount: 100
-        ))
-        
-        FlightRecordCard(session: FlightSession(
-            startTime: Date().addingTimeInterval(-3600),
-            endTime: Date().addingTimeInterval(-3400),
-            dataCount: 200
-        ))
+        FlightRecordCard(
+            session: FlightSession(
+                startTime: Date(),
+                endTime: Date().addingTimeInterval(154),
+                dataCount: 100
+            ),
+            viewModel: FlightHistoryVM()
+        )
+
+        FlightRecordCard(
+            session: FlightSession(
+                startTime: Date().addingTimeInterval(-3600),
+                endTime: Date().addingTimeInterval(-3400),
+                dataCount: 200
+            ),
+            viewModel: FlightHistoryVM()
+        )
     }
     .padding()
     .background(Color.black)
