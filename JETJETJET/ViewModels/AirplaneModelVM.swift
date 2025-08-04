@@ -45,16 +45,6 @@ class AirplaneModelVM {
             // 重置播放状态
             currentDataIndex = 0
             isPlaying = false
-
-            // 调试信息
-            print("成功加载会话数据:")
-            print("- 会话ID: \(sessionId)")
-            print("- 数据条数: \(sessionFlightData.count)")
-            print("- 会话dataCount: \(session.dataCount)")
-            if let firstData = sessionFlightData.first {
-                print("- 第一条数据时间: \(firstData.timestamp)")
-                print("- 第一条数据sessionId: \(firstData.sessionId?.uuidString ?? "nil")")
-            }
         } catch {
             print("加载会话数据失败: \(error)")
             errorMessage = "加载数据失败: \(error.localizedDescription)"
@@ -171,44 +161,6 @@ class AirplaneModelVM {
         let remainingTime = Double(remainingPoints) * timePerPoint
 
         return formatTime(remainingTime)
-    }
-
-    // MARK: - 调试方法
-    func debugDataLoad() {
-        guard let modelContext = modelContext else {
-            print("❌ ModelContext 不可用")
-            return
-        }
-
-        // 查询所有FlightSession
-        let sessionRequest = FetchDescriptor<FlightSession>(
-            sortBy: [SortDescriptor(\.startTime, order: .reverse)]
-        )
-
-        do {
-            let allSessions = try modelContext.fetch(sessionRequest)
-            print("📊 数据库中的所有会话:")
-            for (index, session) in allSessions.enumerated() {
-                print("  \(index + 1). ID: \(session.id)")
-                print("     标题: \(session.title)")
-                print("     数据条数: \(session.dataCount)")
-                print("     开始时间: \(session.startTime)")
-
-                // 查询该会话的FlightData
-                let sessionId: UUID? = session.id
-                let dataRequest = FetchDescriptor<FlightData>(
-                    predicate: #Predicate<FlightData> { data in
-                        data.sessionId == sessionId
-                    }
-                )
-
-                let sessionData = try modelContext.fetch(dataRequest)
-                print("     实际数据条数: \(sessionData.count)")
-                print("     ---")
-            }
-        } catch {
-            print("❌ 查询数据失败: \(error)")
-        }
     }
 
     deinit {

@@ -158,11 +158,6 @@ class FlightRecordingVM {
         do {
             modelContext.insert(session)
             try modelContext.save()
-
-            if AppConfig.Debug.enableVerboseLogging {
-                print("成功保存飞行会话，总数据条数: \(totalDataCount)")
-                print("会话ID: \(sessionId)")
-            }
         } catch {
             errorMessage = "\(AppConfig.ErrorMessages.dataSaveFailed): \(error.localizedDescription)"
         }
@@ -192,9 +187,6 @@ class FlightRecordingVM {
             // 保存批次
             do {
                 try backgroundContext.save()
-                if AppConfig.Debug.enableVerboseLogging {
-                    print("批量保存 \(chunk.count) 条数据成功")
-                }
             } catch {
                 self.errorMessage = "\(AppConfig.ErrorMessages.dataSaveFailed): \(error.localizedDescription)"
             }
@@ -266,10 +258,6 @@ class FlightRecordingVM {
     /// 尝试恢复状态一致性
     func recoverState() {
         if !validateState() {
-            if AppConfig.Debug.enableVerboseLogging {
-                print("检测到状态不一致，尝试恢复...")
-            }
-
             if isRecording {
                 // 如果标记为录制但状态不一致，停止录制
                 forceStopRecording()
