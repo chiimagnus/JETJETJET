@@ -88,7 +88,7 @@ JETJETJET/
 - [ ] **真实飞机模型** - 替换3D箭头
 - [ ] **数据导出** - CSV/JSON格式
 - [ ] **Apple Vision Pro** - 空间计算体验
-- [ ] **RoNIN技术升级** - 基于[RoNIN](https://ronin.cs.sfu.ca/)论文的神经网络惯性导航，实现不依赖GPS的精确速度计算
+- [ ] **RoNIN技术升级** - 基于[RoNIN](https://ronin.cs.sfu.ca/)论文的神经网络惯性导航，实现不依赖GPS的精确速度计算。[对话链接](https://chat.z.ai/s/c8855f52-7457-4160-90ec-1652376e4998)
 
 ## 🤝 参与开发
 
@@ -108,9 +108,16 @@ JETJETJET/
 
 **GPL-3.0许可证** - 开源免费，欢迎fork！
 
+## 📄 致谢
+
+- [Pixabay](https://pixabay.com/) - 提供高质量音效素材
+- [superdesign](https://github.com/superdesigndev/superdesign) - 提供设计稿提示词
+
 <div align="center">
 
 *Made with ❤️ by ChiiMagnus*
+
+**特别感谢**
 
 **如果这个项目让你眼前一亮，请给我们一个 ⭐️ **
 
