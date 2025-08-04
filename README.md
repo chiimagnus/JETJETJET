@@ -70,6 +70,12 @@
 - **触觉反馈**：Haptic Engine提供物理反馈
 - **音效系统**：引擎轰鸣增强真实感
 
+### 设计稿技术栈
+- **纯HTML/CSS/JS** - 无需构建工具
+- **Tailwind CSS** - 快速样式开发
+- **Lucide图标** - 现代化图标系统
+- **Google Fonts** - Orbitron + Exo 2字体
+
 ## 🚀 开发者指南
 
 ### 环境要求
