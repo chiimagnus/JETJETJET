@@ -195,6 +195,7 @@ struct FlightHistoryView: View {
         FlightHistoryView()
     }
     .modelContainer(for: [FlightData.self, FlightSession.self], inMemory: true)
+    .environment(LightSourceSettings())
     .preferredColorScheme(.dark)
 }
 
