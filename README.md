@@ -2,40 +2,25 @@
 
 # JETJETJET✈︎✈︎✈︎
 
-### *将您的iPhone变成专业飞行数据记录仪*
+### *将你的iPhone变成专业飞行数据记录仪*
 
-[![Swift 5.9](https://img.shields.io/badge/Swift-5.9-orange.svg)](https://swift.org)
-[![iOS 17+](https://img.shields.io/badge/iOS-17+-blue.svg)](https://developer.apple.com/ios)
-[![SwiftUI](https://img.shields.io/badge/SwiftUI-5-green.svg)](https://developer.apple.com/swiftui)
-[![SceneKit](https://img.shields.io/badge/3D-SceneKit-purple.svg)](https://developer.apple.com/scenekit)
-[![CoreMotion](https://img.shields.io/badge/Sensors-CoreMotion-red.svg)](https://developer.apple.com/coremotion)
-[![License](https://img.shields.io/badge/License-GPL--3.0-yellow.svg)](./LICENSE)
+[![Swift 5.9](https://img.shields.io/badge/Swift-5.9-orange.svg)](https://swift.org) [![SwiftUI](https://img.shields.io/badge/SwiftUI-5-green.svg)](https://developer.apple.com/swiftui)
+[![SceneKit](https://img.shields.io/badge/3D-SceneKit-purple.svg)](https://developer.apple.com/scenekit) [![CoreMotion](https://img.shields.io/badge/Sensors-CoreMotion-red.svg)](https://developer.apple.com/coremotion)
+[![iOS 17+](https://img.shields.io/badge/iOS-17+-blue.svg)](https://developer.apple.com/ios) [![License](https://img.shields.io/badge/License-GPL--3.0-yellow.svg)](./LICENSE)
 
 </div>
 
-## 🌟 项目亮点
+## 🎯 一句话介绍
 
-**JETJETJET** 不仅仅是一个应用，它是您口袋里的**私人飞行模拟器**！通过先进的iOS传感器技术，将您的手机运动实时转化为震撼的3D飞行动画。
+**JETJETJET** = 把你的iPhone变成飞机 + 实时3D飞行回放
 
-### ✨ 核心体验
-- 🎮 **沉浸式飞行**：挥动手机，3D飞机实时响应您的每一个动作
-- 🎬 **时光倒流**：记录完整飞行轨迹，随时回放精彩瞬间  
-- 🌌 **科幻界面**：动态星空背景，随飞机姿态变换的霓虹光效
-- 📊 **实时数据**：俯仰、横滚、偏航、速度，一目了然
+## ✨ 核心功能一览
 
-## 🎯 用户指南
-
-### 快速开始
-1. **启动应用** → 进入主界面，3D飞机悬浮在星空中
-2. **开始记录** → 点击"开始飞行"，挥动您的手机
-3. **体验飞行** → 上下俯冲、左右翻滚、旋转机头
-4. **回放精彩** → 在历史记录中重温您的飞行表演
-
-### 飞行数据解读
-- **⬆️ 俯仰角 (Pitch)**：机头上下 - 正值爬升，负值俯冲
-- **🔄 横滚角 (Roll)**：左右倾斜 - 正值右倾，负值左倾  
-- **↔️ 偏航角 (Yaw)**：机头转向 - 正值右转，负值左转
-- **⚡ 速度 (Speed)**：前进速率 - 实时计算
+| 功能 | 效果 | 技术亮点 |
+|------|------|----------|
+| **🎮 实时飞行** | 手机=战斗机，每个动作实时3D显示 | CoreMotion 10Hz采样 |
+| **🎬 时光倒流** | 完整飞行轨迹，360°回放 | SceneKit 3D渲染 |
+| **🌌 科幻界面** | 动态星空+霓虹光效 | SwiftUI+粒子动画 |
 
 ## 🛠️ 技术架构
 
@@ -48,133 +33,108 @@
 🎯 传感器: CoreMotion
 ```
 
-### 架构特色
-- **MVVM架构**：清晰的关注点分离
-- **响应式编程**：Combine框架实现数据流
-- **模块化设计**：视图、模型、服务完全解耦
-- **零依赖**：仅使用系统框架，轻量高效
-
-## 🎨 设计亮点
-
-### 动态星空背景
-- **实时响应**：根据飞机姿态动态调整光源位置
-- **渐变光效**：从深蓝到霓虹蓝的梦幻过渡
-- **粒子动画**：星星闪烁营造太空氛围
-
-### 玻璃拟态界面
-- **毛玻璃效果**：iOS风格的半透明卡片
-- **霓虹边框**：脉冲动画增强科技感
-- **全息投影**：3D飞机仿佛悬浮在星空中
-
-### 沉浸式交互
-- **手势控制**：自然直观的手机操作
-- **触觉反馈**：Haptic Engine提供物理反馈
-- **音效系统**：引擎轰鸣增强真实感
-
-### 设计稿技术栈
-- **纯HTML/CSS/JS** - 无需构建工具
-- **Tailwind CSS** - 快速样式开发
-- **Lucide图标** - 现代化图标系统
-- **Google Fonts** - Orbitron + Exo 2字体
-
-## 🚀 开发者指南
-
-### 环境要求
-- **Xcode 15.0+**
-- **iOS 17.0+**
-- **Swift 5.9+**
-- **真机测试** (需要CoreMotion传感器)
-
-### 项目结构
+### 📁 项目结构
 ```
 JETJETJET/
-├── Models/           # 数据模型 (SwiftData)
-├── ViewModels/       # 业务逻辑 (MVVM)
-├── Views/           # SwiftUI视图
-│   ├── 3D/          # SceneKit 3D组件
-│   ├── Common/      # 通用UI组件
-│   ├── Main/        # 主界面
+├── Models/          # 数据模型
+├── ViewModels/      # 业务逻辑
+├── Views/           # SwiftUI界面
+│   ├── 3D/          # SceneKit 3D
 │   ├── Recording/   # 录制界面
 │   └── History/     # 历史记录
 ├── Services/        # 传感器服务
-└── Utils/          # 工具类
+└── .superdesign/    # ✅ 完整设计稿已包含！
+    ├── jetjet_main_1.html      # 主界面设计
+    ├── jetjet_recording_1.html # 录制界面
+    ├── jetjet_replay_1.html    # 回放界面
+    └── jetjet_theme.css        # 完整主题系统
 ```
 
-### 快速运行
+## 🎨 设计稿展示
+
+<div align="center">
+
+### 📂 项目中已包含完整设计稿！
+
+**🎨 5个精美HTML设计稿 + 完整CSS主题**
+
+| 界面 | 预览 | 特色 |
+|------|------|------|
+| **主界面** | [🚀 主界面设计稿](./.superdesign/design_iterations/jetjet_main_1.html) | 动态星空+3D飞机 |
+| **录制界面** | [📹 录制界面设计稿](./.superdesign/design_iterations/jetjet_recording_1.html) | HUD风格+实时数据 |
+| **倒计时界面** | [⏰ 倒计时设计稿](./.superdesign/design_iterations/jetjet_countdown_1.html) | 沉浸式准备体验 |
+| **历史记录** | [📊 历史记录设计稿](./.superdesign/design_iterations/jetjet_history_1.html) | 玻璃拟态卡片 |
+| **3D回放** | [🎮 3D回放设计稿](./.superdesign/design_iterations/jetjet_replay_1.html) | 完整轨迹重现 |
+
+</div>
+
+## 🚀 立即开始
+
+### 📱 环境要求
+- **iOS 17.0+** (iPhone/iPad)
+- **Xcode 15.0+**
+- **真机测试** (需要CoreMotion传感器)
+
+### 🎯 一键运行
 ```bash
-# 克隆项目
+# 1. 克隆项目
 git clone https://github.com/ChiiMagnus/JETJETJET.git
-# 在Xcode中打开
-# 选择真机运行 (CoreMotion需要真机)
-# 点击运行 ▶️
+# 2. 使用Xcode打开项目
+# 3. 选择真机运行 ▶️
+# 4. 开始飞行！
 ```
 
-### 贡献指南
+---
 
-我们欢迎所有形式的贡献！
+## 🎯 开发路线图
 
-#### 🐛 问题报告
-- 使用GitHub Issues报告bug
-- 提供详细的复现步骤
-- 附上设备型号和iOS版本
+### ✅ 已完成 (立即可用)
+- [x] **实时3D飞行** - 挥手机=开飞机
+- [x] **完整数据记录** - 每个动作都记录
+- [x] **3D轨迹回放** - 360°重温飞行
+- [x] **科幻界面** - 动态星空+霓虹光效
+- [x] **完整设计稿** - 5个HTML设计文件
 
-#### ✨ 功能建议
-- 在Issues中标记为"enhancement"
-- 描述清楚使用场景
-- 欢迎UI/UX改进建议
+### 🚧 即将推出
+- [ ] **真实飞机模型** - 替换3D箭头
+- [ ] **数据导出** - CSV/JSON格式
+- [ ] **Apple Vision Pro** - 空间计算体验
 
-#### 🔧 代码贡献
-1. Fork本项目
-2. 创建功能分支
-3. 提交更改
-4. 推送到分支
-5. 创建Pull Request
+---
 
-### 开发路线图
+## 🤝 参与开发
 
-#### ✅ 已完成
-- [x] 基础3D飞机模型
-- [x] CoreMotion传感器集成
-- [x] SwiftData数据存储
-- [x] 动态星空背景
-- [x] 历史记录功能
+### 🎯 欢迎所有贡献！
+- **🐛 Bug修复** - 发现任何问题请提Issue
+- **✨ 新功能** - 有好的想法欢迎PR
+- **🎨 UI改进** - 设计稿已提供，可直接参考
+- **📚 文档** - 帮助完善README
 
-#### 🚧 进行中
-- [ ] 3D轨迹回放
-- [ ] 真实飞机模型替换
-- [ ] 飞行数据导出
+### 💡 快速贡献流程
+1. **Fork项目**
+2. **查看设计稿** - 参考`.superdesign/`中的设计
+3. **开发功能** - 保持设计一致性
+4. **提交PR** - 我们会快速review
 
-#### 🎯 未来计划
-- [ ] Apple Vision Pro支持
-- [ ] AR增强现实模式
-- [ ] 自定义飞机涂装
+---
 
-## 📱 兼容性
+## 📄 许可证 & 致谢
 
-| 设备类型 | 最低版本 | 功能支持 |
-|---------|----------|----------|
-| iPhone | iOS 17.0 | ✅ 完整支持 |
-| iPad | iPadOS 17.0 | ✅ 完整支持 |
-| Vision Pro | visionOS 1.0 | 🎯 TODO |
+**GPL-3.0许可证** - 开源免费，欢迎fork！
 
-## 📄 许可证
-
-本项目采用 **GPL-3.0许可证** - 详见 [LICENSE](LICENSE) 文件
-
-## 🙏 致谢
-
-- **Apple**: 提供强大的CoreMotion和SceneKit框架
-- **Sketchfab**: 3D模型资源平台
-- **开源社区**: 灵感和技术支持
+**特别感谢**
+- **Apple** - CoreMotion + SceneKit 强大框架
+- **设计灵感** - 科幻电影 + 航空仪表 + 太空探索
+- **社区贡献** - 每一位开发者 ❤️
 
 ---
 
 <div align="center">
 
-**[⬆️ 回到顶部](#-jetjetjet-) | [📱 下载测试版](https://testflight.apple.com/join/yourapp) | [🐛 报告问题](../../issues)**
+**[⬆️ 回到顶部](#-jetjetjet) | [📱 立即体验](https://github.com/ChiiMagnus/JETJETJET) | [🐛 报告问题](../../issues)**
 
 *Made with ❤️ by ChiiMagnus*
-  <p>如果这个项目对你有帮助，请给我们一个 ⭐️ Star！</p>
-  <p>你的支持是我们持续开发的动力！</p>
+
+**如果这个项目让你眼前一亮，请给我们一个 ⭐️ Star！**
 
 </div> 
