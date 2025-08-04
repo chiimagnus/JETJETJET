@@ -67,7 +67,40 @@ struct FlightRecordCard: View {
             }
         }
         .padding(20)
-        
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(.ultraThinMaterial)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(
+                            isHovered || isPressed ?
+                            Color(red: 0, green: 0.83, blue: 1) : // 霓虹青色
+                            Color.white.opacity(0.1),
+                            lineWidth: isHovered || isPressed ? 1.5 : 1
+                        )
+                )
+                .shadow(
+                    color: isHovered || isPressed ?
+                    Color(red: 0, green: 0.83, blue: 1).opacity(0.4) : // 霓虹青色发光
+                    Color.black.opacity(0.3),
+                    radius: isHovered || isPressed ? 16 : 8,
+                    x: 0,
+                    y: isHovered || isPressed ? 8 : 4
+                )
+        )
+        .scaleEffect(isPressed ? 0.98 : 1.0)
+        .onHover { hovering in
+            isHovered = hovering
+        }
+        .onTapGesture {
+            // 简化的点击反馈效果
+            isPressed = true
+            HapticService.shared.light()
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                isPressed = false
+            }
+        }
     }
     
     private func formatDate(_ date: Date) -> String {

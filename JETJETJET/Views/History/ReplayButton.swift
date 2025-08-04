@@ -9,14 +9,10 @@ struct ReplayButton: View {
             // 使用统一的震动服务
             HapticService.shared.medium()
 
-            // 按压动画
-            withAnimation(.easeInOut(duration: 0.15)) {
-                isPressed = true
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                withAnimation(.easeInOut(duration: 0.15)) {
-                    isPressed = false
-                }
+            // 简化的按压反馈
+            isPressed = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                isPressed = false
             }
             action()
         }) {
@@ -57,7 +53,6 @@ struct ReplayButton: View {
                     )
             )
             .scaleEffect(isPressed ? 0.95 : 1.0)
-            .animation(.easeInOut(duration: 0.15), value: isPressed)
         }
         .buttonStyle(PlainButtonStyle())
     }
