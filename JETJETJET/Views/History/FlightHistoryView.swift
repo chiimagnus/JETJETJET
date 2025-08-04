@@ -93,26 +93,23 @@ struct FlightHistoryView: View {
                     }
                     .transition(.move(edge: .trailing).combined(with: .opacity))
                 } else {
-                    // 正常状态
-                    HStack {
-                        Text("JET LOGS")
-                            .font(.system(.title2, design: .rounded, weight: .bold))
-                            .foregroundColor(.white)
-                            .tracking(1)
+                    // 正常状态 - 标题居中，搜索按钮在右侧
+                    Text("JET LOGS")
+                        .font(.system(.title2, design: .rounded, weight: .bold))
+                        .foregroundColor(.white)
+                        .tracking(1)
+                        .frame(maxWidth: .infinity) // 让标题占据可用空间并居中
+                        .transition(.move(edge: .leading).combined(with: .opacity))
 
-                        Spacer()
-
-                        Button(action: {
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                showSearchBar = true
-                            }
-                        }) {
-                            Image(systemName: "magnifyingglass")
-                                .font(.system(.title3, weight: .medium))
-                                .foregroundColor(.cyan)
+                    Button(action: {
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            showSearchBar = true
                         }
+                    }) {
+                        Image(systemName: "magnifyingglass")
+                            .font(.system(.title3, weight: .medium))
+                            .foregroundColor(.cyan)
                     }
-                    .transition(.move(edge: .leading).combined(with: .opacity))
                 }
             }
             .padding()
