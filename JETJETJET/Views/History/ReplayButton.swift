@@ -24,7 +24,7 @@ struct ReplayButton: View {
                 Image(systemName: "play.fill")
                     .font(.system(.body, weight: .semibold))
                 
-                Text("REPLAY")
+                Text("REJET")
                     .font(.system(.body, design: .rounded, weight: .bold))
                     .tracking(1)
             }

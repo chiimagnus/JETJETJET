@@ -4,147 +4,70 @@ struct FlightRecordCard: View {
     let session: FlightSession
     @State private var isHovered = false
     @State private var isPressed = false
-    @State private var gradientAnimation = false
 
     var body: some View {
-        VStack(spacing: 0) {
-            // 顶部彩色渐变条 - 增强动画效果
-            Rectangle()
-                .fill(
-                    LinearGradient(
-                        colors: [
-                            Color(red: 0, green: 0.83, blue: 1), // 更鲜艳的青色 #00d4ff
-                            Color(red: 0, green: 1, blue: 0.53), // 更鲜艳的绿色 #00ff88
-                            Color(red: 0.55, green: 0.36, blue: 0.96) // 更鲜艳的紫色 #8b5cf6
-                        ],
-                        startPoint: gradientAnimation ? .leading : .trailing,
-                        endPoint: gradientAnimation ? .trailing : .leading
-                    )
-                )
-                .frame(height: 3)
-                .opacity(isHovered || isPressed ? 1 : 0)
-                .animation(.easeInOut(duration: 0.3), value: isHovered)
-                .animation(.easeInOut(duration: 0.3), value: isPressed)
-                .onAppear {
-                    withAnimation(.linear(duration: 3).repeatForever(autoreverses: true)) {
-                        gradientAnimation.toggle()
-                    }
-                }
-            
-            VStack(spacing: 16) {
-                // 日期和状态行
-                HStack {
-                    HStack(spacing: 12) {
-                        Text("📅")
-                            .font(.title2)
+        VStack(spacing: 16) {
+            // 日期和状态行
+            HStack {
+                HStack(spacing: 12) {
+                    Text("📅")
+                        .font(.title2)
+                    
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(formatDate(session.startTime))
+                            .font(.system(.body, design: .rounded, weight: .semibold))
+                            .foregroundColor(.white)
                         
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text(formatDate(session.startTime))
-                                .font(.system(.body, design: .rounded, weight: .semibold))
-                                .foregroundColor(.white)
-                            
-                            Text(formatTime(session.startTime))
-                                .font(.system(.caption, design: .rounded))
-                                .foregroundColor(.gray)
-                        }
-                    }
-                    
-                    Spacer()
-                    
-                    // 飞行状态指示器
-                    FlightStatusIndicator()
-                }
-                
-                // 飞行时长和描述
-                HStack(spacing: 16) {
-                    HStack(spacing: 8) {
-                        Text("⏱️")
-                            .font(.body)
-                        Text(session.formattedDuration)
-                            .font(.system(.body, design: .rounded, weight: .bold))
-                            .foregroundColor(Color(red: 0, green: 0.83, blue: 1)) // 霓虹青色
-                            .shadow(color: Color(red: 0, green: 0.83, blue: 1).opacity(0.6), radius: 2) // 发光效果
-                    }
-                    
-                    HStack(spacing: 8) {
-                        Text("🛫")
-                            .font(.body)
-                        Text(getFlightDescription())
+                        Text(formatTime(session.startTime))
                             .font(.system(.caption, design: .rounded))
                             .foregroundColor(.gray)
                     }
-                    
-                    Spacer()
                 }
                 
-                // 数据标签网格
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: 4), spacing: 12) {
-                    DataTag(value: "15.2", label: "Max Speed", color: Color(red: 0, green: 0.83, blue: 1)) // 霓虹青色
-                    DataTag(value: "45°", label: "Max Pitch", color: Color(red: 0, green: 1, blue: 0.53)) // 霓虹绿色
-                    DataTag(value: "30°", label: "Max Roll", color: Color(red: 1, green: 0.42, blue: 0.21)) // 霓虹橙色
-                    DataTag(value: "3.2G", label: "Max G", color: Color(red: 0.55, green: 0.36, blue: 0.96)) // 霓虹紫色
+                Spacer()
+                
+                // 飞行状态指示器
+                FlightStatusIndicator()
+            }
+                
+            // 飞行时长和描述
+            HStack(spacing: 16) {
+                HStack(spacing: 8) {
+                    Text("⏱️")
+                        .font(.body)
+                    Text(session.formattedDuration)
+                        .font(.system(.body, design: .rounded, weight: .bold))
+                        .foregroundColor(Color(red: 0, green: 0.83, blue: 1)) // 霓虹青色
+                        .shadow(color: Color(red: 0, green: 0.83, blue: 1).opacity(0.6), radius: 2) // 发光效果
                 }
                 
-                // 回放按钮
-                ReplayButton {
-                    // 回放动作
-                    print("回放飞行记录: \(session.id)")
+                HStack(spacing: 8) {
+                    Text("🛫")
+                        .font(.body)
+                    Text(getFlightDescription())
+                        .font(.system(.caption, design: .rounded))
+                        .foregroundColor(.gray)
                 }
+                
+                Spacer()
             }
-            .padding(20)
-        }
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(.ultraThinMaterial)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(
-                            isHovered || isPressed ?
-                            Color(red: 0, green: 0.83, blue: 1) : // 霓虹青色
-                            Color.white.opacity(0.1),
-                            lineWidth: isHovered || isPressed ? 1.5 : 1
-                        )
-                )
-                .shadow(
-                    color: isHovered || isPressed ?
-                    Color(red: 0, green: 0.83, blue: 1).opacity(0.4) : // 霓虹青色发光
-                    Color.black.opacity(0.3),
-                    radius: isHovered || isPressed ? 16 : 8,
-                    x: 0,
-                    y: isHovered || isPressed ? 8 : 4
-                )
-                .scaleEffect(isPressed ? 0.98 : (isHovered ? 1.02 : 1.0))
-                .animation(.easeInOut(duration: 0.2), value: isPressed)
-                .animation(.easeInOut(duration: 0.3), value: isHovered)
-        )
-        .scaleEffect(isHovered ? 1.02 : 1.0)
-        .offset(y: isHovered ? -4 : 0)
-        .animation(.easeInOut(duration: 0.3), value: isHovered)
-        .onHover { hovering in
-            isHovered = hovering
-        }
-        .onTapGesture {
-            // 增强的点击反馈效果
-            withAnimation(.easeInOut(duration: 0.1)) {
-                isPressed = true
+                
+            // 数据标签网格
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: 4), spacing: 12) {
+                DataTag(value: "15.2", label: "Max Speed", color: Color(red: 0, green: 0.83, blue: 1)) // 霓虹青色
+                DataTag(value: "45°", label: "Max Pitch", color: Color(red: 0, green: 1, blue: 0.53)) // 霓虹绿色
+                DataTag(value: "30°", label: "Max Roll", color: Color(red: 1, green: 0.42, blue: 0.21)) // 霓虹橙色
+                DataTag(value: "3.2G", label: "Max G", color: Color(red: 0.55, green: 0.36, blue: 0.96)) // 霓虹紫色
             }
-
-            // 震动反馈
-            HapticService.shared.light()
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                withAnimation(.easeInOut(duration: 0.2)) {
-                    isPressed = false
-                    isHovered = true
-                }
-
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        isHovered = false
-                    }
-                }
+                
+            // 回放按钮
+            ReplayButton {
+                // 回放动作
+                print("回放飞行记录: \(session.id)")
             }
         }
+        .padding(20)
+        
     }
     
     private func formatDate(_ date: Date) -> String {

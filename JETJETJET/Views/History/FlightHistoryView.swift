@@ -6,6 +6,7 @@ struct FlightHistoryView: View {
     @Environment(\.dismiss) private var dismiss
     @Query(sort: \FlightSession.startTime, order: .reverse) private var flightSessions: [FlightSession]
     @State private var viewModel = FlightHistoryVM()
+    @State private var showSearchBar = false
 
     private var filteredSessions: [FlightSession] {
         viewModel.filteredSessions(flightSessions)
@@ -23,9 +24,12 @@ struct FlightHistoryView: View {
 
                 ScrollView {
                     VStack(spacing: 20) {
-                        // 搜索栏
-                        SearchBar(searchText: $viewModel.searchText)
-                            .padding(.horizontal, 20)
+                        // 搜索栏 - 按需显示
+                        if showSearchBar {
+                            SearchBar(searchText: $viewModel.searchText)
+                                .padding(.horizontal, 20)
+                                .transition(.move(edge: .top).combined(with: .opacity))
+                        }
 
                         // 飞行记录列表
                         LazyVStack(spacing: 16) {
@@ -89,13 +93,17 @@ struct FlightHistoryView: View {
                 Spacer()
 
                 Button(action: {
-                    // 搜索功能已集成到搜索栏中
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        showSearchBar.toggle()
+                    }
+                    if !showSearchBar {
+                        viewModel.searchText = ""
+                    }
                 }) {
                     Image(systemName: "magnifyingglass")
                         .font(.system(.title3, weight: .medium))
-                        .foregroundColor(.cyan)
+                        .foregroundColor(showSearchBar ? Color(red: 0, green: 0.83, blue: 1) : .cyan)
                 }
-                .opacity(0.5) // 暂时禁用
             }
             .padding()
         }
