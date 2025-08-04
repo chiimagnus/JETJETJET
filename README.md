@@ -2,12 +2,14 @@
 
 # JETJETJET✈︎✈︎✈︎
 
-### *将您的iPhone变成一架虚拟战斗机*
+### *将您的iPhone变成专业飞行数据记录仪*
 
 [![Swift 5.9](https://img.shields.io/badge/Swift-5.9-orange.svg)](https://swift.org)
 [![iOS 17+](https://img.shields.io/badge/iOS-17+-blue.svg)](https://developer.apple.com/ios)
 [![SwiftUI](https://img.shields.io/badge/SwiftUI-5-green.svg)](https://developer.apple.com/swiftui)
 [![SceneKit](https://img.shields.io/badge/3D-SceneKit-purple.svg)](https://developer.apple.com/scenekit)
+[![CoreMotion](https://img.shields.io/badge/Sensors-CoreMotion-red.svg)](https://developer.apple.com/coremotion)
+[![License](https://img.shields.io/badge/License-GPL--3.0-yellow.svg)](./LICENSE)
 
 </div>
 
@@ -37,14 +39,13 @@
 
 ## 🛠️ 技术架构
 
-### 核心技术栈
+### 🏗️ 极简技术栈
 ```swift
-// 纯Swift技术栈，零第三方依赖
-📱 UI框架: SwiftUI + Combine
-🎮 3D引擎: SceneKit (原生)
-📊 数据存储: SwiftData (iOS 17+)
-🎯 传感器: CoreMotion框架
-☁️ 云同步: CloudKit (可选)
+// 纯Apple原生，零第三方依赖
+📱 UI: SwiftUI + Combine
+🎮 3D: SceneKit (原生)
+📊 数据: SwiftData (iOS 17+)
+🎯 传感器: CoreMotion
 ```
 
 ### 架构特色
@@ -173,5 +174,7 @@ git clone https://github.com/ChiiMagnus/JETJETJET.git
 **[⬆️ 回到顶部](#-jetjetjet-) | [📱 下载测试版](https://testflight.apple.com/join/yourapp) | [🐛 报告问题](../../issues)**
 
 *Made with ❤️ by ChiiMagnus*
+  <p>如果这个项目对你有帮助，请给我们一个 ⭐️ Star！</p>
+  <p>你的支持是我们持续开发的动力！</p>
 
 </div> 
