@@ -4,7 +4,7 @@
 
 ### *将你的iPhone变成专业飞行数据记录仪*
 
-**[中文](README.md) | [English](README_EN.md)**
+[中文](README.md) | [English](README_EN.md)
 
 [![Swift 5.9](https://img.shields.io/badge/Swift-5.9-orange.svg)](https://swift.org) [![SwiftUI](https://img.shields.io/badge/SwiftUI-5-green.svg)](https://developer.apple.com/swiftui)
 [![SceneKit](https://img.shields.io/badge/3D-SceneKit-purple.svg)](https://developer.apple.com/scenekit) [![CoreMotion](https://img.shields.io/badge/Sensors-CoreMotion-red.svg)](https://developer.apple.com/coremotion)
