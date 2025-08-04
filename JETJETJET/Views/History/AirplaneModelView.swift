@@ -7,7 +7,14 @@ struct AirplaneModelView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var showingDataSheet = false
     @State private var viewModel = AirplaneModelVM()
-    @State private var airplane3DModel = Airplane3DModel()
+    @State private var airplane3DModel: Airplane3DModel
+    @State private var userPreferences = UserPreferences.shared
+
+    init(session: FlightSession) {
+        self.session = session
+        // 使用用户选择的模型类型初始化
+        self._airplane3DModel = State(initialValue: Airplane3DModel(modelType: UserPreferences.shared.selectedAirplaneModelType))
+    }
 
     var body: some View {
         VStack {
@@ -50,6 +57,10 @@ struct AirplaneModelView: View {
         }
         .onDisappear {
             viewModel.stopPlayback()
+        }
+        .onChange(of: userPreferences.selectedAirplaneModelType) { _, newModelType in
+            // 当用户更改模型类型时，重新创建3D模型
+            airplane3DModel = Airplane3DModel(modelType: newModelType)
         }
 
         // 错误信息显示
