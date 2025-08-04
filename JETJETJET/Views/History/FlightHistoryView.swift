@@ -7,6 +7,7 @@ struct FlightHistoryView: View {
     @Query(sort: \FlightSession.startTime, order: .reverse) private var flightSessions: [FlightSession]
     @State private var viewModel = FlightHistoryVM()
     @State private var showSearchBar = false
+    @FocusState private var isSearchFocused: Bool
 
     private var filteredSessions: [FlightSession] {
         viewModel.filteredSessions(flightSessions)
@@ -84,6 +85,7 @@ struct FlightHistoryView: View {
                             withAnimation(.easeInOut(duration: 0.3)) {
                                 showSearchBar = false
                                 viewModel.searchText = ""
+                                isSearchFocused = false
                             }
                         }) {
                             Image(systemName: "xmark")
@@ -104,6 +106,10 @@ struct FlightHistoryView: View {
                     Button(action: {
                         withAnimation(.easeInOut(duration: 0.3)) {
                             showSearchBar = true
+                        }
+                        // 延迟一点时间让动画完成后再获得焦点
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            isSearchFocused = true
                         }
                     }) {
                         Image(systemName: "magnifyingglass")

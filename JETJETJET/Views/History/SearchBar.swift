@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SearchBar: View {
     @Binding var searchText: String
-    @State private var isFocused = false
+    @FocusState private var isFocused: Bool
     
     var body: some View {
         HStack(spacing: 12) {
@@ -16,9 +16,7 @@ struct SearchBar: View {
                 .font(.system(.body, design: .rounded))
                 .foregroundColor(.white)
                 .textFieldStyle(PlainTextFieldStyle())
-                .onTapGesture {
-                    isFocused = true
-                }
+                .focused($isFocused)
                 .onSubmit {
                     isFocused = false
                 }
@@ -26,7 +24,6 @@ struct SearchBar: View {
             if !searchText.isEmpty {
                 Button(action: {
                     searchText = ""
-                    isFocused = false
                 }) {
                     Image(systemName: "xmark.circle.fill")
                         .font(.system(.body, weight: .medium))
@@ -61,8 +58,9 @@ struct SearchBar: View {
                 )
         )
         .animation(.easeInOut(duration: 0.3), value: isFocused)
-        .onChange(of: searchText) { _, _ in
-            if !searchText.isEmpty {
+        .onAppear {
+            // 当搜索栏出现时自动获得焦点
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 isFocused = true
             }
         }
