@@ -8,6 +8,7 @@ struct MainView: View {
     @State private var showingRecordingView = false
     @State private var showingCountdownView = false
     @State private var lightSettings = LightSourceSettings()
+    @State private var modelService = AirplaneModelService.shared
     
     var body: some View {
         NavigationStack {
@@ -84,7 +85,7 @@ struct MainView: View {
             // 延迟初始化3D模型，避免阻塞UI
             DispatchQueue.main.asyncAfter(deadline: .now() + AppConfig.Model3D.initializationDelay) {
                 if airplane3DModel == nil {
-                    airplane3DModel = Airplane3DModel()
+                    airplane3DModel = Airplane3DModel(modelType: modelService.currentModelType)
                 }
             }
             // 启动运动传感器监听（非录制模式）
@@ -98,6 +99,12 @@ struct MainView: View {
             // 使用异步更新避免多次更新警告
             Task { @MainActor in
                 updateAirplaneAttitude()
+            }
+        }
+        .onChange(of: modelService.currentModelType) { _, newModelType in
+            // 当模型类型改变时，重新创建3D模型
+            Task { @MainActor in
+                airplane3DModel = Airplane3DModel(modelType: newModelType)
             }
         }
         .simplePageTransition(showSecondPage: $showingCountdownView) {
