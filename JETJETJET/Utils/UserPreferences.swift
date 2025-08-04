@@ -4,18 +4,18 @@ import Foundation
 @Observable
 class UserPreferences {
     static let shared = UserPreferences()
-    
-    private init() {}
-    
+
     // MARK: - 飞机模型设置
     var selectedAirplaneModelType: AirplaneModelType {
-        get {
-            let rawValue = UserDefaults.standard.string(forKey: "selectedAirplaneModelType") ?? AirplaneModelType.defaultModel.rawValue
-            return AirplaneModelType(rawValue: rawValue) ?? .defaultModel
+        didSet {
+            UserDefaults.standard.set(selectedAirplaneModelType.rawValue, forKey: "selectedAirplaneModelType")
         }
-        set {
-            UserDefaults.standard.set(newValue.rawValue, forKey: "selectedAirplaneModelType")
-        }
+    }
+
+    private init() {
+        // 从UserDefaults加载初始值
+        let rawValue = UserDefaults.standard.string(forKey: "selectedAirplaneModelType") ?? AirplaneModelType.defaultModel.rawValue
+        self.selectedAirplaneModelType = AirplaneModelType(rawValue: rawValue) ?? .defaultModel
     }
     
     // MARK: - 其他设置可以在这里添加

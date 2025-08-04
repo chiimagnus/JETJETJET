@@ -8,7 +8,7 @@ struct MainView: View {
     @State private var showingRecordingView = false
     @State private var showingCountdownView = false
     @State private var lightSettings = LightSourceSettings()
-    @State private var userPreferences = UserPreferences.shared
+    private var userPreferences = UserPreferences.shared
     
     var body: some View {
         NavigationStack {

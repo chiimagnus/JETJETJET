@@ -8,7 +8,7 @@ struct AirplaneModelView: View {
     @State private var showingDataSheet = false
     @State private var viewModel = AirplaneModelVM()
     @State private var airplane3DModel: Airplane3DModel
-    @State private var userPreferences = UserPreferences.shared
+    private var userPreferences = UserPreferences.shared
 
     init(session: FlightSession) {
         self.session = session
