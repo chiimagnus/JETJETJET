@@ -115,10 +115,8 @@ JETJETJET/
 
 <div align="center">
 
-*Made with ❤️ by ChiiMagnus*
+*Made with ❤️ by [Chii Magnus](https://github.com/chiimagnus)*
 
-**特别感谢**
-
-**如果这个项目让你眼前一亮，请给我们一个 ⭐️ **
+**如果这个项目让你眼前一亮，请给我们一个 ⭐️**
 
 </div> 
