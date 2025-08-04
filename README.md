@@ -75,17 +75,6 @@ JETJETJET/
 - **Xcode 15.0+**
 - **真机测试** (需要CoreMotion传感器)
 
-### 🎯 一键运行
-```bash
-# 1. 克隆项目
-git clone https://github.com/ChiiMagnus/JETJETJET.git
-# 2. 使用Xcode打开项目
-# 3. 选择真机运行 ▶️
-# 4. 开始飞行！
-```
-
----
-
 ## 🎯 开发路线图
 
 ### ✅ 已完成 (立即可用)
@@ -99,8 +88,6 @@ git clone https://github.com/ChiiMagnus/JETJETJET.git
 - [ ] **真实飞机模型** - 替换3D箭头
 - [ ] **数据导出** - CSV/JSON格式
 - [ ] **Apple Vision Pro** - 空间计算体验
-
----
 
 ## 🤝 参与开发
 
@@ -116,25 +103,14 @@ git clone https://github.com/ChiiMagnus/JETJETJET.git
 3. **开发功能** - 保持设计一致性
 4. **提交PR** - 我们会快速review
 
----
-
-## 📄 许可证 & 致谢
+## 📄 许可证
 
 **GPL-3.0许可证** - 开源免费，欢迎fork！
 
-**特别感谢**
-- **Apple** - CoreMotion + SceneKit 强大框架
-- **设计灵感** - 科幻电影 + 航空仪表 + 太空探索
-- **社区贡献** - 每一位开发者 ❤️
-
----
-
 <div align="center">
-
-**[⬆️ 回到顶部](#-jetjetjet) | [📱 立即体验](https://github.com/ChiiMagnus/JETJETJET) | [🐛 报告问题](../../issues)**
 
 *Made with ❤️ by ChiiMagnus*
 
-**如果这个项目让你眼前一亮，请给我们一个 ⭐️ Star！**
+**如果这个项目让你眼前一亮，请给我们一个 ⭐️ **
 
 </div> 
