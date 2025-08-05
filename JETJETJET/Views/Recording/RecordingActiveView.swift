@@ -56,26 +56,28 @@ struct RecordingActiveView: View {
 
                 Spacer()
 
-                // 录制时长显示
-                RecordingDurationView(
-                    duration: viewModel.formattedDuration(),
-                    isRecording: viewModel.isRecording
-                )
-                .padding(.horizontal, horizontalPadding)
-
-                Spacer()
-
                 // HUD数据条
                 HUDDataBarView(snapshot: viewModel.currentSnapshot)
                     .padding(.horizontal, horizontalPadding)
 
                 Spacer()
 
-                // 停止按钮
-                StopRecordingButtonView {
-                    viewModel.stopRecording()
-                    // 使用回调通知上层关闭
-                    onStopRecording?()
+                // 底部操作区域 - 停止按钮和录制时长
+                HStack(alignment: .center, spacing: 16) {
+                    // 停止按钮
+                    StopRecordingButtonView {
+                        viewModel.stopRecording()
+                        // 使用回调通知上层关闭
+                        onStopRecording?()
+                    }
+
+                    Spacer()
+
+                    // 紧凑的录制时长显示
+                    CompactRecordingTimeView(
+                        duration: viewModel.formattedDuration(),
+                        isRecording: viewModel.isRecording
+                    )
                 }
                 .padding(.horizontal, horizontalPadding)
                 .padding(.bottom, 20)
