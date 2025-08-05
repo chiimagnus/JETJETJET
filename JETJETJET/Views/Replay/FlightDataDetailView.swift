@@ -7,70 +7,142 @@ struct FlightDataDetailView: View {
     @State private var viewModel = FlightDataDetailVM()
 
     var body: some View {
-        NavigationView {
-            List {
-                // 会话信息
-                Section("会话信息") {
-                    HStack {
-                        Text("开始时间")
-                        Spacer()
-                        Text(viewModel.formatDateTime(session.startTime))
-                            .foregroundColor(.secondary)
-                    }
+        ZStack {
+            // 星空背景
+            StarfieldBackgroundView()
+                .ignoresSafeArea()
 
-                    HStack {
-                        Text("结束时间")
-                        Spacer()
-                        Text(viewModel.formatDateTime(session.endTime))
-                            .foregroundColor(.secondary)
-                    }
+            NavigationView {
+                ScrollView {
+                    LazyVStack(spacing: 20) {
+                        // 会话信息卡片
+                        sessionInfoCard
 
-                    HStack {
-                        Text("持续时间")
-                        Spacer()
-                        Text(session.formattedDuration)
-                            .foregroundColor(.secondary)
-                    }
+                        // 角度说明卡片
+                        angleExplanationCard
 
-                    HStack {
-                        Text("数据点数")
-                        Spacer()
-                        Text("\(flightData.count) 条")
-                            .foregroundColor(.secondary)
+                        // 详细数据卡片
+                        flightDataCard
                     }
+                    .padding(.horizontal, 20)
+                    .padding(.top, 20)
                 }
-
-                // 角度含义说明
-                Section("角度说明") {
-                    VStack(alignment: .leading, spacing: 8) {
-                        ForEach(viewModel.getAngleExplanations(), id: \.title) { explanation in
-                            AngleExplanationRow(
-                                title: explanation.title,
-                                description: explanation.description,
-                                emoji: explanation.emoji,
-                                gesture: explanation.gesture
-                            )
+                .navigationTitle("数据详情")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button("完成") {
+                            dismiss()
                         }
                     }
-                    .padding(.vertical, 4)
+                }
+            }
+        }
+    }
+
+    // MARK: - 会话信息卡片
+    private var sessionInfoCard: some View {
+        GlassCard {
+            VStack(alignment: .leading, spacing: 16) {
+                HStack {
+                    Image(systemName: "info.circle.fill")
+                        .font(.title2)
+                        .foregroundColor(.blue)
+
+                    Text("会话信息")
+                        .font(.system(.title3, design: .rounded, weight: .bold))
+                        .foregroundColor(.white)
+
+                    Spacer()
                 }
 
-                // 详细数据
-                Section("详细数据") {
+                VStack(spacing: 12) {
+                    InfoRow(title: "开始时间", value: viewModel.formatDateTime(session.startTime))
+                    InfoRow(title: "结束时间", value: viewModel.formatDateTime(session.endTime))
+                    InfoRow(title: "持续时间", value: session.formattedDuration)
+                    InfoRow(title: "数据点数", value: "\(flightData.count) 条")
+                }
+            }
+            .padding(20)
+        }
+    }
+
+    // MARK: - 角度说明卡片
+    private var angleExplanationCard: some View {
+        GlassCard {
+            VStack(alignment: .leading, spacing: 16) {
+                HStack {
+                    Image(systemName: "gyroscope")
+                        .font(.title2)
+                        .foregroundColor(.orange)
+
+                    Text("角度说明")
+                        .font(.system(.title3, design: .rounded, weight: .bold))
+                        .foregroundColor(.white)
+
+                    Spacer()
+                }
+
+                VStack(alignment: .leading, spacing: 12) {
+                    ForEach(viewModel.getAngleExplanations(), id: \.title) { explanation in
+                        AngleExplanationRow(
+                            title: explanation.title,
+                            description: explanation.description,
+                            emoji: explanation.emoji,
+                            gesture: explanation.gesture
+                        )
+                    }
+                }
+            }
+            .padding(20)
+        }
+    }
+
+    // MARK: - 详细数据卡片 (使用HUD样式)
+    private var flightDataCard: some View {
+        GlassCard {
+            VStack(alignment: .leading, spacing: 16) {
+                HStack {
+                    Image(systemName: "chart.line.uptrend.xyaxis")
+                        .font(.title2)
+                        .foregroundColor(.green)
+
+                    Text("详细数据")
+                        .font(.system(.title3, design: .rounded, weight: .bold))
+                        .foregroundColor(.white)
+
+                    Spacer()
+
+                    Text("\(flightData.count) 条")
+                        .font(.system(.caption, design: .rounded))
+                        .foregroundColor(.gray)
+                }
+
+                LazyVStack(spacing: 16) {
                     ForEach(Array(flightData.enumerated()), id: \.offset) { index, data in
-                        FlightDataDetailRow(data: data, index: index + 1, viewModel: viewModel)
+                        HUDStyleDataRow(data: data, index: index + 1, viewModel: viewModel)
                     }
                 }
             }
-            .navigationTitle("数据详情")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("完成") {
-                        dismiss()
-                    }
-                }
-            }
+            .padding(20)
+        }
+    }
+}
+
+// MARK: - 信息行组件
+struct InfoRow: View {
+    let title: String
+    let value: String
+
+    var body: some View {
+        HStack {
+            Text(title)
+                .font(.system(.body, design: .rounded))
+                .foregroundColor(.white)
+            Spacer()
+            Text(value)
+                .font(.system(.body, design: .rounded, weight: .medium))
+                .foregroundColor(.cyan)
         }
     }
 }
@@ -104,68 +176,72 @@ struct AngleExplanationRow: View {
     }
 }
 
-struct FlightDataDetailRow: View {
+// MARK: - HUD样式数据行
+struct HUDStyleDataRow: View {
     let data: FlightData
     let index: Int
     let viewModel: FlightDataDetailVM
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(spacing: 12) {
+            // 时间戳和索引
             HStack {
                 Text("#\(index)")
                     .font(.caption)
-                    .foregroundColor(.secondary)
-                    .frame(width: 30, alignment: .leading)
+                    .foregroundColor(.gray)
+                    .fontWeight(.medium)
+                    .tracking(1)
 
                 Spacer()
 
                 Text(viewModel.formatTime(data.timestamp))
                     .font(.caption)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.gray)
+                    .monospacedDigit()
             }
 
-            LazyVGrid(columns: [
-                GridItem(.flexible()),
-                GridItem(.flexible())
-            ], spacing: 8) {
-                DataDetailCard(title: "速度", value: data.speed, unit: "m/s²", color: .blue, viewModel: viewModel)
-                DataDetailCard(title: "俯仰角", value: data.pitch, unit: "°", color: .green, viewModel: viewModel)
-                DataDetailCard(title: "横滚角", value: data.roll, unit: "°", color: .orange, viewModel: viewModel)
-                DataDetailCard(title: "偏航角", value: data.yaw, unit: "°", color: .purple, viewModel: viewModel)
+            // HUD数据条 - 飞行数据
+            HStack(spacing: 12) {
+                HUDDataItem(
+                    label: "PITCH",
+                    value: String(format: "%.0f°", data.pitch),
+                    progress: normalizedProgress(data.pitch, range: -90...90),
+                    color: .green
+                )
+
+                HUDDataItem(
+                    label: "ROLL",
+                    value: String(format: "%.0f°", data.roll),
+                    progress: normalizedProgress(data.roll, range: -90...90),
+                    color: .blue
+                )
+
+                HUDDataItem(
+                    label: "YAW",
+                    value: String(format: "%.0f°", data.yaw),
+                    progress: normalizedProgress(data.yaw, range: -180...180),
+                    color: .purple
+                )
+
+                HUDDataItem(
+                    label: "SPEED",
+                    value: String(format: "%.1f", data.speed),
+                    progress: normalizedProgress(data.speed, range: 0...50),
+                    color: .orange
+                )
             }
         }
-        .padding(.vertical, 4)
+        .padding(.vertical, 8)
+        .padding(.horizontal, 12)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.white.opacity(0.05))
+        )
     }
-}
 
-struct DataDetailCard: View {
-    let title: String
-    let value: Double
-    let unit: String
-    let color: Color
-    let viewModel: FlightDataDetailVM
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 2) {
-            Text(title)
-                .font(.caption2)
-                .foregroundColor(.secondary)
-
-            HStack(alignment: .firstTextBaseline, spacing: 2) {
-                Text(viewModel.formatValue(value))
-                    .font(.caption)
-                    .fontWeight(.medium)
-                    .foregroundColor(color)
-
-                Text(unit)
-                    .font(.caption2)
-                    .foregroundColor(.secondary)
-            }
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(8)
-        .background(color.opacity(0.1))
-        .cornerRadius(6)
+    private func normalizedProgress(_ value: Double, range: ClosedRange<Double>) -> Double {
+        let normalizedValue = (value - range.lowerBound) / (range.upperBound - range.lowerBound)
+        return max(0, min(1, normalizedValue))
     }
 }
 
