@@ -105,7 +105,7 @@
             width: 100%;
             max-width: 400px;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             transition: all 0.3s ease;
             box-shadow: var(--glass-shadow);
         }
@@ -130,6 +130,59 @@
 
         .boarding-pass:hover::before {
             opacity: 1;
+        }
+
+        /* 虚线分隔区域 */
+        .dashed-divider {
+            position: relative;
+            margin: 20px 0;
+            height: 20px;
+            background: transparent;
+        }
+
+        /* 左侧半圆缺口 */
+        .dashed-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -24px;
+            width: 20px;
+            height: 20px;
+            background: var(--bg-primary);
+            border-radius: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+        /* 右侧半圆缺口 */
+        .dashed-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -24px;
+            width: 20px;
+            height: 20px;
+            background: var(--bg-primary);
+            border-radius: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+        /* 虚线 */
+        .dashed-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            transform: translateY(-50%);
+            background-image: repeating-linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0.4) 0px,
+                rgba(255, 255, 255, 0.4) 8px,
+                transparent 8px,
+                transparent 16px
+            );
         }
 
         /* 状态标签 */
@@ -306,44 +359,54 @@
 
     <!-- 登机牌卡片 -->
     <div class="boarding-pass">
-        <!-- 日期和状态 -->
-        <div class="flex items-center justify-between mb-4">
-            <div class="text-white font-semibold">2025年7月8日</div>
-            <div class="status-badge active">
-                <div class="status-dot active"></div>
-                <span>进行中</span>
+        <!-- 上半部分：行程信息 -->
+        <div class="upper-section">
+            <!-- 日期和状态 -->
+            <div class="flex items-center justify-between mb-4">
+                <div class="text-white font-semibold">2025年7月8日</div>
+                <div class="status-badge active">
+                    <div class="status-dot active"></div>
+                    <span>进行中</span>
+                </div>
+            </div>
+
+            <!-- 飞行路径 -->
+            <div class="flight-route">
+                <div class="airport-code">APK</div>
+                <div class="route-line">
+                    <div class="destination-dot"></div>
+                </div>
+                <div class="airport-code">PVG</div>
+            </div>
+
+            <!-- 城市名称和飞行时间 -->
+            <div class="city-names">
+                <div class="city-name">阿帕塔基</div>
+                <div class="flight-duration">14h 0m</div>
+                <div class="city-name">上海</div>
             </div>
         </div>
 
-        <!-- 飞行路径 -->
-        <div class="flight-route">
-            <div class="airport-code">APK</div>
-            <div class="route-line">
-                <div class="destination-dot"></div>
-            </div>
-            <div class="airport-code">PVG</div>
+        <!-- 虚线分隔（带左右半圆缺口） -->
+        <div class="dashed-divider">
+            <div class="dashed-line"></div>
         </div>
 
-        <!-- 城市名称和飞行时间 -->
-        <div class="city-names">
-            <div class="city-name">阿帕塔基</div>
-            <div class="flight-duration">14h 0m</div>
-            <div class="city-name">上海</div>
-        </div>
-
-        <!-- 飞行信息 -->
-        <div class="flight-info">
-            <div class="info-item">
-                <div class="info-label">出发</div>
-                <div class="info-value">11:51</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">飞行距离</div>
-                <div class="info-value">11,060 km</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">到达</div>
-                <div class="info-value">---</div>
+        <!-- 下半部分：详细信息 -->
+        <div class="lower-section">
+            <div class="flight-info">
+                <div class="info-item">
+                    <div class="info-label">出发</div>
+                    <div class="info-value">11:51</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">飞行距离</div>
+                    <div class="info-value">11,060 km</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">到达</div>
+                    <div class="info-value">---</div>
+                </div>
             </div>
         </div>
     </div>
