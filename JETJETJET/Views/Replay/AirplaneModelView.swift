@@ -141,53 +141,13 @@ extension AirplaneModelView {
 
     // 3D回放场景
     private var replay3DScene: some View {
-        ZStack {
-            // 3D场景容器
-            RoundedRectangle(cornerRadius: 20)
-                .fill(
-                    LinearGradient(
-                        colors: [
-                            Color(red: 0.1, green: 0.1, blue: 0.18),
-                            Color(red: 0.09, green: 0.13, blue: 0.24),
-                            Color(red: 0.06, green: 0.2, blue: 0.38),
-                            Color(red: 0.33, green: 0.2, blue: 0.51)
-                        ],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                )
-                .frame(height: 350)
-
-            // 3D飞机模型
-            Airplane3DSceneView(
-                airplane3DModel: airplane3DModel,
-                height: 350,
-                showControls: true
-            )
-            .clipShape(RoundedRectangle(cornerRadius: 20))
-
-            // 实时数据覆盖层
-            VStack {
-                HStack {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("实时回放数据")
-                            .font(.caption)
-                            .foregroundColor(.blue)
-                        Text("时间: \(viewModel.formattedCurrentTime) / \(viewModel.formattedTotalTime)")
-                            .font(.caption2)
-                            .foregroundColor(.gray)
-                    }
-                    .padding(12)
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(12)
-
-                    Spacer()
-                }
-
-                Spacer()
-            }
-            .padding(16)
-        }
+        // 3D飞机模型
+        Airplane3DSceneView(
+            airplane3DModel: airplane3DModel,
+            height: 280,
+            showControls: true
+        )
+        // .padding(.horizontal, horizontalPadding)
     }
 }
 
