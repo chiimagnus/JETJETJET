@@ -201,6 +201,7 @@ struct FunctionButtonView: View {
 
         BottomFunctionView()
     }
+    .environment(LightSourceSettings())
     .preferredColorScheme(.dark)
     .padding()
 }

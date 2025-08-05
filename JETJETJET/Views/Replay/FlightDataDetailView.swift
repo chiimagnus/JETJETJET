@@ -198,4 +198,5 @@ struct InfoRow: View {
     ]
 
     return FlightDataDetailView(session: session, flightData: sampleData)
+        .environment(LightSourceSettings())
 }

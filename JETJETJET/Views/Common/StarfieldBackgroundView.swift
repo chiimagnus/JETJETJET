@@ -104,4 +104,5 @@ struct StarfieldBackgroundView: View {
 
 #Preview {
     StarfieldBackgroundView(pitch: 15, roll: -10, yaw: 45)
+        .environment(LightSourceSettings())
 }
