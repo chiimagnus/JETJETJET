@@ -91,7 +91,7 @@ struct FlightRecordCard: View {
                             .foregroundColor(.gray)
                     }
                 }
-                .padding(.bottom, 8)
+                .padding(.bottom, 12)
 
                 // 虚线分隔
                 DashedDivider()
@@ -126,10 +126,10 @@ struct FlightRecordCard: View {
                         color: Color(red: 0.55, green: 0.36, blue: 0.96)
                     )
                 }
-                .padding(.top, 8)
+                .padding(.top, 16)
             }
             .padding(.horizontal, 16)
-            .padding(.vertical, 12)
+            .padding(.vertical, 16)
         }
         .frame(width: 350, height: 200) // 固定卡片尺寸
     }
@@ -169,7 +169,7 @@ struct BoardingPassBackground: View {
                                 .frame(width: 24, height: 24)
                                 .offset(x: 12)
                         }
-                        .offset(y: 20) // 调整虚线位置
+                        .offset(y: 23)
                         .blendMode(.destinationOut)
                     )
             )
