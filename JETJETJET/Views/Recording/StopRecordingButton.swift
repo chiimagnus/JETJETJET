@@ -17,7 +17,7 @@ struct StopRecordingButtonView: View {
                     .font(.title2)
                     .fontWeight(.semibold)
                 
-                Text("STOP FLIGHT")
+                Text("NO JETING")
                     .font(.headline)
                     .fontWeight(.semibold)
                     .tracking(1)
