@@ -8,10 +8,6 @@ struct FlightDataDetailView: View {
 
     var body: some View {
         ZStack {
-            // 星空背景
-            StarfieldBackgroundView()
-                .ignoresSafeArea()
-
             NavigationView {
                 ScrollView {
                     LazyVStack(spacing: 20) {
