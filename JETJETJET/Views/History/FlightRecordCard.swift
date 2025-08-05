@@ -7,11 +7,12 @@ struct FlightRecordCard: View {
     var body: some View {
         let stats = viewModel.getFlightStats(for: session)
 
-        ZStack {
-            // 登机牌背景
-            BoardingPassBackground()
+        NavigationLink(destination: AirplaneModelView(session: session)) {
+            ZStack {
+                // 登机牌背景
+                BoardingPassBackground()
 
-            VStack(spacing: 0) {
+                VStack(spacing: 0) {
                 // 上半部分：航班信息
                 VStack(spacing: 8) {
                     // 日期和状态行
@@ -127,11 +128,13 @@ struct FlightRecordCard: View {
                     )
                 }
                 .padding(.top, 16)
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 16)
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 16)
+            .frame(width: 350, height: 200) // 固定卡片尺寸
         }
-        .frame(width: 350, height: 200) // 固定卡片尺寸
+        .buttonStyle(PlainButtonStyle()) // 移除默认的按钮样式
     }
 
     private func formatChineseDate(_ date: Date) -> String {
