@@ -144,9 +144,12 @@
 
         /* 虚线分隔区域 */
         .dashed-divider {
-            position: relative;
-            margin: 20px 0;
+            position: absolute;
+            top: 50%;
+            left: 12px;
+            right: 12px;
             height: 1px;
+            transform: translateY(-50%);
             background: transparent;
         }
 
@@ -340,8 +343,13 @@
 
     <!-- 登机牌卡片 -->
     <div class="boarding-pass">
+        <!-- 虚线分隔（绝对定位在卡片中央） -->
+        <div class="dashed-divider">
+            <div class="dashed-line"></div>
+        </div>
+
         <!-- 上半部分：行程信息 -->
-        <div class="upper-section">
+        <div class="upper-section" style="padding-bottom: 20px;">
             <!-- 日期和状态 -->
             <div class="flex items-center justify-between mb-4">
                 <div class="text-white font-semibold">2025年7月8日</div>
@@ -368,13 +376,8 @@
             </div>
         </div>
 
-        <!-- 虚线分隔（带左右半圆缺口） -->
-        <div class="dashed-divider">
-            <div class="dashed-line"></div>
-        </div>
-
         <!-- 下半部分：详细信息 -->
-        <div class="lower-section">
+        <div class="lower-section" style="padding-top: 20px;">
             <div class="flight-info">
                 <div class="info-item">
                     <div class="info-label">出发</div>
