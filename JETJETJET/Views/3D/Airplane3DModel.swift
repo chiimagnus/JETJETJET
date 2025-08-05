@@ -12,7 +12,7 @@ enum AirplaneModelType: String, CaseIterable {
         case .defaultModel:
             return "默认"
         case .jet1:
-            return "JET1"
+            return "Little Jet Plane"
         }
     }
 

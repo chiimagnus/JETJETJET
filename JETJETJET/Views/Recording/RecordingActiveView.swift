@@ -4,9 +4,10 @@ import SwiftData
 struct RecordingActiveView: View {
     @Environment(\.modelContext) private var modelContext
     let viewModel: FlightRecordingVM
-    @State private var airplane3DModel = Airplane3DModel()
+    @State private var airplane3DModel: Airplane3DModel?
     @Environment(\.dismiss) private var dismiss
     let onStopRecording: (() -> Void)?
+    @State private var userPreferences = UserPreferences.shared
     
     var body: some View {
         ZStack {
@@ -30,12 +31,29 @@ struct RecordingActiveView: View {
                 Spacer()
 
                 // 飞行场景
-                Airplane3DSceneView(
-                    airplane3DModel: airplane3DModel,
-                    height: 280,
-                    showControls: false
-                )
-                .padding(.horizontal, horizontalPadding)
+                if let airplane3DModel = airplane3DModel {
+                    Airplane3DSceneView(
+                        airplane3DModel: airplane3DModel,
+                        height: 280,
+                        showControls: false
+                    )
+                    .padding(.horizontal, horizontalPadding)
+                } else {
+                    // 3D模型加载占位符
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(.ultraThinMaterial)
+                        .frame(height: 280)
+                        .overlay(
+                            VStack(spacing: 12) {
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle(tint: .cyan))
+                                Text("加载3D模型...")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                        )
+                        .padding(.horizontal, horizontalPadding)
+                }
 
                 Spacer()
 
@@ -61,11 +79,22 @@ struct RecordingActiveView: View {
             // ViewModel已经在MainView中设置了modelContext，这里不需要重复设置
             // 验证和恢复录制状态
             validateAndRecoverRecordingState()
+
+            // 初始化3D模型
+            if airplane3DModel == nil {
+                airplane3DModel = Airplane3DModel(modelType: userPreferences.selectedAirplaneModelType)
+            }
         }
         .onChange(of: viewModel.currentSnapshot) { _, snapshot in
             // 使用异步更新避免多次更新警告
             Task { @MainActor in
                 updateAirplaneAttitude()
+            }
+        }
+        .onChange(of: userPreferences.selectedAirplaneModelType) { _, newModelType in
+            // 当用户更改模型类型时，重新创建3D模型
+            Task { @MainActor in
+                airplane3DModel = Airplane3DModel(modelType: newModelType)
             }
         }
     }
@@ -80,7 +109,8 @@ struct RecordingActiveView: View {
     }
     
     private func updateAirplaneAttitude() {
-        guard let snapshot = viewModel.currentSnapshot else { return }
+        guard let snapshot = viewModel.currentSnapshot,
+              let airplane3DModel = airplane3DModel else { return }
         airplane3DModel.updateAirplaneAttitude(
             pitch: snapshot.pitch,
             roll: snapshot.roll,

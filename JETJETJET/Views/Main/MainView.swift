@@ -34,7 +34,7 @@ struct MainView: View {
                         Airplane3DSceneView(
                             airplane3DModel: airplane3DModel,
                             height: 280,
-                            showControls: false
+                            showControls: true
                         )
                         .padding(.horizontal, horizontalPadding)
                     } else {
