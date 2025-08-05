@@ -8,10 +8,7 @@ struct FlightRecordCard: View {
         let stats = viewModel.getFlightStats(for: session)
 
         NavigationLink(destination: AirplaneModelView(session: session)) {
-            ZStack {
-                // 登机牌背景
-                BoardingPassBackground()
-
+            GlassCard {
                 VStack(spacing: 0) {
                 // 上半部分：航班信息
                 VStack(spacing: 8) {
@@ -133,33 +130,9 @@ struct FlightRecordCard: View {
                 .padding(.vertical, 16)
             }
             .frame(width: 350, height: 200) // 固定卡片尺寸
-        }
-        .buttonStyle(PlainButtonStyle()) // 移除默认的按钮样式
-    }
-
-    private func formatChineseDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy年M月d日"
-        return formatter.string(from: date)
-    }
-}
-
-// MARK: - 登机牌背景组件
-struct BoardingPassBackground: View {
-    var body: some View {
-        RoundedRectangle(cornerRadius: 20)
-            .fill(Color.white.opacity(0.05))
-            .background(
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(.ultraThinMaterial)
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(Color.white.opacity(0.1), lineWidth: 1)
-            )
             .mask(
-                // 创建半圆缺口效果
-                RoundedRectangle(cornerRadius: 20)
+                // 创建登机牌缺口效果
+                RoundedRectangle(cornerRadius: 12)
                     .overlay(
                         HStack {
                             Circle()
@@ -176,26 +149,17 @@ struct BoardingPassBackground: View {
                         .blendMode(.destinationOut)
                     )
             )
-            .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 4)
-            .overlay(
-                // 悬停时的霓虹边框效果
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(
-                        LinearGradient(
-                            colors: [
-                                Color(red: 0, green: 0.83, blue: 1),
-                                Color(red: 0, green: 1, blue: 0.53),
-                                Color(red: 0.55, green: 0.36, blue: 0.96)
-                            ],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ),
-                        lineWidth: 2
-                    )
-                    .opacity(0)
-            )
+        }
+        .buttonStyle(PlainButtonStyle()) // 移除默认的按钮样式
+    }
+
+    private func formatChineseDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy年M月d日"
+        return formatter.string(from: date)
     }
 }
+
 
 // MARK: - 虚线分隔组件
 struct DashedDivider: View {
