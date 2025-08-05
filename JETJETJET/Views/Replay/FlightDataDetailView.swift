@@ -81,12 +81,26 @@ struct FlightDataDetailView: View {
 
                 VStack(alignment: .leading, spacing: 12) {
                     ForEach(viewModel.getAngleExplanations(), id: \.title) { explanation in
-                        AngleExplanationRow(
-                            title: explanation.title,
-                            description: explanation.description,
-                            emoji: explanation.emoji,
-                            gesture: explanation.gesture
-                        )
+                        // 直接内联角度说明行，无需单独组件
+                        HStack(alignment: .top, spacing: 12) {
+                            Text(explanation.emoji)
+                                .font(.title2)
+
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(explanation.title)
+                                    .font(.headline)
+
+                                Text(explanation.description)
+                                    .font(.body)
+                                    .foregroundColor(.primary)
+
+                                Text("类似: \(explanation.gesture)")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+
+                            Spacer()
+                        }
                     }
                 }
             }
@@ -94,7 +108,7 @@ struct FlightDataDetailView: View {
         }
     }
 
-    // MARK: - 详细数据卡片 (使用HUD样式)
+    // MARK: - 详细数据卡片 (直接内联HUD样式数据行)
     private var flightDataCard: some View {
         GlassCard {
             VStack(alignment: .leading, spacing: 16) {
@@ -116,7 +130,39 @@ struct FlightDataDetailView: View {
 
                 LazyVStack(spacing: 16) {
                     ForEach(Array(flightData.enumerated()), id: \.offset) { index, data in
-                        HUDStyleDataRow(data: data, index: index + 1, viewModel: viewModel)
+                        // 直接内联HUD样式数据行，无需单独组件
+                        VStack(spacing: 12) {
+                            // 时间戳和索引
+                            HStack {
+                                Text("#\(index + 1)")
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                                    .fontWeight(.medium)
+                                    .tracking(1)
+
+                                Spacer()
+
+                                Text(viewModel.formatTime(data.timestamp))
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                                    .monospacedDigit()
+                            }
+
+                            // 复用HUDDataBarView的数据显示逻辑
+                            HUDDataBarView(snapshot: FlightDataSnapshot(
+                                timestamp: data.timestamp,
+                                speed: data.speed,
+                                pitch: data.pitch,
+                                roll: data.roll,
+                                yaw: data.yaw
+                            ))
+                        }
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 12)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color.white.opacity(0.05))
+                        )
                     }
                 }
             }
@@ -140,77 +186,6 @@ struct InfoRow: View {
                 .font(.system(.body, design: .rounded, weight: .medium))
                 .foregroundColor(.cyan)
         }
-    }
-}
-
-struct AngleExplanationRow: View {
-    let title: String
-    let description: String
-    let emoji: String
-    let gesture: String
-    
-    var body: some View {
-        HStack(alignment: .top, spacing: 12) {
-            Text(emoji)
-                .font(.title2)
-            
-            VStack(alignment: .leading, spacing: 2) {
-                Text(title)
-                    .font(.headline)
-                
-                Text(description)
-                    .font(.body)
-                    .foregroundColor(.primary)
-                
-                Text("类似: \(gesture)")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
-            
-            Spacer()
-        }
-    }
-}
-
-// MARK: - HUD样式数据行
-struct HUDStyleDataRow: View {
-    let data: FlightData
-    let index: Int
-    let viewModel: FlightDataDetailVM
-
-    var body: some View {
-        VStack(spacing: 12) {
-            // 时间戳和索引
-            HStack {
-                Text("#\(index)")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                    .fontWeight(.medium)
-                    .tracking(1)
-
-                Spacer()
-
-                Text(viewModel.formatTime(data.timestamp))
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                    .monospacedDigit()
-            }
-
-            // 复用HUDDataBarView的数据显示逻辑
-            HUDDataBarView(snapshot: FlightDataSnapshot(
-                timestamp: data.timestamp,
-                speed: data.speed,
-                pitch: data.pitch,
-                roll: data.roll,
-                yaw: data.yaw
-            ))
-        }
-        .padding(.vertical, 8)
-        .padding(.horizontal, 12)
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color.white.opacity(0.05))
-        )
     }
 }
 
