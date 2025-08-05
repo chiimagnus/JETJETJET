@@ -28,8 +28,6 @@ struct AirplaneModelView: View {
             VStack(spacing: 0) {
                 // 顶部导航栏
                 topNavigationBar
-                    .padding(.horizontal, 20)
-                    .padding(.top, 10)
 
                 // 3D回放场景
                 replay3DScene
@@ -106,55 +104,39 @@ extension AirplaneModelView {
 
     // 顶部导航栏
     private var topNavigationBar: some View {
-        HStack {
-            // 返回按钮
-            Button(action: {
-                dismiss()
-            }) {
-                HStack(spacing: 8) {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 16, weight: .medium))
-                    Text("返回")
-                        .font(.system(size: 16, weight: .medium))
+        GlassCard {
+            HStack {
+                // 返回按钮
+                Button(action: {
+                    dismiss()
+                }) {
+                    Image(systemName: "arrow.left")
+                        .font(.system(.title3, weight: .medium))
+                        .foregroundColor(.cyan)
                 }
-                .foregroundColor(.white)
-                .padding(.horizontal, 16)
-                .padding(.vertical, 8)
-                .background(
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(.ultraThinMaterial)
-                )
-            }
 
-            Spacer()
+                Spacer()
 
-            // 标题
-            Text("REPLAY")
-                .font(.headline)
-                .fontWeight(.semibold)
-                .foregroundColor(.white)
+                // 标题
+                Text("REPLAY")
+                    .font(.system(.title2, design: .rounded, weight: .bold))
+                    .foregroundColor(.white)
+                    .tracking(1)
+                    .frame(maxWidth: .infinity)
 
-            Spacer()
-
-            // 数据详情按钮
-            Button(action: {
-                showingDataSheet = true
-            }) {
-                HStack(spacing: 6) {
-                    Image(systemName: "doc.text")
-                        .font(.system(size: 14, weight: .medium))
-                    Text("数据")
-                        .font(.system(size: 14, weight: .medium))
+                // 数据详情按钮
+                Button(action: {
+                    showingDataSheet = true
+                }) {
+                    Image(systemName: "list.bullet.clipboard")
+                        .font(.system(.title3, weight: .medium))
+                        .foregroundColor(.cyan)
                 }
-                .foregroundColor(.white)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 6)
-                .background(
-                    RoundedRectangle(cornerRadius: 16)
-                        .fill(.ultraThinMaterial)
-                )
             }
+            .padding()
         }
+        .padding(.horizontal, 20)
+        .padding(.top, 10)
     }
 
     // 3D回放场景
