@@ -7,147 +7,274 @@ struct FlightRecordCard: View {
     var body: some View {
         let stats = viewModel.getFlightStats(for: session)
 
-        VStack(spacing: 16) {
-            // 日期和状态行
-            HStack {
-                HStack(spacing: 12) {
-                    Text("📅")
-                        .font(.title2)
-                    
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(formatDate(session.startTime))
+        ZStack {
+            // 登机牌背景
+            BoardingPassBackground()
+
+            VStack(spacing: 0) {
+                // 上半部分：航班信息
+                VStack(spacing: 16) {
+                    // 日期和状态行
+                    HStack {
+                        Text(formatChineseDate(session.startTime))
                             .font(.system(.body, design: .rounded, weight: .semibold))
                             .foregroundColor(.white)
-                        
-                        Text(formatTime(session.startTime))
+
+                        Spacer()
+
+                        // 飞行状态指示器
+                        FlightStatusIndicator()
+                    }
+
+                    // 飞行路径
+                    HStack {
+                        // 起点代码
+                        Text("JET")
+                            .font(.system(.title, design: .rounded, weight: .black))
+                            .foregroundColor(.white)
+                            .shadow(color: Color(red: 0, green: 0.83, blue: 1).opacity(0.6), radius: 2)
+
+                        // 飞行路径线
+                        ZStack {
+                            Rectangle()
+                                .fill(
+                                    LinearGradient(
+                                        colors: [
+                                            Color(red: 0, green: 0.83, blue: 1),
+                                            Color(red: 0, green: 1, blue: 0.53)
+                                        ],
+                                        startPoint: .leading,
+                                        endPoint: .trailing
+                                    )
+                                )
+                                .frame(height: 2)
+
+                            // 飞机图标
+                            Image(systemName: "airplane")
+                                .font(.system(.body, weight: .bold))
+                                .foregroundColor(Color(red: 0, green: 0.83, blue: 1))
+                                .offset(x: 20) // 稍微偏右
+
+                            // 终点圆点
+                            Circle()
+                                .fill(Color(red: 0, green: 1, blue: 0.53))
+                                .frame(width: 8, height: 8)
+                                .shadow(color: Color(red: 0, green: 1, blue: 0.53).opacity(0.6), radius: 4)
+                                .offset(x: 50)
+                        }
+                        .frame(maxWidth: .infinity)
+
+                        // 终点代码
+                        Text("SKY")
+                            .font(.system(.title, design: .rounded, weight: .black))
+                            .foregroundColor(.white)
+                            .shadow(color: Color(red: 0, green: 0.83, blue: 1).opacity(0.6), radius: 2)
+                    }
+
+                    // 城市名称和飞行时间
+                    HStack {
+                        Text("起飞点")
+                            .font(.system(.caption, design: .rounded))
+                            .foregroundColor(.gray)
+
+                        Spacer()
+
+                        Text(session.formattedDuration)
+                            .font(.system(.body, design: .rounded, weight: .bold))
+                            .foregroundColor(Color(red: 0, green: 0.83, blue: 1))
+                            .shadow(color: Color(red: 0, green: 0.83, blue: 1).opacity(0.6), radius: 2)
+
+                        Spacer()
+
+                        Text("降落点")
                             .font(.system(.caption, design: .rounded))
                             .foregroundColor(.gray)
                     }
                 }
-                
-                Spacer()
-                
-                // 飞行状态指示器
-                FlightStatusIndicator()
-            }
-                
-            // 飞行时长和描述
-            HStack(spacing: 16) {
-                HStack(spacing: 8) {
-                    Text("⏱️")
-                        .font(.body)
-                    Text(session.formattedDuration)
-                        .font(.system(.body, design: .rounded, weight: .bold))
-                        .foregroundColor(Color(red: 0, green: 0.83, blue: 1)) // 霓虹青色
-                        .shadow(color: Color(red: 0, green: 0.83, blue: 1).opacity(0.6), radius: 2) // 发光效果
-                }
-                
-                HStack(spacing: 8) {
-                    Text("🛫")
-                        .font(.body)
-                    Text(session.flightDescription)
-                        .font(.system(.caption, design: .rounded))
-                        .foregroundColor(.gray)
-                }
-                
-                Spacer()
-            }
-                
-            // 数据标签网格
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: 4), spacing: 12) {
-                DataTag(value: stats.formattedMaxSpeed, label: "Max Speed", color: Color(red: 0, green: 0.83, blue: 1)) // 霓虹青色
-                DataTag(value: stats.formattedMaxPitch, label: "Max Pitch", color: Color(red: 0, green: 1, blue: 0.53)) // 霓虹绿色
-                DataTag(value: stats.formattedMaxRoll, label: "Max Roll", color: Color(red: 1, green: 0.42, blue: 0.21)) // 霓虹橙色
-                DataTag(value: stats.formattedMaxG, label: "Max G", color: Color(red: 0.55, green: 0.36, blue: 0.96)) // 霓虹紫色
-            }
-                
-            // 回放按钮
-            NavigationLink(destination: AirplaneModelView(session: session)) {
-                HStack(spacing: 8) {
-                    Image(systemName: "play.fill")
-                        .font(.system(.body, weight: .semibold))
+                .padding(.bottom, 20)
 
-                    Text("REJET")
-                        .font(.system(.body, design: .rounded, weight: .bold))
-                        .tracking(1)
+                // 虚线分隔
+                DashedDivider()
+
+                // 下半部分：飞行数据
+                VStack(spacing: 16) {
+                    HStack(spacing: 12) {
+                        // Max Pitch
+                        FlightDataItem(
+                            label: "Max Pitch",
+                            value: stats.formattedMaxPitch,
+                            color: Color(red: 0, green: 0.83, blue: 1)
+                        )
+
+                        // Max Roll
+                        FlightDataItem(
+                            label: "Max Roll",
+                            value: stats.formattedMaxRoll,
+                            color: Color(red: 0, green: 1, blue: 0.53)
+                        )
+
+                        // Max Yaw
+                        FlightDataItem(
+                            label: "Max Yaw",
+                            value: stats.formattedMaxYaw,
+                            color: Color(red: 1, green: 0.42, blue: 0.21)
+                        )
+
+                        // Max Speed
+                        FlightDataItem(
+                            label: "Max Speed",
+                            value: stats.formattedMaxSpeed,
+                            color: Color(red: 0.55, green: 0.36, blue: 0.96)
+                        )
+                    }
                 }
-                .foregroundColor(.white)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 12)
-                .background(
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(
-                            LinearGradient(
-                                colors: [
-                                    Color(red: 0.55, green: 0.36, blue: 0.96), // 霓虹紫色 #8b5cf6
-                                    Color(red: 0, green: 0.83, blue: 1) // 霓虹青色 #00d4ff
-                                ],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                        .shadow(
-                            color: Color(red: 0.55, green: 0.36, blue: 0.96).opacity(0.6), // 增强紫色发光
-                            radius: 12,
-                            x: 0,
-                            y: 4
-                        )
-                        .shadow(
-                            color: Color(red: 0, green: 0.83, blue: 1).opacity(0.4), // 青色发光
-                            radius: 8,
-                            x: 0,
-                            y: 0
-                        )
-                )
+                .padding(.top, 20)
             }
-            .buttonStyle(PlainButtonStyle())
+            .padding(24)
         }
-        .padding(20)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(.ultraThinMaterial)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color.white.opacity(0.1), lineWidth: 1)
-                )
-                .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 4)
-        )
+        .frame(maxWidth: 400)
     }
-    
-    private func formatDate(_ date: Date) -> String {
+
+    private func formatChineseDate(_ date: Date) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter.string(from: date)
-    }
-    
-    private func formatTime(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
+        formatter.dateFormat = "yyyy年M月d日"
         return formatter.string(from: date)
     }
 }
 
-#Preview {
-    VStack(spacing: 20) {
-        FlightRecordCard(
-            session: FlightSession(
-                startTime: Date(),
-                endTime: Date().addingTimeInterval(154),
-                dataCount: 100
-            ),
-            viewModel: FlightHistoryVM()
-        )
+// MARK: - 登机牌背景组件
+struct BoardingPassBackground: View {
+    var body: some View {
+        RoundedRectangle(cornerRadius: 20)
+            .fill(Color.white.opacity(0.05))
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(.ultraThinMaterial)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(Color.white.opacity(0.1), lineWidth: 1)
+            )
+            .mask(
+                // 创建半圆缺口效果
+                RoundedRectangle(cornerRadius: 20)
+                    .overlay(
+                        HStack {
+                            Circle()
+                                .frame(width: 24, height: 24)
+                                .offset(x: -12)
 
-        FlightRecordCard(
-            session: FlightSession(
-                startTime: Date().addingTimeInterval(-3600),
-                endTime: Date().addingTimeInterval(-3400),
-                dataCount: 200
-            ),
-            viewModel: FlightHistoryVM()
+                            Spacer()
+
+                            Circle()
+                                .frame(width: 24, height: 24)
+                                .offset(x: 12)
+                        }
+                        .offset(y: 20) // 调整虚线位置
+                        .blendMode(.destinationOut)
+                    )
+            )
+            .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 4)
+            .overlay(
+                // 悬停时的霓虹边框效果
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(
+                        LinearGradient(
+                            colors: [
+                                Color(red: 0, green: 0.83, blue: 1),
+                                Color(red: 0, green: 1, blue: 0.53),
+                                Color(red: 0.55, green: 0.36, blue: 0.96)
+                            ],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        lineWidth: 2
+                    )
+                    .opacity(0)
+            )
+    }
+}
+
+// MARK: - 虚线分隔组件
+struct DashedDivider: View {
+    var body: some View {
+        Rectangle()
+            .fill(Color.clear)
+            .frame(height: 1)
+            .overlay(
+                Rectangle()
+                    .fill(Color.white.opacity(0.4))
+                    .frame(height: 1)
+                    .mask(
+                        HStack(spacing: 8) {
+                            ForEach(0..<20, id: \.self) { _ in
+                                Rectangle()
+                                    .frame(width: 8, height: 1)
+                            }
+                        }
+                    )
+            )
+    }
+}
+
+// MARK: - 飞行数据项组件
+struct FlightDataItem: View {
+    let label: String
+    let value: String
+    let color: Color
+
+    var body: some View {
+        VStack(spacing: 4) {
+            Text(label.uppercased())
+                .font(.system(.caption2, design: .rounded, weight: .medium))
+                .foregroundColor(.gray)
+                .tracking(1)
+
+            Text(value)
+                .font(.system(.body, design: .rounded, weight: .bold))
+                .foregroundColor(color)
+                .shadow(color: color.opacity(0.6), radius: 2)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 12)
+        .padding(.horizontal, 8)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.white.opacity(0.03))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                )
         )
     }
-    .padding()
-    .background(Color.black)
+}
+
+#Preview {
+    ZStack {
+        // 星空背景
+        Color.black
+            .ignoresSafeArea()
+
+        VStack(spacing: 20) {
+            FlightRecordCard(
+                session: FlightSession(
+                    startTime: Date(),
+                    endTime: Date().addingTimeInterval(154),
+                    dataCount: 100
+                ),
+                viewModel: FlightHistoryVM()
+            )
+
+            FlightRecordCard(
+                session: FlightSession(
+                    startTime: Date().addingTimeInterval(-3600),
+                    endTime: Date().addingTimeInterval(-3400),
+                    dataCount: 200
+                ),
+                viewModel: FlightHistoryVM()
+            )
+        }
+        .padding()
+    }
     .preferredColorScheme(.dark)
 }

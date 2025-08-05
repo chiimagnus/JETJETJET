@@ -46,15 +46,13 @@ extension FlightSession {
         let maxSpeed = flightData.map { abs($0.speed) }.max() ?? 0.0
         let maxPitch = flightData.map { abs($0.pitch) }.max() ?? 0.0
         let maxRoll = flightData.map { abs($0.roll) }.max() ?? 0.0
-
-        // 计算最大G力 (基于加速度数据的近似值)
-        let maxG = flightData.map { sqrt($0.speed * $0.speed) / 9.81 }.max() ?? 0.0
+        let maxYaw = flightData.map { abs($0.yaw) }.max() ?? 0.0
 
         return FlightStats(
             maxSpeed: maxSpeed,
             maxPitch: maxPitch,
             maxRoll: maxRoll,
-            maxG: maxG
+            maxYaw: maxYaw
         )
     }
 
@@ -76,13 +74,13 @@ struct FlightStats {
     let maxSpeed: Double
     let maxPitch: Double
     let maxRoll: Double
-    let maxG: Double
+    let maxYaw: Double
 
-    init(maxSpeed: Double = 0.0, maxPitch: Double = 0.0, maxRoll: Double = 0.0, maxG: Double = 0.0) {
+    init(maxSpeed: Double = 0.0, maxPitch: Double = 0.0, maxRoll: Double = 0.0, maxYaw: Double = 0.0) {
         self.maxSpeed = maxSpeed
         self.maxPitch = maxPitch
         self.maxRoll = maxRoll
-        self.maxG = maxG
+        self.maxYaw = maxYaw
     }
 
     var formattedMaxSpeed: String {
@@ -97,7 +95,7 @@ struct FlightStats {
         return String(format: "%.0f°", maxRoll)
     }
 
-    var formattedMaxG: String {
-        return String(format: "%.1fG", maxG)
+    var formattedMaxYaw: String {
+        return String(format: "%.0f°", maxYaw)
     }
 }
