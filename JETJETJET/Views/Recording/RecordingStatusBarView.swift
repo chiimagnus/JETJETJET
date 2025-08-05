@@ -29,30 +29,7 @@ struct RecordingStatusBarView: View {
                 Spacer()
                 
                 // 右侧录制信息
-                HStack(spacing: 12) {
-                    // 录制指示点
-                    Circle()
-                        .fill(Color.red)
-                        .frame(width: 8, height: 8)
-                        .opacity(isBlinking ? 0.3 : 1.0)
-                        .scaleEffect(isBlinking ? 0.8 : 1.0)
-                        .shadow(color: .red, radius: 4)
-                        .onAppear {
-                            withAnimation(
-                                .easeInOut(duration: 1.0)
-                                .repeatForever(autoreverses: true)
-                            ) {
-                                isBlinking = true
-                            }
-                        }
-                    
-                    // REC文字
-                    Text("REC")
-                        .font(.caption)
-                        .fontWeight(.bold)
-                        .foregroundColor(.red)
-                        .tracking(1)
-                    
+                HStack(spacing: 12) {                    
                     // 时间显示
                     Text(duration)
                         .font(.system(.caption, design: .monospaced))
