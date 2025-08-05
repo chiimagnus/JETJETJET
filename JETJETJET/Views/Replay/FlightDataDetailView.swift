@@ -196,36 +196,14 @@ struct HUDStyleDataRow: View {
                     .monospacedDigit()
             }
 
-            // HUD数据条 - 飞行数据
-            HStack(spacing: 12) {
-                HUDDataItem(
-                    label: "PITCH",
-                    value: String(format: "%.0f°", data.pitch),
-                    progress: normalizedProgress(data.pitch, range: -90...90),
-                    color: .green
-                )
-
-                HUDDataItem(
-                    label: "ROLL",
-                    value: String(format: "%.0f°", data.roll),
-                    progress: normalizedProgress(data.roll, range: -90...90),
-                    color: .blue
-                )
-
-                HUDDataItem(
-                    label: "YAW",
-                    value: String(format: "%.0f°", data.yaw),
-                    progress: normalizedProgress(data.yaw, range: -180...180),
-                    color: .purple
-                )
-
-                HUDDataItem(
-                    label: "SPEED",
-                    value: String(format: "%.1f", data.speed),
-                    progress: normalizedProgress(data.speed, range: 0...50),
-                    color: .orange
-                )
-            }
+            // 复用HUDDataBarView的数据显示逻辑
+            HUDDataBarView(snapshot: FlightDataSnapshot(
+                timestamp: data.timestamp,
+                speed: data.speed,
+                pitch: data.pitch,
+                roll: data.roll,
+                yaw: data.yaw
+            ))
         }
         .padding(.vertical, 8)
         .padding(.horizontal, 12)
@@ -233,11 +211,6 @@ struct HUDStyleDataRow: View {
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color.white.opacity(0.05))
         )
-    }
-
-    private func normalizedProgress(_ value: Double, range: ClosedRange<Double>) -> Double {
-        let normalizedValue = (value - range.lowerBound) / (range.upperBound - range.lowerBound)
-        return max(0, min(1, normalizedValue))
     }
 }
 
