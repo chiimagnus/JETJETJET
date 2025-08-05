@@ -13,7 +13,7 @@ struct FlightRecordCard: View {
 
             VStack(spacing: 0) {
                 // 上半部分：航班信息
-                VStack(spacing: 16) {
+                VStack(spacing: 8) {
                     // 日期和状态行
                     HStack {
                         Text(formatChineseDate(session.startTime))
@@ -91,48 +91,47 @@ struct FlightRecordCard: View {
                             .foregroundColor(.gray)
                     }
                 }
-                .padding(.bottom, 20)
+                .padding(.bottom, 8)
 
                 // 虚线分隔
                 DashedDivider()
 
                 // 下半部分：飞行数据
-                VStack(spacing: 16) {
-                    HStack(spacing: 12) {
-                        // Max Pitch
-                        FlightDataItem(
-                            label: "Max Pitch",
-                            value: stats.formattedMaxPitch,
-                            color: Color(red: 0, green: 0.83, blue: 1)
-                        )
+                HStack(spacing: 6) {
+                    // Max Pitch
+                    FlightDataItem(
+                        label: "Max Pitch",
+                        value: stats.formattedMaxPitch,
+                        color: Color(red: 0, green: 0.83, blue: 1)
+                    )
 
-                        // Max Roll
-                        FlightDataItem(
-                            label: "Max Roll",
-                            value: stats.formattedMaxRoll,
-                            color: Color(red: 0, green: 1, blue: 0.53)
-                        )
+                    // Max Roll
+                    FlightDataItem(
+                        label: "Max Roll",
+                        value: stats.formattedMaxRoll,
+                        color: Color(red: 0, green: 1, blue: 0.53)
+                    )
 
-                        // Max Yaw
-                        FlightDataItem(
-                            label: "Max Yaw",
-                            value: stats.formattedMaxYaw,
-                            color: Color(red: 1, green: 0.42, blue: 0.21)
-                        )
+                    // Max Yaw
+                    FlightDataItem(
+                        label: "Max Yaw",
+                        value: stats.formattedMaxYaw,
+                        color: Color(red: 1, green: 0.42, blue: 0.21)
+                    )
 
-                        // Max Speed
-                        FlightDataItem(
-                            label: "Max Speed",
-                            value: stats.formattedMaxSpeed,
-                            color: Color(red: 0.55, green: 0.36, blue: 0.96)
-                        )
-                    }
+                    // Max Speed
+                    FlightDataItem(
+                        label: "Max Speed",
+                        value: stats.formattedMaxSpeed,
+                        color: Color(red: 0.55, green: 0.36, blue: 0.96)
+                    )
                 }
-                .padding(.top, 20)
+                .padding(.top, 8)
             }
-            .padding(24)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
         }
-        .frame(maxWidth: 400)
+        .frame(width: 350, height: 200) // 固定卡片尺寸
     }
 
     private func formatChineseDate(_ date: Date) -> String {
@@ -224,25 +223,28 @@ struct FlightDataItem: View {
     let color: Color
 
     var body: some View {
-        VStack(spacing: 4) {
+        VStack(spacing: 2) {
             Text(label.uppercased())
                 .font(.system(.caption2, design: .rounded, weight: .medium))
                 .foregroundColor(.gray)
-                .tracking(1)
+                .tracking(0.5)
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
 
             Text(value)
-                .font(.system(.body, design: .rounded, weight: .bold))
+                .font(.system(.callout, design: .rounded, weight: .bold))
                 .foregroundColor(color)
-                .shadow(color: color.opacity(0.6), radius: 2)
+                .shadow(color: color.opacity(0.6), radius: 1)
+                .lineLimit(1)
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 12)
-        .padding(.horizontal, 8)
+        .padding(.vertical, 6)
+        .padding(.horizontal, 4)
         .background(
-            RoundedRectangle(cornerRadius: 12)
+            RoundedRectangle(cornerRadius: 10)
                 .fill(Color.white.opacity(0.03))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 12)
+                    RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.white.opacity(0.1), lineWidth: 1)
                 )
         )
