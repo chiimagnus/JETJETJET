@@ -22,8 +22,7 @@ struct RecordingActiveView: View {
             VStack(spacing: 0) {
                 // 录制状态栏
                 RecordingStatusBarView(
-                    isRecording: viewModel.isRecording,
-                    duration: viewModel.formattedDuration()
+                    isRecording: viewModel.isRecording
                 )
                 .padding(.horizontal, horizontalPadding)
                 .padding(.top, 8)
@@ -54,6 +53,15 @@ struct RecordingActiveView: View {
                         )
                         .padding(.horizontal, horizontalPadding)
                 }
+
+                Spacer()
+
+                // 录制时长显示
+                RecordingDurationView(
+                    duration: viewModel.formattedDuration(),
+                    isRecording: viewModel.isRecording
+                )
+                .padding(.horizontal, horizontalPadding)
 
                 Spacer()
 
