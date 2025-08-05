@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登机牌卡片设计</title>
+    
+    <!-- 字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- 图标 -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        :root {
+            /* JETJETJET 主题色彩 */
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #1a1a2e;
+            --bg-glass: rgba(255, 255, 255, 0.05);
+            --bg-card: rgba(16, 16, 30, 0.8);
+            
+            /* 霓虹色彩系统 */
+            --neon-blue: #00d4ff;
+            --neon-green: #00ff88;
+            --neon-purple: #8b5cf6;
+            --neon-orange: #ff6b35;
+            --neon-red: #ff3366;
+            
+            /* 发光效果 */
+            --glow-blue: 0 0 20px rgba(0, 212, 255, 0.5);
+            --glow-green: 0 0 20px rgba(0, 255, 136, 0.5);
+            --glow-red: 0 0 20px rgba(255, 51, 102, 0.5);
+            
+            /* 文字颜色 */
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-accent: var(--neon-blue);
+            
+            /* 字体 */
+            --font-primary: 'Orbitron', 'JetBrains Mono', monospace;
+            --font-secondary: 'Exo 2', 'Inter', sans-serif;
+            
+            /* 间距和尺寸 */
+            --radius: 12px;
+            --radius-large: 20px;
+            
+            /* 玻璃拟态效果 */
+            --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+            --glass-backdrop: blur(10px);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary) !important;
+            background: var(--bg-primary) !important;
+            color: var(--text-primary) !important;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* 星空背景 */
+        .starfield {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* 登机牌卡片 */
+        .boarding-pass {
+            background: var(--bg-glass);
+            backdrop-filter: var(--glass-backdrop);
+            border: var(--glass-border);
+            border-radius: var(--radius-large);
+            padding: 24px;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .boarding-pass:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 212, 255, 0.2);
+            border-color: var(--neon-blue);
+        }
+
+        .boarding-pass::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-green), var(--neon-purple));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .boarding-pass:hover::before {
+            opacity: 1;
+        }
+
+        /* 状态标签 */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status-badge.active {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+        }
+
+        .status-badge.cancelled {
+            background: rgba(255, 51, 102, 0.1);
+            border: 1px solid var(--neon-red);
+            color: var(--neon-red);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.active {
+            background: var(--neon-green);
+            box-shadow: var(--glow-green);
+        }
+
+        .status-dot.cancelled {
+            background: var(--neon-red);
+            box-shadow: var(--glow-red);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* 飞行路径 */
+        .flight-route {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .airport-code {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--text-primary);
+            text-shadow: var(--glow-blue);
+        }
+
+        .route-line {
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-green));
+            margin: 0 16px;
+            position: relative;
+            border-radius: 2px;
+        }
+
+        .route-line::before {
+            content: '✈';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--neon-blue);
+            font-size: 1.2rem;
+            animation: fly 3s ease-in-out infinite;
+        }
+
+        @keyframes fly {
+            0% { left: 10%; }
+            50% { left: 50%; }
+            100% { left: 90%; }
+        }
+
+        .destination-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            box-shadow: var(--glow-green);
+            position: absolute;
+            right: -4px;
+            top: -3px;
+        }
+
+        /* 城市名称 */
+        .city-names {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .city-name {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-family: var(--font-secondary);
+        }
+
+        .flight-duration {
+            text-align: center;
+            color: var(--neon-blue);
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-shadow: var(--glow-blue);
+        }
+
+        /* 飞行信息网格 */
+        .flight-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .info-item {
+            text-align: center;
+            padding: 12px 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius);
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--neon-blue);
+            transform: translateY(-2px);
+        }
+
+        .info-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--neon-blue);
+            text-shadow: var(--glow-blue);
+        }
+    </style>
+</head>
+<body>
+    <!-- 星空背景 -->
+    <div class="starfield">
+        <div class="star" style="top: 20%; left: 10%; animation-delay: 0s;"></div>
+        <div class="star" style="top: 40%; left: 30%; animation-delay: 1s;"></div>
+        <div class="star" style="top: 60%; left: 70%; animation-delay: 2s;"></div>
+        <div class="star" style="top: 80%; left: 20%; animation-delay: 0.5s;"></div>
+        <div class="star" style="top: 30%; left: 80%; animation-delay: 1.5s;"></div>
+        <div class="star" style="top: 70%; left: 50%; animation-delay: 2.5s;"></div>
+    </div>
+
+    <!-- 登机牌卡片 -->
+    <div class="boarding-pass">
+        <!-- 日期和状态 -->
+        <div class="flex items-center justify-between mb-4">
+            <div class="text-white font-semibold">2025年7月8日</div>
+            <div class="status-badge active">
+                <div class="status-dot active"></div>
+                <span>进行中</span>
+            </div>
+        </div>
+
+        <!-- 飞行路径 -->
+        <div class="flight-route">
+            <div class="airport-code">APK</div>
+            <div class="route-line">
+                <div class="destination-dot"></div>
+            </div>
+            <div class="airport-code">PVG</div>
+        </div>
+
+        <!-- 城市名称和飞行时间 -->
+        <div class="city-names">
+            <div class="city-name">阿帕塔基</div>
+            <div class="flight-duration">14h 0m</div>
+            <div class="city-name">上海</div>
+        </div>
+
+        <!-- 飞行信息 -->
+        <div class="flight-info">
+            <div class="info-item">
+                <div class="info-label">出发</div>
+                <div class="info-value">11:51</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">飞行距离</div>
+                <div class="info-value">11,060 km</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">到达</div>
+                <div class="info-value">---</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 初始化图标
+        lucide.createIcons();
+        
+        // 动态生成更多星星
+        function createStars() {
+            const starfield = document.querySelector('.starfield');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starfield.appendChild(star);
+            }
+        }
+        
+        createStars();
+    </script>
+</body>
+</html>
