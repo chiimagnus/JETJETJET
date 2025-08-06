@@ -22,6 +22,14 @@ class MotionService {
     private var previousTimestamp: TimeInterval = 0
     private var referenceAttitude: CMAttitude?
     private var isFirstUpdate = true
+    
+    // 低通滤波相关
+    private var previousSpeed: Double = 0.0
+    private let lowPassFilterFactor: Double = 0.1 // 滤波系数，值越小越平滑
+
+    // 动态阻尼相关
+    private let motionThreshold: Double = 0.01   // 运动阈值，低于此值认为静止
+    private let dampingFactor: Double = 0.95     // 速度衰减因子
 
     // 状态管理
     private(set) var currentState: MotionServiceState = .idle
@@ -128,6 +136,7 @@ class MotionService {
         // 重置所有传感器数据，为新的录制会话做准备
         previousTimestamp = 0
         previousVelocity = (0, 0, 0)
+        previousSpeed = 0.0
         referenceAttitude = nil
         isFirstUpdate = true
     }
@@ -139,39 +148,54 @@ class MotionService {
     }
     
     private func calculateSpeed(from acceleration: CMAcceleration, timestamp: TimeInterval) -> Double {
-        // 第一次更新时，初始化时间戳
         if isFirstUpdate {
             previousTimestamp = timestamp
             isFirstUpdate = false
             return 0.0
         }
 
-        // 计算时间间隔
         let deltaTime = timestamp - previousTimestamp
-        guard deltaTime > 0 else { return 0.0 }
+        guard deltaTime > 0 else { return previousSpeed }
 
-        // 使用梯形积分法计算速度变化
-        // v = v0 + a * dt
-        let newVelocityX = previousVelocity.x + acceleration.x * deltaTime
-        let newVelocityY = previousVelocity.y + acceleration.y * deltaTime
-        let newVelocityZ = previousVelocity.z + acceleration.z * deltaTime
-
-        // 计算速度模长
+        let accelerationMagnitude = sqrt(acceleration.x * acceleration.x + acceleration.y * acceleration.y + acceleration.z * acceleration.z)
+        
+        var newVelocityX: Double
+        var newVelocityY: Double
+        var newVelocityZ: Double
+        
+        if accelerationMagnitude < motionThreshold {
+            // 当运动非常微弱时，应用阻尼并重置速度向量
+            newVelocityX = previousVelocity.x * dampingFactor
+            newVelocityY = previousVelocity.y * dampingFactor
+            newVelocityZ = previousVelocity.z * dampingFactor
+            // 速度过小则直接归零
+            if sqrt(newVelocityX*newVelocityX + newVelocityY*newVelocityY + newVelocityZ*newVelocityZ) < 0.01 {
+                newVelocityX = 0
+                newVelocityY = 0
+                newVelocityZ = 0
+            }
+        } else {
+            // 正常积分
+            newVelocityX = previousVelocity.x + acceleration.x * deltaTime
+            newVelocityY = previousVelocity.y + acceleration.y * deltaTime
+            newVelocityZ = previousVelocity.z + acceleration.z * deltaTime
+        }
+        
         let speedMagnitude = sqrt(
             newVelocityX * newVelocityX +
             newVelocityY * newVelocityY +
             newVelocityZ * newVelocityZ
         )
 
-        // 更新状态
+        let filteredSpeed = previousSpeed * (1.0 - lowPassFilterFactor) + speedMagnitude * lowPassFilterFactor
+        
         previousVelocity = (newVelocityX, newVelocityY, newVelocityZ)
         previousTimestamp = timestamp
-
-        // 应用简单的低通滤波，减少噪声
-        let filteredSpeed = speedMagnitude * 0.8 + (speedMagnitude * 0.2)
+        previousSpeed = filteredSpeed
 
         return filteredSpeed
     }
+
 
     // MARK: - 状态管理
 
