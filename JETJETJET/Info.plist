@@ -2,5 +2,70 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<!-- 应用基本信息 -->
+	<key>CFBundleName</key>
+	<string>JETJETJET</string>
+	<key>CFBundleDisplayName</key>
+	<string>JET!</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+
+	<!-- 权限使用说明 -->
+	<key>NSMotionUsageDescription</key>
+	<string>JETJETJET需要访问设备运动传感器来记录您的飞行轨迹和姿态数据，为您提供精确的3D飞行体验。</string>
+
+	<!-- 支持的设备方向 -->
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+
+	<!-- iPad支持的设备方向 -->
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+
+	<!-- 应用类别 -->
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.entertainment</string>
+
+	<!-- 最低系统版本 -->
+	<key>LSMinimumSystemVersion</key>
+	<string>17.0</string>
+
+	<!-- 支持的设备类型 -->
+	<key>UIDeviceFamily</key>
+	<array>
+		<integer>1</integer>
+		<integer>2</integer>
+	</array>
+
+	<!-- 状态栏样式 -->
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
+
+	<!-- 隐藏状态栏 -->
+	<key>UIStatusBarHidden</key>
+	<false/>
+
+	<!-- 应用图标文件 -->
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>AppIcon</string>
+	</array>
+
+	<!-- 支持后台模式 -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>background-processing</string>
+	</array>
 </dict>
 </plist>
