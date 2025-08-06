@@ -175,6 +175,7 @@ class FlightRecordingVM {
             for snapshot in chunk {
                 let flightData = FlightData(
                     timestamp: snapshot.timestamp,
+                    acceleration: snapshot.acceleration,
                     speed: snapshot.speed,
                     pitch: snapshot.pitch,
                     roll: snapshot.roll,

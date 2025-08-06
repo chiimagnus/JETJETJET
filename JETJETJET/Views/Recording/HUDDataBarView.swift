@@ -2,7 +2,8 @@ import SwiftUI
 
 struct HUDDataBarView: View {
     let snapshot: FlightDataSnapshot?
-    
+    private let userPreferences = UserPreferences.shared
+
     var body: some View {
         VStack(spacing: 16) {
             // HUD数据条 - 飞行数据
@@ -28,10 +29,15 @@ struct HUDDataBarView: View {
                     color: .purple
                 )
 
+                // 根据用户设置显示加速度或速度
                 HUDDataItem(
-                    label: "SPEED",
-                    value: String(format: "%.1f", snapshot?.speed ?? 0),
-                    progress: normalizedProgress(snapshot?.speed ?? 0, range: 0...50),
+                    label: userPreferences.dataDisplayType == .acceleration ? "ACCEL" : "SPEED",
+                    value: userPreferences.dataDisplayType == .acceleration ?
+                        String(format: "%.2f", snapshot?.acceleration ?? 0) :
+                        String(format: "%.1f", snapshot?.speed ?? 0),
+                    progress: userPreferences.dataDisplayType == .acceleration ?
+                        normalizedProgress(snapshot?.acceleration ?? 0, range: 0...20) :
+                        normalizedProgress(snapshot?.speed ?? 0, range: 0...50),
                     color: .orange
                 )
             }
@@ -133,6 +139,7 @@ struct HUDProgressBarView: View {
     VStack(spacing: 20) {
         HUDDataBarView(snapshot: FlightDataSnapshot(
             timestamp: Date(),
+            acceleration: 9.8,
             speed: 25.5,
             pitch: 45.0,
             roll: 12.0,

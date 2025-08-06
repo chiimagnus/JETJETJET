@@ -23,7 +23,10 @@ struct SettingsView: View {
                         
                         // 光源设置区域
                         lightSourceSection
-                        
+
+                        // 数据显示类型设置区域
+                        dataDisplayTypeSection
+
                         // 速度单位设置区域
                         speedUnitSection
 
@@ -103,6 +106,36 @@ struct SettingsView: View {
                         }
                     }
                 }
+            }
+            .padding(20)
+        }
+    }
+
+    // MARK: - 数据显示类型设置区域
+    private var dataDisplayTypeSection: some View {
+        GlassCard {
+            VStack(alignment: .leading, spacing: 20) {
+                // 标题
+                HStack {
+                    Image(systemName: "chart.line.uptrend.xyaxis")
+                        .font(.title2)
+                        .foregroundColor(.cyan)
+
+                    Text("数据显示类型")
+                        .font(.system(.title3, design: .rounded, weight: .bold))
+                        .foregroundColor(.white)
+
+                    Spacer()
+                }
+
+                // 数据类型选择器
+                Picker("数据显示类型", selection: $userPreferences.dataDisplayType) {
+                    ForEach(DataDisplayType.allCases) { type in
+                        Text(type.localized).tag(type)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .colorScheme(.dark)
             }
             .padding(20)
         }

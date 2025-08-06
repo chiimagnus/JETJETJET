@@ -105,17 +105,25 @@ class MotionService {
 
             let currentTimestamp = motion.timestamp
             let userAcceleration = motion.userAcceleration
-            
+
+            // 计算加速度大小
+            let accelerationMagnitude = sqrt(
+                userAcceleration.x * userAcceleration.x +
+                userAcceleration.y * userAcceleration.y +
+                userAcceleration.z * userAcceleration.z
+            )
+
             // 计算速度 (基于加速度积分)
             let speed = self.calculateSpeed(from: userAcceleration, timestamp: currentTimestamp)
-            
+
             // 转换角度为度数
             let pitch = currentAttitude.pitch * 180.0 / .pi
             let roll = currentAttitude.roll * 180.0 / .pi
             let yaw = currentAttitude.yaw * 180.0 / .pi
-            
+
             let snapshot = FlightDataSnapshot(
                 timestamp: Date(),
+                acceleration: accelerationMagnitude,
                 speed: speed,
                 pitch: pitch,
                 roll: roll,
@@ -231,7 +239,8 @@ class MotionService {
 // 用于传递实时数据的结构体
 struct FlightDataSnapshot: Equatable {
     let timestamp: Date
-    let speed: Double
+    let acceleration: Double  // 加速度大小 (m/s²)
+    let speed: Double         // 速度大小 (m/s)
     let pitch: Double
     let roll: Double
     let yaw: Double

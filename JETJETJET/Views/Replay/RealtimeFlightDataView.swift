@@ -18,6 +18,7 @@ struct RealtimeFlightDataView: View {
             // 复用现有的HUD数据条样式
             HUDDataBarView(snapshot: FlightDataSnapshot(
                 timestamp: flightData.timestamp,
+                acceleration: flightData.acceleration,
                 speed: flightData.speed,
                 pitch: flightData.pitch,
                 roll: flightData.roll,

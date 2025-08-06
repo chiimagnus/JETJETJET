@@ -151,6 +151,7 @@ struct FlightDataDetailView: View {
                             // 复用HUDDataBarView的数据显示逻辑
                             HUDDataBarView(snapshot: FlightDataSnapshot(
                                 timestamp: data.timestamp,
+                                acceleration: data.acceleration,
                                 speed: data.speed,
                                 pitch: data.pitch,
                                 roll: data.roll,

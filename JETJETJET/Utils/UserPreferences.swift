@@ -1,5 +1,31 @@
 import Foundation
 
+// MARK: - 数据显示类型
+enum DataDisplayType: String, CaseIterable, Identifiable {
+    case acceleration = "acceleration"
+    case speed = "speed"
+
+    var id: Self { self }
+
+    var localized: String {
+        switch self {
+        case .acceleration:
+            return "加速度"
+        case .speed:
+            return "速度"
+        }
+    }
+
+    var unit: String {
+        switch self {
+        case .acceleration:
+            return "m/s²"
+        case .speed:
+            return UserPreferences.shared.speedUnit.rawValue
+        }
+    }
+}
+
 // MARK: - 速度单位
 enum SpeedUnit: String, CaseIterable, Identifiable {
     case kilometersPerHour = "km/h"
@@ -33,6 +59,13 @@ class UserPreferences {
         }
     }
 
+    // MARK: - 数据显示类型设置
+    var dataDisplayType: DataDisplayType {
+        didSet {
+            UserDefaults.standard.set(dataDisplayType.rawValue, forKey: "dataDisplayType")
+        }
+    }
+
     // MARK: - 速度单位设置
     var speedUnit: SpeedUnit {
         didSet {
@@ -44,6 +77,10 @@ class UserPreferences {
         // 从UserDefaults加载飞机模型初始值
         let airplaneRawValue = UserDefaults.standard.string(forKey: "selectedAirplaneModelType") ?? AirplaneModelType.defaultModel.rawValue
         self.selectedAirplaneModelType = AirplaneModelType(rawValue: airplaneRawValue) ?? .defaultModel
+
+        // 从UserDefaults加载数据显示类型初始值
+        let dataDisplayTypeRawValue = UserDefaults.standard.string(forKey: "dataDisplayType") ?? DataDisplayType.acceleration.rawValue
+        self.dataDisplayType = DataDisplayType(rawValue: dataDisplayTypeRawValue) ?? .acceleration
 
         // 从UserDefaults加载速度单位初始值
         let speedUnitRawValue = UserDefaults.standard.string(forKey: "speedUnit") ?? SpeedUnit.kilometersPerHour.rawValue

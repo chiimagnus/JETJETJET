@@ -3,6 +3,7 @@ import SwiftUI
 struct FlightRecordCard: View {
     let session: FlightSession
     let viewModel: FlightHistoryVM
+    private let userPreferences = UserPreferences.shared
 
     var body: some View {
         let stats = viewModel.getFlightStats(for: session)
@@ -117,10 +118,11 @@ struct FlightRecordCard: View {
                         color: Color(red: 1, green: 0.42, blue: 0.21)
                     )
 
-                    // Max Speed
+                    // Max Speed or Acceleration based on user preference
                     FlightDataItem(
-                        label: "Max Speed",
-                        value: stats.formattedMaxSpeed,
+                        label: userPreferences.dataDisplayType == .acceleration ? "Max Accel" : "Max Speed",
+                        value: userPreferences.dataDisplayType == .acceleration ?
+                            stats.formattedMaxAcceleration : stats.formattedMaxSpeed,
                         color: Color(red: 0.55, green: 0.36, blue: 0.96)
                     )
                 }

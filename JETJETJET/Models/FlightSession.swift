@@ -43,12 +43,14 @@ extension FlightSession {
             return FlightStats()
         }
 
+        let maxAcceleration = flightData.map { abs($0.acceleration) }.max() ?? 0.0
         let maxSpeed = flightData.map { abs($0.speed) }.max() ?? 0.0
         let maxPitch = flightData.map { abs($0.pitch) }.max() ?? 0.0
         let maxRoll = flightData.map { abs($0.roll) }.max() ?? 0.0
         let maxYaw = flightData.map { abs($0.yaw) }.max() ?? 0.0
 
         return FlightStats(
+            maxAcceleration: maxAcceleration,
             maxSpeed: maxSpeed,
             maxPitch: maxPitch,
             maxRoll: maxRoll,
@@ -71,16 +73,23 @@ extension FlightSession {
 
 // MARK: - 飞行统计数据结构
 struct FlightStats {
-    let maxSpeed: Double // 存储为 m/s
+    let maxAcceleration: Double // 存储为 m/s²
+    let maxSpeed: Double        // 存储为 m/s
     let maxPitch: Double
     let maxRoll: Double
     let maxYaw: Double
 
-    init(maxSpeed: Double = 0.0, maxPitch: Double = 0.0, maxRoll: Double = 0.0, maxYaw: Double = 0.0) {
+    init(maxAcceleration: Double = 0.0, maxSpeed: Double = 0.0, maxPitch: Double = 0.0, maxRoll: Double = 0.0, maxYaw: Double = 0.0) {
+        self.maxAcceleration = maxAcceleration
         self.maxSpeed = maxSpeed
         self.maxPitch = maxPitch
         self.maxRoll = maxRoll
         self.maxYaw = maxYaw
+    }
+
+    /// 格式化最大加速度
+    var formattedMaxAcceleration: String {
+        return String(format: "%.2f", maxAcceleration)
     }
 
     /// 根据用户偏好格式化最大速度
