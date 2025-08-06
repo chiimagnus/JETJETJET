@@ -12,22 +12,6 @@ enum NavigationTitleType {
         case .jeting: return "J E T I N G"
         }
     }
-    
-    var emoji: String {
-        switch self {
-        case .main: return "🚀"
-        case .preJeting: return "🚀"
-        case .jeting: return "🚀"
-        }
-    }
-    
-    var fontSize: CGFloat {
-        switch self {
-        case .main: return 24
-        case .preJeting: return 20
-        case .jeting: return 24
-        }
-    }
 }
 
 struct NavigationHeaderView: View {
@@ -39,10 +23,10 @@ struct NavigationHeaderView: View {
                 HStack {
                     // 主标题 - 居中显示
                     HStack(spacing: 4) {
-                        Text(titleType.emoji)
+                        Text("🚀")
                             .font(.title2)
                         Text(titleType.title)
-                            .font(.custom("Orbitron", size: titleType.fontSize))
+                            .font(.custom("Orbitron", size: 24))
                             .fontWeight(.bold)
                             .foregroundStyle(
                                 LinearGradient(
