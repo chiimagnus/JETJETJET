@@ -155,7 +155,7 @@ struct FlightHistoryView: View {
     // MARK: - 空状态视图
     private var emptyStateView: some View {
         VStack(spacing: 20) {
-            Text("✈️")
+            Text("🚀")
                 .font(.system(size: 64))
                 .opacity(0.5)
 

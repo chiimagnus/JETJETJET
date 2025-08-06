@@ -15,9 +15,9 @@ enum NavigationTitleType {
     
     var emoji: String {
         switch self {
-        case .main: return "✈️"
+        case .main: return "🚀"
         case .preJeting: return "🚀"
-        case .jeting: return "✈️"
+        case .jeting: return "🚀"
         }
     }
     
