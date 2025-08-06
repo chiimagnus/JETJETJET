@@ -23,7 +23,7 @@ struct MainView: View {
                 // 主要内容 - 使用均匀分散布局
                 VStack(spacing: 0) {
                     // 顶部标题栏
-                    HeaderView()
+                    NavigationHeaderView(titleType: .main, showRecordingBorder: false)
                         .padding(.horizontal, horizontalPadding)
                         .padding(.top, 8)
 

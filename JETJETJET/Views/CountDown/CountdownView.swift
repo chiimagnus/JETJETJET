@@ -115,30 +115,7 @@ struct CountdownView: View {
 // MARK: - 头部卡片
 struct HeaderCard: View {
     var body: some View {
-        GlassCard {
-            VStack(spacing: 8) {
-                HStack {
-                    // 主标题
-                    HStack(spacing: 4) {
-                        Text("🚀")
-                            .font(.title2)
-                        Text("PRE-JETING")
-                            .font(.custom("Orbitron", size: 20))
-                            .fontWeight(.bold)
-                            .foregroundStyle(
-                                LinearGradient(
-                                    colors: [.cyan, .blue],
-                                    startPoint: .leading,
-                                    endPoint: .trailing
-                                )
-                            )
-                            .shadow(color: .cyan.opacity(0.5), radius: 10)
-                    }
-                }
-            }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 16)
-        }
+        NavigationHeaderView(titleType: .preJeting, showRecordingBorder: false)
     }
 }
 
