@@ -6,7 +6,6 @@ struct MainView: View {
     @State private var viewModel = FlightRecordingVM()
     @State private var airplane3DModel: Airplane3DModel?
     @State private var showingRecordingView = false
-    @State private var showingCountdownView = false
     @State private var lightSettings = LightSourceSettings()
     private var userPreferences = UserPreferences.shared
     
@@ -64,8 +63,10 @@ struct MainView: View {
 
                     // 主要操作按钮
                     MainActionButtonView {
-                        // 显示倒计时界面
-                        showingCountdownView = true
+                        // 开始录制
+                        viewModel.startRecording()
+                        // 显示录制界面
+                        showingRecordingView = true
                     }
                     .padding(.horizontal, horizontalPadding)
 
@@ -107,19 +108,15 @@ struct MainView: View {
                 airplane3DModel = Airplane3DModel(modelType: newModelType)
             }
         }
-        .simplePageTransition(showSecondPage: $showingCountdownView) {
-            CountdownView(
-                onAbort: {
-                    // 点击abort按钮时回退到MainView
-                    showingCountdownView = false
-                },
-                onRecordingComplete: {
-                    // 录制完成时直接退回到MainView
-                    showingCountdownView = false
-                },
+        .simplePageTransition(showSecondPage: $showingRecordingView) {
+            RecordingActiveView(
                 viewModel: viewModel,
-                lightSettings: lightSettings
+                onStopRecording: {
+                    // 录制完成时直接退回到MainView
+                    showingRecordingView = false
+                }
             )
+            .environment(lightSettings)
         }
     }
 
