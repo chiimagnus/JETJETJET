@@ -115,7 +115,7 @@ struct CountdownView: View {
 // MARK: - 头部卡片
 struct HeaderCard: View {
     var body: some View {
-        NavigationHeaderView(titleType: .preJeting, showRecordingBorder: false)
+        NavigationHeaderView(titleType: .preJeting)
     }
 }
 

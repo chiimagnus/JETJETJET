@@ -32,13 +32,12 @@ enum NavigationTitleType {
 
 struct NavigationHeaderView: View {
     let titleType: NavigationTitleType
-    let showRecordingBorder: Bool
     
     var body: some View {
         GlassCard {
             VStack(spacing: 8) {
                 HStack {
-                    // 主标题
+                    // 主标题 - 居中显示
                     HStack(spacing: 4) {
                         Text(titleType.emoji)
                             .font(.title2)
@@ -59,39 +58,14 @@ struct NavigationHeaderView: View {
             .padding(.horizontal, 20)
             .padding(.vertical, 16)
         }
-        .overlay(
-            // 录制状态边框（可选）
-            Group {
-                if showRecordingBorder {
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(
-                            LinearGradient(
-                                colors: [Color.red.opacity(0.6), Color.red.opacity(0.2)],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            ),
-                            lineWidth: 1
-                        )
-                }
-            }
-        )
-        .background(
-            // 录制状态背景（可选）
-            Group {
-                if showRecordingBorder {
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.red.opacity(0.05))
-                }
-            }
-        )
     }
 }
 
 #Preview {
     VStack(spacing: 20) {
-        NavigationHeaderView(titleType: .main, showRecordingBorder: false)
-        NavigationHeaderView(titleType: .preJeting, showRecordingBorder: false)
-        NavigationHeaderView(titleType: .jeting, showRecordingBorder: true)
+        NavigationHeaderView(titleType: .main)
+        NavigationHeaderView(titleType: .preJeting)
+        NavigationHeaderView(titleType: .jeting)
     }
     .preferredColorScheme(.dark)
     .padding()

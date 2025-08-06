@@ -6,7 +6,7 @@ struct RecordingStatusBarView: View {
     @State private var isBlinking = false
     
     var body: some View {
-        NavigationHeaderView(titleType: .jeting, showRecordingBorder: isRecording)
+        NavigationHeaderView(titleType: .jeting)
     }
 }
 
