@@ -71,7 +71,7 @@ extension FlightSession {
 
 // MARK: - 飞行统计数据结构
 struct FlightStats {
-    let maxSpeed: Double
+    let maxSpeed: Double // 存储为 m/s
     let maxPitch: Double
     let maxRoll: Double
     let maxYaw: Double
@@ -83,8 +83,11 @@ struct FlightStats {
         self.maxYaw = maxYaw
     }
 
+    /// 根据用户偏好格式化最大速度
     var formattedMaxSpeed: String {
-        return String(format: "%.1f", maxSpeed)
+        let unit = UserPreferences.shared.speedUnit
+        let convertedSpeed = convertSpeed(maxSpeed, to: unit)
+        return String(format: "%.1f", convertedSpeed)
     }
 
     var formattedMaxPitch: String {
@@ -97,5 +100,17 @@ struct FlightStats {
 
     var formattedMaxYaw: String {
         return String(format: "%.0f°", maxYaw)
+    }
+    
+    /// 将速度从 m/s 转换为指定单位
+    private func convertSpeed(_ speed: Double, to unit: SpeedUnit) -> Double {
+        switch unit {
+        case .kilometersPerHour:
+            return speed * 3.6
+        case .milesPerHour:
+            return speed * 2.23694
+        case .knots:
+            return speed * 1.94384
+        }
     }
 }

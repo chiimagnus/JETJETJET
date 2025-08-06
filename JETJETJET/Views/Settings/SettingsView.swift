@@ -3,7 +3,7 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(LightSourceSettings.self) private var lightSettings
-    private var userPreferences = UserPreferences.shared
+    @Bindable private var userPreferences = UserPreferences.shared
     
     var body: some View {
         ZStack {
@@ -20,6 +20,9 @@ struct SettingsView: View {
                     VStack(spacing: 24) {
                         // 飞机模型设置区域
                         airplaneModelSection
+                        
+                        // 速度单位设置区域
+                        speedUnitSection
 
                         // 光源设置区域
                         lightSourceSection
@@ -105,6 +108,35 @@ struct SettingsView: View {
         }
     }
 
+    // MARK: - 速度单位设置区域
+    private var speedUnitSection: some View {
+        GlassCard {
+            VStack(alignment: .leading, spacing: 16) {
+                // 标题
+                HStack {
+                    Image(systemName: "gauge.with.dots.needle.bottom.50percent")
+                        .font(.title2)
+                        .foregroundColor(.orange)
+
+                    Text("速度单位")
+                        .font(.system(.title3, design: .rounded, weight: .bold))
+                        .foregroundColor(.white)
+                }
+
+                // 单位选择器
+                Picker("速度单位", selection: $userPreferences.speedUnit) {
+                    ForEach(SpeedUnit.allCases) { unit in
+                        Text(unit.localized).tag(unit)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .background(Color.black.opacity(0.2))
+                .cornerRadius(8)
+            }
+            .padding(20)
+        }
+    }
+    
     // MARK: - 光源设置区域
     private var lightSourceSection: some View {
         GlassCard {

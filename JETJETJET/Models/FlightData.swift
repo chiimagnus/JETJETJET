@@ -18,4 +18,23 @@ final class FlightData {
         self.yaw = yaw
         self.sessionId = sessionId
     }
+    
+    /// 根据用户偏好格式化速度
+    var formattedSpeed: String {
+        let unit = UserPreferences.shared.speedUnit
+        let convertedSpeed = convertSpeed(to: unit)
+        return String(format: "%.1f", convertedSpeed)
+    }
+
+    /// 将速度从 m/s 转换为指定单位
+    func convertSpeed(to unit: SpeedUnit) -> Double {
+        switch unit {
+        case .kilometersPerHour:
+            return speed * 3.6 // m/s to km/h
+        case .milesPerHour:
+            return speed * 2.23694 // m/s to mph
+        case .knots:
+            return speed * 1.94384 // m/s to knots
+        }
+    }
 }
