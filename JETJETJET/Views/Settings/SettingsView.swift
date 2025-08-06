@@ -21,11 +21,11 @@ struct SettingsView: View {
                         // 飞机模型设置区域
                         airplaneModelSection
                         
-                        // 速度单位设置区域
-                        speedUnitSection
-
                         // 光源设置区域
                         lightSourceSection
+                        
+                        // 速度单位设置区域
+                        speedUnitSection
 
                         // 版权信息区域
                         copyrightSection
