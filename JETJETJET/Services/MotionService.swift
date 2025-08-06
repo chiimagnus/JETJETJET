@@ -76,7 +76,7 @@ class MotionService {
         changeState(to: newState)
 
         motionManager.deviceMotionUpdateInterval = AppConfig.Recording.motionUpdateInterval
-        motionManager.startDeviceMotionUpdates(to: .main) { [weak self] (motion, error) in
+        motionManager.startDeviceMotionUpdates(using: .xArbitraryZVertical, to: .main) { [weak self] (motion, error) in
             guard let motion = motion, let self = self else { return }
             
             if let error = error {
@@ -84,17 +84,27 @@ class MotionService {
                 return
             }
             
+            // 如果第一次更新，设置参考姿态
+            if self.referenceAttitude == nil {
+                self.referenceAttitude = motion.attitude
+            }
+            
+            // 计算相对姿态
+            let currentAttitude = motion.attitude.copy() as! CMAttitude
+            if let refAttitude = self.referenceAttitude {
+                currentAttitude.multiply(byInverseOf: refAttitude)
+            }
+
             let currentTimestamp = motion.timestamp
-            let attitude = motion.attitude
             let userAcceleration = motion.userAcceleration
             
             // 计算速度 (基于加速度积分)
             let speed = self.calculateSpeed(from: userAcceleration, timestamp: currentTimestamp)
             
             // 转换角度为度数
-            let pitch = attitude.pitch * 180.0 / .pi
-            let roll = attitude.roll * 180.0 / .pi
-            let yaw = attitude.yaw * 180.0 / .pi
+            let pitch = currentAttitude.pitch * 180.0 / .pi
+            let roll = currentAttitude.roll * 180.0 / .pi
+            let yaw = currentAttitude.yaw * 180.0 / .pi
             
             let snapshot = FlightDataSnapshot(
                 timestamp: Date(),
@@ -120,6 +130,12 @@ class MotionService {
         previousVelocity = (0, 0, 0)
         referenceAttitude = nil
         isFirstUpdate = true
+    }
+    
+    /// 校准传感器，将当前姿态设为参考基准
+    func calibrate() {
+        referenceAttitude = motionManager.deviceMotion?.attitude.copy() as? CMAttitude
+        print("传感器已校准")
     }
     
     private func calculateSpeed(from acceleration: CMAcceleration, timestamp: TimeInterval) -> Double {

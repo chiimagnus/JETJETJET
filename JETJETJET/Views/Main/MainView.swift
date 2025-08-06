@@ -36,6 +36,12 @@ struct MainView: View {
                             showControls: true
                         )
                         .padding(.horizontal, horizontalPadding)
+                        .overlay(alignment: .bottom) {
+                            CalibrationControlView {
+                                viewModel.calibrateSensors()
+                            }
+                            .offset(y: 40)
+                        }
                     } else {
                         // 3D模型加载占位符
                         RoundedRectangle(cornerRadius: 16)
@@ -137,5 +143,30 @@ struct MainView: View {
             roll: snapshot.roll,
             yaw: snapshot.yaw
         )
+    }
+}
+
+// MARK: - 校准控制视图
+struct CalibrationControlView: View {
+    var onCalibrate: () -> Void
+    
+    var body: some View {
+        VStack(spacing: 8) {
+            Text("手机顶部指向飞行方向")
+                .font(.caption)
+                .foregroundColor(.secondary)
+            
+            Button(action: onCalibrate) {
+                HStack {
+                    Image(systemName: "arrow.2.circlepath")
+                    Text("重新校准")
+                }
+                .font(.footnote)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .background(.thinMaterial)
+                .cornerRadius(12)
+            }
+        }
     }
 }

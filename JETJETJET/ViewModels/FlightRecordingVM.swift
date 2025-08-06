@@ -219,6 +219,11 @@ class FlightRecordingVM {
         }
     }
 
+    /// 校准传感器
+    func calibrateSensors() {
+        motionService.calibrate()
+    }
+
     // MARK: - 状态管理和验证
 
     /// 验证当前状态是否一致
