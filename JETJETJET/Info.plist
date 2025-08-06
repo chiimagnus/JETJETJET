@@ -41,12 +41,7 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>17.0</string>
 
-	<!-- 支持的设备类型 -->
-	<key>UIDeviceFamily</key>
-	<array>
-		<integer>1</integer>
-		<integer>2</integer>
-	</array>
+
 
 	<!-- 状态栏样式 -->
 	<key>UIStatusBarStyle</key>
