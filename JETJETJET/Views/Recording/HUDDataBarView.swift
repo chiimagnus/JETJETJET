@@ -36,7 +36,7 @@ struct HUDDataBarView: View {
                         String(format: "%.2f", snapshot?.acceleration ?? 0) :
                         String(format: "%.1f", snapshot?.speed ?? 0),
                     progress: userPreferences.dataDisplayType == .acceleration ?
-                        normalizedProgress(snapshot?.acceleration ?? 0, range: 0...20) :
+                        normalizedProgress(snapshot?.acceleration ?? 0, range: 0...30) :
                         normalizedProgress(snapshot?.speed ?? 0, range: 0...50),
                     color: .orange
                 )

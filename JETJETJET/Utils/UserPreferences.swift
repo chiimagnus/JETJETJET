@@ -21,7 +21,7 @@ enum DataDisplayType: String, CaseIterable, Identifiable {
         case .acceleration:
             return "m/s²"
         case .speed:
-            return UserPreferences.shared.speedUnit.rawValue
+            return "速度单位"  // 这里不能直接引用UserPreferences.shared，会造成循环引用
         }
     }
 }
