@@ -39,6 +39,7 @@ struct JETJETJETApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
+                // .statusBar(hidden: true) // 隐藏系统状态栏
         }
         .modelContainer(sharedModelContainer)
     }
