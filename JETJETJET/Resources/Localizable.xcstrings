@@ -1,0 +1,489 @@
+{
+  "sourceLanguage" : "zh-Hans",
+  "strings" : {
+    "#%lld" : {
+      "shouldTranslate" : false
+    },
+    "%lld 条" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld"
+          }
+        }
+      }
+    },
+    "© 2025 Chii Magnus" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "© 2025 Chii Magnus"
+          }
+        }
+      }
+    },
+    "🚀" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🚀"
+          }
+        }
+      }
+    },
+    "3D 模型资源" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3D Model Resources"
+          }
+        }
+      }
+    },
+    "JET" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JET"
+          }
+        }
+      }
+    },
+    "JET LOGS" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JET LOGS"
+          }
+        }
+      }
+    },
+    "JETJETJET" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JETJETJET"
+          }
+        }
+      }
+    },
+    "LOGS" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "LOGS"
+          }
+        }
+      }
+    },
+    "NEW FLIGHT" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "NEW FLIGHT"
+          }
+        }
+      }
+    },
+    "NO JETTING" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "NO JETTING"
+          }
+        }
+      }
+    },
+    "Pixabay License" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pixabay License"
+          }
+        }
+      }
+    },
+    "REPLAY" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "REPLAY"
+          }
+        }
+      }
+    },
+    "SETTINGS" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SETTINGS"
+          }
+        }
+      }
+    },
+    "SETUP" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SETUP"
+          }
+        }
+      }
+    },
+    "SKY" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SKY"
+          }
+        }
+      }
+    },
+    "Thingiverse" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thingiverse"
+          }
+        }
+      }
+    },
+    "会话信息" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Session Information"
+          }
+        }
+      }
+    },
+    "作者：macouno" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Author: macouno"
+          }
+        }
+      }
+    },
+    "光源模式" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Light Source Mode"
+          }
+        }
+      }
+    },
+    "免费商用，无需署名" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Free for commercial use, no attribution required"
+          }
+        }
+      }
+    },
+    "加载3D模型..." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loading 3D model..."
+          }
+        }
+      }
+    },
+    "完成" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        }
+      }
+    },
+    "应用信息" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App Information"
+          }
+        }
+      }
+    },
+    "开始你的第一次飞行记录吧！" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start your first flight log!"
+          }
+        }
+      }
+    },
+    "当前时刻飞行数据" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current Flight Data"
+          }
+        }
+      }
+    },
+    "手机顶部指向飞行方向" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Point the top of your phone in the direction of flight"
+          }
+        }
+      }
+    },
+    "搜索飞行记录..." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search flight logs..."
+          }
+        }
+      }
+    },
+    "数据显示类型" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data Display Type"
+          }
+        }
+      }
+    },
+    "数据详情" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data Details"
+          }
+        }
+      }
+    },
+    "暂无飞行记录" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No flight logs yet"
+          }
+        }
+      }
+    },
+    "来源：" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Source:"
+          }
+        }
+      }
+    },
+    "来源：Pixabay" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Source: Pixabay"
+          }
+        }
+      }
+    },
+    "模型名称：Little Jet Plane" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Model Name: Little Jet Plane"
+          }
+        }
+      }
+    },
+    "版权信息" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copyright Information"
+          }
+        }
+      }
+    },
+    "类似: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Similar: %@"
+          }
+        }
+      }
+    },
+    "自定义光源颜色" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom Light Source Color"
+          }
+        }
+      }
+    },
+    "角度说明" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Angle Description"
+          }
+        }
+      }
+    },
+    "许可：CC BY (Creative Commons - Attribution)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "License: CC BY (Creative Commons - Attribution)"
+          }
+        }
+      }
+    },
+    "许可：Pixabay Content License" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "License: Pixabay Content License"
+          }
+        }
+      }
+    },
+    "详情：" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Details:"
+          }
+        }
+      }
+    },
+    "详细数据" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detailed Data"
+          }
+        }
+      }
+    },
+    "起飞点" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Takeoff Point"
+          }
+        }
+      }
+    },
+    "选择颜色" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select Color"
+          }
+        }
+      }
+    },
+    "速度单位" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speed Unit"
+          }
+        }
+      }
+    },
+    "重新校准" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recalibrate"
+          }
+        }
+      }
+    },
+    "降落点" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Landing Point"
+          }
+        }
+      }
+    },
+    "音效资源" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sound Effect Resources"
+          }
+        }
+      }
+    },
+    "飞机模型" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aircraft Model"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
