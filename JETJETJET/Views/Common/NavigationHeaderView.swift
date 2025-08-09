@@ -7,9 +7,9 @@ enum NavigationTitleType {
     
     var title: String {
         switch self {
-        case .main: return "J E T J E T J E T"
-        case .preJetting: return "P R E - J E T T I N G"
-        case .jetting: return "J E T T I N G"
+        case .main: return NSLocalizedString("main_view_title", comment: "Main view title")
+        case .preJetting: return NSLocalizedString("pre_jetting_view_title", comment: "Pre-jetting view title")
+        case .jetting: return NSLocalizedString("jetting_view_title", comment: "Jetting view title")
         }
     }
 }

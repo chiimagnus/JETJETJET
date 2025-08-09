@@ -1,0 +1,120 @@
+/* MainView */
+"main_view_title" = "JETJETJET";
+
+/* Pre-Jetting View */
+"pre_jetting_view_title" = "P R E - J E T T I N G";
+
+/* Jetting View */
+"jetting_view_title" = "J E T T I N G";
+
+/* SettingsView */
+"settings_view_title" = "Settings";
+
+/* Settings Sections */
+"settings_airplane_model" = "Aircraft Model";
+"settings_data_display_type" = "Data Display Type";
+"settings_speed_unit" = "Speed Unit";
+"settings_light_source_mode" = "Light Source Mode";
+"settings_custom_light_color" = "Custom Light Color";
+"settings_color_picker" = "Select Color";
+"settings_copyright_info" = "Copyright Information";
+"settings_3d_model_resources" = "3D Model Resources";
+"settings_model_name" = "Model Name: Little Jet Plane";
+"settings_author" = "Author: macouno";
+"settings_license" = "License: CC BY (Creative Commons - Attribution)";
+"settings_source" = "Source:";
+"settings_audio_resources" = "Audio Resources";
+"settings_audio_source" = "Source: Pixabay";
+"settings_audio_license" = "License: Pixabay Content License";
+"settings_commercial_use" = "Free for commercial use, no attribution required";
+"settings_details" = "Details:";
+"settings_app_info" = "App Information";
+"settings_app_name" = "JETJETJET";
+"settings_copyright" = "© 2025 Chii Magnus";
+
+/* Flight History */
+"flight_history_title" = "JET LOGS";
+"flight_history_empty_title" = "No Flight Records";
+"flight_history_empty_subtitle" = "Start your first flight recording!";
+"flight_history_new_flight_button" = "NEW FLIGHT";
+
+/* Flight Record Card */
+"flight_record_departure" = "Departure";
+"flight_record_arrival" = "Arrival";
+"flight_record_max_pitch" = "Max Pitch";
+"flight_record_max_roll" = "Max Roll";
+"flight_record_max_yaw" = "Max Yaw";
+"flight_record_max_accel" = "Max Accel";
+"flight_record_max_speed" = "Max Speed";
+
+/* Flight Status Indicator */
+"flight_status_completed" = "Completed";
+
+/* Replay View */
+"replay_view_title" = "REPLAY";
+"replay_data_details" = "Data Details";
+
+/* Flight Data Detail View */
+"flight_data_detail_title" = "Data Details";
+"flight_data_detail_done" = "Done";
+"flight_data_detail_session_info" = "Session Information";
+"flight_data_detail_start_time" = "Start Time";
+"flight_data_detail_end_time" = "End Time";
+"flight_data_detail_duration" = "Duration";
+"flight_data_detail_data_points" = "Data Points";
+"flight_data_detail_angle_explanation" = "Angle Explanation";
+"flight_data_detail_detailed_data" = "Detailed Data";
+
+/* Realtime Flight Data View */
+"realtime_flight_data_title" = "Current Moment Flight Data";
+
+/* AddFlightView */
+"add_flight_view_title" = "Add Flight";
+
+/* FlightListView */
+"flight_list_view_title" = "My Flights";
+
+/* Stop Recording Button */
+"stop_recording_button_title" = "NO JETTING";
+
+/* Loading Text */
+"loading_3d_model" = "Loading 3D model...";
+
+/* Calibration Instruction */
+"calibration_instruction" = "Point the top of your phone in the flight direction";
+
+/* Recalibrate Button */
+"recalibrate_button_title" = "Recalibrate";
+
+/* Data Display Types */
+"data_display_type_acceleration" = "Acceleration";
+"data_display_type_speed" = "Speed";
+
+/* Speed Units */
+"speed_unit_display_name" = "Speed Unit";
+"speed_unit_kmh" = "km/h";
+"speed_unit_mph" = "mph";
+"speed_unit_knots" = "Knots";
+
+/* Light Modes */
+"light_mode_stars" = "Stars";
+"light_mode_sun" = "Sun";
+"light_mode_moon" = "Moon";
+"light_mode_custom" = "Custom";
+
+/* Airplane Models */
+"airplane_model_default" = "Default";
+"airplane_model_jet1" = "Little Jet Plane";
+
+/* Error Messages */
+"error_data_context_unavailable" = "Data context unavailable";
+"error_delete_data_failed" = "Failed to delete data: %@";
+"error_motion_not_available" = "Device does not support motion sensors";
+"error_motion_not_accessible" = "Motion sensor is not accessible";
+"error_data_save_failed" = "Failed to save data";
+"error_inconsistent_recording_state" = "Inconsistent recording state";
+
+/* Motion Service States */
+"motion_state_idle" = "Idle";
+"motion_state_monitoring" = "Monitoring";
+"motion_state_recording" = "Recording";

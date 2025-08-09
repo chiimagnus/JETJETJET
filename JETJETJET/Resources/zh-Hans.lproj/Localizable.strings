@@ -1,0 +1,120 @@
+/* MainView */
+"main_view_title" = "JETJETJET";
+
+/* Pre-Jetting View */
+"pre_jetting_view_title" = "准备起飞";
+
+/* Jetting View */
+"jetting_view_title" = "飞行中";
+
+/* SettingsView */
+"settings_view_title" = "设置";
+
+/* Settings Sections */
+"settings_airplane_model" = "飞机模型";
+"settings_data_display_type" = "数据显示类型";
+"settings_speed_unit" = "速度单位";
+"settings_light_source_mode" = "光源模式";
+"settings_custom_light_color" = "自定义光源颜色";
+"settings_color_picker" = "选择颜色";
+"settings_copyright_info" = "版权信息";
+"settings_3d_model_resources" = "3D 模型资源";
+"settings_model_name" = "模型名称：Little Jet Plane";
+"settings_author" = "作者：macouno";
+"settings_license" = "许可：CC BY (Creative Commons - Attribution)";
+"settings_source" = "来源：";
+"settings_audio_resources" = "音效资源";
+"settings_audio_source" = "来源：Pixabay";
+"settings_audio_license" = "许可：Pixabay Content License";
+"settings_commercial_use" = "免费商用，无需署名";
+"settings_details" = "详情：";
+"settings_app_info" = "应用信息";
+"settings_app_name" = "JETJETJET";
+"settings_copyright" = "© 2025 Chii Magnus";
+
+/* Flight History */
+"flight_history_title" = "飞行日志";
+"flight_history_empty_title" = "暂无飞行记录";
+"flight_history_empty_subtitle" = "开始你的第一次飞行记录吧！";
+"flight_history_new_flight_button" = "新建飞行";
+
+/* Flight Record Card */
+"flight_record_departure" = "起飞点";
+"flight_record_arrival" = "降落点";
+"flight_record_max_pitch" = "Max Pitch";
+"flight_record_max_roll" = "Max Roll";
+"flight_record_max_yaw" = "Max Yaw";
+"flight_record_max_accel" = "Max Accel";
+"flight_record_max_speed" = "Max Speed";
+
+/* Flight Status Indicator */
+"flight_status_completed" = "完成";
+
+/* Replay View */
+"replay_view_title" = "回放";
+"replay_data_details" = "数据详情";
+
+/* Flight Data Detail View */
+"flight_data_detail_title" = "数据详情";
+"flight_data_detail_done" = "完成";
+"flight_data_detail_session_info" = "会话信息";
+"flight_data_detail_start_time" = "开始时间";
+"flight_data_detail_end_time" = "结束时间";
+"flight_data_detail_duration" = "持续时间";
+"flight_data_detail_data_points" = "数据点数";
+"flight_data_detail_angle_explanation" = "角度说明";
+"flight_data_detail_detailed_data" = "详细数据";
+
+/* Realtime Flight Data View */
+"realtime_flight_data_title" = "当前时刻飞行数据";
+
+/* AddFlightView */
+"add_flight_view_title" = "添加航班";
+
+/* FlightListView */
+"flight_list_view_title" = "我的航班";
+
+/* Stop Recording Button */
+"stop_recording_button_title" = "停止飞行";
+
+/* Loading Text */
+"loading_3d_model" = "加载3D模型...";
+
+/* Calibration Instruction */
+"calibration_instruction" = "手机顶部指向飞行方向";
+
+/* Recalibrate Button */
+"recalibrate_button_title" = "重新校准";
+
+/* Data Display Types */
+"data_display_type_acceleration" = "加速度";
+"data_display_type_speed" = "速度";
+
+/* Speed Units */
+"speed_unit_display_name" = "速度单位";
+"speed_unit_kmh" = "km/h";
+"speed_unit_mph" = "mph";
+"speed_unit_knots" = "节";
+
+/* Light Modes */
+"light_mode_stars" = "星光";
+"light_mode_sun" = "太阳";
+"light_mode_moon" = "月亮";
+"light_mode_custom" = "自定义";
+
+/* Airplane Models */
+"airplane_model_default" = "默认";
+"airplane_model_jet1" = "Little Jet Plane";
+
+/* Error Messages */
+"error_data_context_unavailable" = "数据上下文不可用";
+"error_delete_data_failed" = "删除数据失败: %@";
+"error_motion_not_available" = "设备不支持运动传感器";
+"error_motion_not_accessible" = "运动传感器不可用";
+"error_data_save_failed" = "保存数据失败";
+"error_inconsistent_recording_state" = "录制状态不一致";
+
+/* Motion Service States */
+"motion_state_idle" = "空闲";
+"motion_state_monitoring" = "监听中";
+"motion_state_recording" = "录制中";

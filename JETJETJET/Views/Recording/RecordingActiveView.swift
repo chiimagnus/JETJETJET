@@ -46,7 +46,7 @@ struct RecordingActiveView: View {
                             VStack(spacing: 12) {
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle(tint: .cyan))
-                                Text("加载3D模型...")
+                                Text(NSLocalizedString("loading_3d_model", comment: "Loading 3D model text"))
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                             }

@@ -17,7 +17,7 @@ struct StopRecordingButtonView: View {
                     .font(.title2)
                     .fontWeight(.semibold)
                 
-                Text("NO JETTING")
+                Text(NSLocalizedString("stop_recording_button_title", comment: "Stop recording button title"))
                     .font(.headline)
                     .fontWeight(.semibold)
                     .tracking(1)

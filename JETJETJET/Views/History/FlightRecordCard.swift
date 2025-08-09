@@ -72,7 +72,7 @@ struct FlightRecordCard: View {
 
                     // 城市名称和飞行时间
                     HStack {
-                        Text("起飞点")
+                        Text(NSLocalizedString("flight_record_departure", comment: "Departure label"))
                             .font(.system(.caption, design: .rounded))
                             .foregroundColor(.gray)
 
@@ -85,7 +85,7 @@ struct FlightRecordCard: View {
 
                         Spacer()
 
-                        Text("降落点")
+                        Text(NSLocalizedString("flight_record_arrival", comment: "Arrival label"))
                             .font(.system(.caption, design: .rounded))
                             .foregroundColor(.gray)
                     }
@@ -99,28 +99,30 @@ struct FlightRecordCard: View {
                 HStack(spacing: 6) {
                     // Max Pitch
                     FlightDataItem(
-                        label: "Max Pitch",
+                        label: NSLocalizedString("flight_record_max_pitch", comment: "Max pitch label"),
                         value: stats.formattedMaxPitch,
                         color: Color(red: 0, green: 0.83, blue: 1)
                     )
 
                     // Max Roll
                     FlightDataItem(
-                        label: "Max Roll",
+                        label: NSLocalizedString("flight_record_max_roll", comment: "Max roll label"),
                         value: stats.formattedMaxRoll,
                         color: Color(red: 0, green: 1, blue: 0.53)
                     )
 
                     // Max Yaw
                     FlightDataItem(
-                        label: "Max Yaw",
+                        label: NSLocalizedString("flight_record_max_yaw", comment: "Max yaw label"),
                         value: stats.formattedMaxYaw,
                         color: Color(red: 1, green: 0.42, blue: 0.21)
                     )
 
                     // Max Speed or Acceleration based on user preference
                     FlightDataItem(
-                        label: userPreferences.dataDisplayType == .acceleration ? "Max Accel" : "Max Speed",
+                        label: userPreferences.dataDisplayType == .acceleration ? 
+                            NSLocalizedString("flight_record_max_accel", comment: "Max acceleration label") : 
+                            NSLocalizedString("flight_record_max_speed", comment: "Max speed label"),
                         value: userPreferences.dataDisplayType == .acceleration ?
                             stats.formattedMaxAcceleration : stats.formattedMaxSpeed,
                         color: Color(red: 0.55, green: 0.36, blue: 0.96)

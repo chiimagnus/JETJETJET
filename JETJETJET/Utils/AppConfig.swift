@@ -74,11 +74,11 @@ struct AppConfig {
     
     // MARK: - 错误消息
     struct ErrorMessages {
-        static let motionNotAvailable = "设备不支持运动传感器"
-        static let motionNotAccessible = "运动传感器不可用"
-        static let dataContextUnavailable = "数据上下文不可用"
-        static let dataSaveFailed = "保存数据失败"
-        static let inconsistentRecordingState = "录制状态不一致"
+        static let motionNotAvailable = NSLocalizedString("error_motion_not_available", comment: "Motion sensor not available error message")
+        static let motionNotAccessible = NSLocalizedString("error_motion_not_accessible", comment: "Motion sensor not accessible error message")
+        static let dataContextUnavailable = NSLocalizedString("error_data_context_unavailable", comment: "Data context unavailable error message")
+        static let dataSaveFailed = NSLocalizedString("error_data_save_failed", comment: "Data save failed error message")
+        static let inconsistentRecordingState = NSLocalizedString("error_inconsistent_recording_state", comment: "Inconsistent recording state error message")
     }
     
     // MARK: - 调试配置

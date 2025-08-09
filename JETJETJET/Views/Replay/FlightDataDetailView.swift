@@ -23,11 +23,11 @@ struct FlightDataDetailView: View {
                     .padding(.horizontal, 20)
                     .padding(.top, 20)
                 }
-                .navigationTitle("数据详情")
+                .navigationTitle(NSLocalizedString("flight_data_detail_title", comment: "Flight data detail view title"))
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Button("完成") {
+                        Button(NSLocalizedString("flight_data_detail_done", comment: "Done button title")) {
                             dismiss()
                         }
                     }
@@ -45,7 +45,7 @@ struct FlightDataDetailView: View {
                         .font(.title2)
                         .foregroundColor(.blue)
 
-                    Text("会话信息")
+                    Text(NSLocalizedString("flight_data_detail_session_info", comment: "Session information title"))
                         .font(.system(.title3, design: .rounded, weight: .bold))
                         .foregroundColor(.white)
 
@@ -53,10 +53,10 @@ struct FlightDataDetailView: View {
                 }
 
                 VStack(spacing: 12) {
-                    InfoRow(title: "开始时间", value: viewModel.formatDateTime(session.startTime))
-                    InfoRow(title: "结束时间", value: viewModel.formatDateTime(session.endTime))
-                    InfoRow(title: "持续时间", value: session.formattedDuration)
-                    InfoRow(title: "数据点数", value: "\(flightData.count) 条")
+                    InfoRow(title: NSLocalizedString("flight_data_detail_start_time", comment: "Start time label"), value: viewModel.formatDateTime(session.startTime))
+                    InfoRow(title: NSLocalizedString("flight_data_detail_end_time", comment: "End time label"), value: viewModel.formatDateTime(session.endTime))
+                    InfoRow(title: NSLocalizedString("flight_data_detail_duration", comment: "Duration label"), value: session.formattedDuration)
+                    InfoRow(title: NSLocalizedString("flight_data_detail_data_points", comment: "Data points label"), value: "\(flightData.count) 条")
                 }
             }
             .padding(20)
@@ -72,7 +72,7 @@ struct FlightDataDetailView: View {
                         .font(.title2)
                         .foregroundColor(.orange)
 
-                    Text("角度说明")
+                    Text(NSLocalizedString("flight_data_detail_angle_explanation", comment: "Angle explanation title"))
                         .font(.system(.title3, design: .rounded, weight: .bold))
                         .foregroundColor(.white)
 
@@ -117,7 +117,7 @@ struct FlightDataDetailView: View {
                         .font(.title2)
                         .foregroundColor(.green)
 
-                    Text("详细数据")
+                    Text(NSLocalizedString("flight_data_detail_detailed_data", comment: "Detailed data title"))
                         .font(.system(.title3, design: .rounded, weight: .bold))
                         .foregroundColor(.white)
 
