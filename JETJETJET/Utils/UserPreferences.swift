@@ -10,9 +10,9 @@ enum DataDisplayType: String, CaseIterable, Identifiable {
     var localized: String {
         switch self {
         case .acceleration:
-            return "加速度"
+            return NSLocalizedString("data_display_type_acceleration", comment: "Acceleration data display type")
         case .speed:
-            return "速度"
+            return NSLocalizedString("data_display_type_speed", comment: "Speed data display type")
         }
     }
 
@@ -21,7 +21,7 @@ enum DataDisplayType: String, CaseIterable, Identifiable {
         case .acceleration:
             return "m/s²"
         case .speed:
-            return "速度单位"  // 这里不能直接引用UserPreferences.shared，会造成循环引用
+            return NSLocalizedString("speed_unit_display_name", comment: "Speed unit display name")  // 这里不能直接引用UserPreferences.shared，会造成循环引用
         }
     }
 }
@@ -37,11 +37,11 @@ enum SpeedUnit: String, CaseIterable, Identifiable {
     var localized: String {
         switch self {
         case .kilometersPerHour:
-            return "km/h"
+            return NSLocalizedString("speed_unit_kmh", comment: "Kilometers per hour")
         case .milesPerHour:
-            return "mph"
+            return NSLocalizedString("speed_unit_mph", comment: "Miles per hour")
         case .knots:
-            return "Knots"
+            return NSLocalizedString("speed_unit_knots", comment: "Knots")
         }
     }
 }

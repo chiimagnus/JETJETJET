@@ -118,7 +118,7 @@ extension AirplaneModelView {
                 Spacer()
 
                 // 标题
-                Text("REPLAY")
+                Text(NSLocalizedString("replay_view_title", comment: "Replay view title"))
                     .font(.system(.title2, design: .rounded, weight: .bold))
                     .foregroundColor(.white)
                     .tracking(1)

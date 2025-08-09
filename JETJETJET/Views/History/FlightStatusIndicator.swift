@@ -7,7 +7,7 @@ struct FlightStatusIndicator: View {
                 .fill(Color.green)
                 .frame(width: 6, height: 6)
             
-            Text("完成")
+            Text(NSLocalizedString("flight_status_completed", comment: "Flight status completed"))
                 .font(.system(.caption, design: .rounded, weight: .semibold))
                 .foregroundColor(.green)
         }

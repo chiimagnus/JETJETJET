@@ -8,7 +8,7 @@ struct RealtimeFlightDataView: View {
         VStack(spacing: 12) {
             // 标题
             HStack {
-                Text("当前时刻飞行数据")
+                Text(NSLocalizedString("realtime_flight_data_title", comment: "Realtime flight data title"))
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(.blue)
 
