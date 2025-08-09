@@ -10,9 +10,9 @@ enum AirplaneModelType: String, CaseIterable {
     var displayName: String {
         switch self {
         case .defaultModel:
-            return NSLocalizedString("airplane_model_default", comment: "Default airplane model")
+            return "默认"
         case .jet1:
-            return NSLocalizedString("airplane_model_jet1", comment: "Jet1 airplane model")
+            return "Little Jet Plane"
         }
     }
 

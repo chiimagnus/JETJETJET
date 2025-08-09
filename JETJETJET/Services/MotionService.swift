@@ -9,9 +9,9 @@ enum MotionServiceState {
 
     var description: String {
         switch self {
-        case .idle: return NSLocalizedString("motion_state_idle", comment: "Motion service idle state")
-        case .monitoring: return NSLocalizedString("motion_state_monitoring", comment: "Motion service monitoring state")
-        case .recording: return NSLocalizedString("motion_state_recording", comment: "Motion service recording state")
+        case .idle: return "空闲"
+        case .monitoring: return "监听中"
+        case .recording: return "录制中"
         }
     }
 }

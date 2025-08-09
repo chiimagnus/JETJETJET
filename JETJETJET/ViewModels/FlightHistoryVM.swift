@@ -22,7 +22,7 @@ class FlightHistoryVM {
     
     func deleteSessions(at offsets: IndexSet, from sessions: [FlightSession]) {
         guard modelContext != nil else {
-            errorMessage = NSLocalizedString("error_data_context_unavailable", comment: "Data context unavailable error message")
+            errorMessage = "数据上下文不可用"
             return
         }
         
@@ -55,7 +55,7 @@ class FlightHistoryVM {
             errorMessage = nil
         } catch {
             print("删除相关数据失败: \(error)")
-            errorMessage = String(format: NSLocalizedString("error_delete_data_failed", comment: "Delete data failed error message"), error.localizedDescription)
+            errorMessage = "删除数据失败: \(error.localizedDescription)"
         }
     }
 

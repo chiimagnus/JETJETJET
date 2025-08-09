@@ -119,7 +119,7 @@ struct FlightHistoryView: View {
                     .transition(.move(edge: .trailing).combined(with: .opacity))
                 } else {
                     // 正常状态 - 标题居中，搜索按钮在右侧
-                    Text(NSLocalizedString("flight_history_title", comment: "Flight history view title"))
+                    Text("JET LOGS")
                         .font(.system(.title2, design: .rounded, weight: .bold))
                         .foregroundColor(.white)
                         .tracking(1)
@@ -160,11 +160,11 @@ struct FlightHistoryView: View {
                 .opacity(0.5)
 
             VStack(spacing: 8) {
-                Text(NSLocalizedString("flight_history_empty_title", comment: "Flight history empty state title"))
+                Text("暂无飞行记录")
                     .font(.system(.title2, design: .rounded, weight: .semibold))
                     .foregroundColor(.white)
 
-                Text(NSLocalizedString("flight_history_empty_subtitle", comment: "Flight history empty state subtitle"))
+                Text("开始你的第一次飞行记录吧！")
                     .font(.system(.body, design: .rounded))
                     .foregroundColor(.gray)
             }
@@ -182,7 +182,7 @@ struct FlightHistoryView: View {
                 Image(systemName: "plus")
                     .font(.system(.title3, weight: .bold))
 
-                Text(NSLocalizedString("flight_history_new_flight_button", comment: "New flight button title"))
+                Text("NEW FLIGHT")
                     .font(.system(.body, design: .rounded, weight: .bold))
                     .tracking(2)
             }

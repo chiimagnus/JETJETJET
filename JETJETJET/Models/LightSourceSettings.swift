@@ -14,13 +14,13 @@ enum LightSourceMode: String, CaseIterable {
     var displayName: String {
         switch self {
         case .default:
-            return NSLocalizedString("light_mode_stars", comment: "Stars light mode")
+            return "星光"
         case .sun:
-            return NSLocalizedString("light_mode_sun", comment: "Sun light mode")
+            return "太阳"
         case .moon:
-            return NSLocalizedString("light_mode_moon", comment: "Moon light mode")
+            return "月亮"
         case .custom:
-            return NSLocalizedString("light_mode_custom", comment: "Custom light mode")
+            return "自定义"
         }
     }
 

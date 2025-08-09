@@ -51,9 +51,9 @@ struct MainView: View {
                                 VStack(spacing: 12) {
                                     ProgressView()
                                         .progressViewStyle(CircularProgressViewStyle(tint: .cyan))
-                                    Text(NSLocalizedString("loading_3d_model", comment: "Loading 3D model text"))
-                                .font(.caption)
-                                .foregroundColor(.secondary)
+                                    Text("加载3D模型...")
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
                                 }
                             )
                             .padding(.horizontal, horizontalPadding)
@@ -152,14 +152,14 @@ struct CalibrationControlView: View {
     
     var body: some View {
         VStack(spacing: 8) {
-            Text(NSLocalizedString("calibration_instruction", comment: "Calibration instruction text"))
+            Text("手机顶部指向飞行方向")
                 .font(.caption)
                 .foregroundColor(.secondary)
             
             Button(action: onCalibrate) {
                 HStack {
                     Image(systemName: "arrow.2.circlepath")
-                    Text(NSLocalizedString("recalibrate_button_title", comment: "Recalibrate button title"))
+                    Text("重新校准")
                 }
                 .font(.footnote)
                 .padding(.horizontal, 12)

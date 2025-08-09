@@ -24,7 +24,7 @@ class AirplaneModelVM {
     
     func loadSessionData(for session: FlightSession) {
         guard let modelContext = modelContext else {
-            errorMessage = NSLocalizedString("error_data_context_unavailable", comment: "Data context unavailable error message")
+            errorMessage = "数据上下文不可用"
             return
         }
 

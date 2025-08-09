@@ -59,7 +59,7 @@ struct SettingsView: View {
                 
                 Spacer()
                 
-                Text(NSLocalizedString("settings_view_title", comment: "Settings view title"))
+                Text("SETTINGS")
                     .font(.system(.title2, design: .rounded, weight: .bold))
                     .foregroundColor(.white)
                     .tracking(1)
@@ -86,7 +86,7 @@ struct SettingsView: View {
                         .font(.title2)
                         .foregroundColor(.cyan)
 
-                    Text(NSLocalizedString("settings_airplane_model", comment: "Airplane model section title"))
+                    Text("飞机模型")
                         .font(.system(.title3, design: .rounded, weight: .bold))
                         .foregroundColor(.white)
 
@@ -121,7 +121,7 @@ struct SettingsView: View {
                         .font(.title2)
                         .foregroundColor(.cyan)
 
-                    Text(NSLocalizedString("settings_data_display_type", comment: "Data display type section title"))
+                    Text("数据显示类型")
                         .font(.system(.title3, design: .rounded, weight: .bold))
                         .foregroundColor(.white)
 
@@ -129,7 +129,7 @@ struct SettingsView: View {
                 }
 
                 // 数据类型选择器
-                Picker(NSLocalizedString("settings_data_display_type", comment: "Data display type picker title"), selection: $userPreferences.dataDisplayType) {
+                Picker("数据显示类型", selection: $userPreferences.dataDisplayType) {
                     ForEach(DataDisplayType.allCases) { type in
                         Text(type.localized).tag(type)
                     }
@@ -151,13 +151,13 @@ struct SettingsView: View {
                         .font(.title2)
                         .foregroundColor(.orange)
 
-                    Text(NSLocalizedString("settings_speed_unit", comment: "Speed unit section title"))
+                    Text("速度单位")
                         .font(.system(.title3, design: .rounded, weight: .bold))
                         .foregroundColor(.white)
                 }
 
                 // 单位选择器
-                Picker(NSLocalizedString("settings_speed_unit", comment: "Speed unit picker title"), selection: $userPreferences.speedUnit) {
+                Picker("速度单位", selection: $userPreferences.speedUnit) {
                     ForEach(SpeedUnit.allCases) { unit in
                         Text(unit.localized).tag(unit)
                     }
@@ -180,7 +180,7 @@ struct SettingsView: View {
                         .font(.title2)
                         .foregroundColor(.yellow)
                     
-                    Text(NSLocalizedString("settings_light_source_mode", comment: "Light source mode section title"))
+                    Text("光源模式")
                         .font(.system(.title3, design: .rounded, weight: .bold))
                         .foregroundColor(.white)
                     
@@ -204,12 +204,12 @@ struct SettingsView: View {
                 // 自定义颜色选择器
                 if lightSettings.currentMode == .custom {
                     VStack(alignment: .leading, spacing: 12) {
-                        Text(NSLocalizedString("settings_custom_light_color", comment: "Custom light color section title"))
+                        Text("自定义光源颜色")
                             .font(.system(.subheadline, design: .rounded, weight: .semibold))
                             .foregroundColor(.secondary)
 
                         ColorPicker(
-                            NSLocalizedString("settings_color_picker", comment: "Color picker title"),
+                            "选择颜色",
                             selection: Binding(
                                 get: { lightSettings.customBaseColor },
                                 set: { newColor in
@@ -242,7 +242,7 @@ struct SettingsView: View {
                         .font(.title2)
                         .foregroundColor(.blue)
 
-                    Text(NSLocalizedString("settings_copyright_info", comment: "Copyright information section title"))
+                    Text("版权信息")
                         .font(.system(.title3, design: .rounded, weight: .bold))
                         .foregroundColor(.white)
 
@@ -258,26 +258,26 @@ struct SettingsView: View {
                                 .font(.body)
                                 .foregroundColor(.cyan)
 
-                            Text(NSLocalizedString("settings_3d_model_resources", comment: "3D model resources title"))
+                            Text("3D 模型资源")
                                 .font(.system(.body, design: .rounded, weight: .semibold))
                                 .foregroundColor(.white)
                         }
 
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(NSLocalizedString("settings_model_name", comment: "Model name"))
+                            Text("模型名称：Little Jet Plane")
                                 .font(.system(.caption, design: .rounded))
                                 .foregroundColor(.gray)
 
-                            Text(NSLocalizedString("settings_author", comment: "Model author"))
+                            Text("作者：macouno")
                                 .font(.system(.caption, design: .rounded))
                                 .foregroundColor(.gray)
 
-                            Text(NSLocalizedString("settings_license", comment: "Model license"))
+                            Text("许可：CC BY (Creative Commons - Attribution)")
                                 .font(.system(.caption, design: .rounded))
                                 .foregroundColor(.gray)
 
                             HStack {
-                                Text(NSLocalizedString("settings_source", comment: "Source label"))
+                                Text("来源：")
                                     .font(.system(.caption, design: .rounded))
                                     .foregroundColor(.gray)
 
@@ -303,26 +303,26 @@ struct SettingsView: View {
                                 .font(.body)
                                 .foregroundColor(.orange)
 
-                            Text(NSLocalizedString("settings_audio_resources", comment: "Audio resources title"))
+                            Text("音效资源")
                                 .font(.system(.body, design: .rounded, weight: .semibold))
                                 .foregroundColor(.white)
                         }
 
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(NSLocalizedString("settings_audio_source", comment: "Audio source"))
+                            Text("来源：Pixabay")
                                 .font(.system(.caption, design: .rounded))
                                 .foregroundColor(.gray)
 
-                            Text(NSLocalizedString("settings_audio_license", comment: "Audio license"))
+                            Text("许可：Pixabay Content License")
                                 .font(.system(.caption, design: .rounded))
                                 .foregroundColor(.gray)
 
-                            Text(NSLocalizedString("settings_commercial_use", comment: "Commercial use"))
+                            Text("免费商用，无需署名")
                                 .font(.system(.caption, design: .rounded))
                                 .foregroundColor(.gray)
 
                             HStack {
-                                Text(NSLocalizedString("settings_details", comment: "Details label"))
+                                Text("详情：")
                                     .font(.system(.caption, design: .rounded))
                                     .foregroundColor(.gray)
 
@@ -348,17 +348,17 @@ struct SettingsView: View {
                                 .font(.body)
                                 .foregroundColor(.green)
 
-                            Text(NSLocalizedString("settings_app_info", comment: "App information title"))
+                            Text("应用信息")
                                 .font(.system(.body, design: .rounded, weight: .semibold))
                                 .foregroundColor(.white)
                         }
 
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(NSLocalizedString("settings_app_name", comment: "App name"))
+                            Text("JETJETJET")
                                 .font(.system(.caption, design: .rounded))
                                 .foregroundColor(.gray)
 
-                            Text(NSLocalizedString("settings_copyright", comment: "Copyright"))
+                            Text("© 2025 Chii Magnus")
                                 .font(.system(.caption, design: .rounded))
                                 .foregroundColor(.gray)
                         }
