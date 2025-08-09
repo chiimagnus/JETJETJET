@@ -200,6 +200,33 @@ struct SettingsView: View {
                         }
                     }
                 }
+
+                // 自定义颜色选择器
+                if lightSettings.currentMode == .custom {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("自定义光源颜色")
+                            .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                            .foregroundColor(.secondary)
+
+                        ColorPicker(
+                            "选择颜色",
+                            selection: Binding(
+                                get: { lightSettings.customBaseColor },
+                                set: { newColor in
+                                    lightSettings.customBaseColor = newColor
+                                }
+                            ),
+                            supportsOpacity: true
+                        )
+                            .labelsHidden()
+                            .padding(12)
+                            .background(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(Color.white.opacity(0.06))
+                            )
+                    }
+                    .padding(.top, 8)
+                }
             }
             .padding(20)
         }

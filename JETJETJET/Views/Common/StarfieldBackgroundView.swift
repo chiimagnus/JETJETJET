@@ -81,7 +81,7 @@ struct StarfieldBackgroundView: View {
         } else {
             // 其他模式使用基础颜色加亮度调整
             let brightness = 0.3 + max(0, pitch / 90) * 0.4
-            let baseColor = mode.lightColor
+            let baseColor = (mode == .custom) ? lightSettings.customBaseColor : mode.lightColor
 
             return Color(
                 red: min(1.0, baseColor.components.red * (0.5 + brightness)),
@@ -93,12 +93,18 @@ struct StarfieldBackgroundView: View {
 
     // 中等亮度颜色 - 基于光源模式
     private var mediumColor: Color {
-        lightSettings.currentMode.mediumColor
+        if lightSettings.currentMode == .custom {
+            return lightSettings.customMediumColor
+        }
+        return lightSettings.currentMode.mediumColor
     }
 
     // 深色背景 - 基于光源模式
     private var darkColor: Color {
-        lightSettings.currentMode.darkColor
+        if lightSettings.currentMode == .custom {
+            return lightSettings.customDarkColor
+        }
+        return lightSettings.currentMode.darkColor
     }
 }
 

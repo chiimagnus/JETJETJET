@@ -190,6 +190,7 @@ class Airplane3DModel {
         ambientLight.light = SCNLight()
         ambientLight.light?.type = .ambient
         ambientLight.light?.intensity = 100
+        ambientLight.name = "ambientLight"
         scene.rootNode.addChildNode(ambientLight)
         
         // 定向光
@@ -199,6 +200,7 @@ class Airplane3DModel {
         directionalLight.light?.intensity = 500
         directionalLight.position = SCNVector3(x: 5, y: 10, z: 5)
         directionalLight.look(at: SCNVector3(0, 0, 0))
+        directionalLight.name = "directionalLight"
         scene.rootNode.addChildNode(directionalLight)
     }
     
