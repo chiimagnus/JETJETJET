@@ -11,12 +11,24 @@
             "state" : "translated",
             "value" : "%lld"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld件"
+          }
         }
       }
     },
     "© 2025 Chii Magnus" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "© 2025 Chii Magnus"
+          }
+        },
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "© 2025 Chii Magnus"
@@ -31,6 +43,12 @@
             "state" : "translated",
             "value" : "🚀"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🚀"
+          }
         }
       }
     },
@@ -41,12 +59,24 @@
             "state" : "translated",
             "value" : "3D Model Resources"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3Dモデルリソース"
+          }
         }
       }
     },
     "JET" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JET"
+          }
+        },
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "JET"
@@ -61,12 +91,24 @@
             "state" : "translated",
             "value" : "JET LOGS"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JETログ"
+          }
         }
       }
     },
     "JETJETJET" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JETJETJET"
+          }
+        },
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "JETJETJET"
@@ -81,6 +123,12 @@
             "state" : "translated",
             "value" : "LOGS"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ログ"
+          }
         }
       }
     },
@@ -90,6 +138,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "NEW FLIGHT"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新しいフライト"
           }
         }
       }
@@ -101,6 +155,12 @@
             "state" : "translated",
             "value" : "NO JETTING"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ジェットなし"
+          }
         }
       }
     },
@@ -110,6 +170,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pixabay License"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pixabayライセンス"
           }
         }
       }
@@ -121,6 +187,12 @@
             "state" : "translated",
             "value" : "REPLAY"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リプレイ"
+          }
         }
       }
     },
@@ -130,6 +202,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "SETTINGS"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定"
           }
         }
       }
@@ -141,6 +219,12 @@
             "state" : "translated",
             "value" : "SETUP"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "セットアップ"
+          }
         }
       }
     },
@@ -151,12 +235,24 @@
             "state" : "translated",
             "value" : "SKY"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "空"
+          }
         }
       }
     },
     "Thingiverse" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thingiverse"
+          }
+        },
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Thingiverse"
@@ -171,6 +267,12 @@
             "state" : "translated",
             "value" : "Session Information"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "セッション情報"
+          }
         }
       }
     },
@@ -180,6 +282,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Author: macouno"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "作者：macouno"
           }
         }
       }
@@ -191,6 +299,12 @@
             "state" : "translated",
             "value" : "Light Source Mode"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "光源モード"
+          }
         }
       }
     },
@@ -200,6 +314,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Free for commercial use, no attribution required"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "商用利用無料、クレジット表記不要"
           }
         }
       }
@@ -211,6 +331,44 @@
             "state" : "translated",
             "value" : "Loading 3D model..."
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3Dモデルを読み込み中..."
+          }
+        }
+      }
+    },
+    "加速度" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acceleration"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "加速度"
+          }
+        }
+      }
+    },
+    "太阳" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sun"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "太陽"
+          }
         }
       }
     },
@@ -220,6 +378,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Done"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完了"
           }
         }
       }
@@ -231,6 +395,12 @@
             "state" : "translated",
             "value" : "App Information"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アプリ情報"
+          }
         }
       }
     },
@@ -240,6 +410,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Start your first flight log!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "初めてのフライト記録を始めましょう！"
           }
         }
       }
@@ -251,6 +427,12 @@
             "state" : "translated",
             "value" : "Current Flight Data"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現在のフライトデータ"
+          }
         }
       }
     },
@@ -260,6 +442,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Point the top of your phone in the direction of flight"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "スマートフォンの上面を飛行方向に向けてください"
           }
         }
       }
@@ -271,6 +459,12 @@
             "state" : "translated",
             "value" : "Search flight logs..."
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "フライト記録を検索..."
+          }
         }
       }
     },
@@ -280,6 +474,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Data Display Type"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "データ表示タイプ"
           }
         }
       }
@@ -291,6 +491,28 @@
             "state" : "translated",
             "value" : "Data Details"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "データ詳細"
+          }
+        }
+      }
+    },
+    "星光" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Starlight"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "星光"
+          }
         }
       }
     },
@@ -300,6 +522,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No flight logs yet"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "まだフライト記録がありません"
+          }
+        }
+      }
+    },
+    "月亮" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moon"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "月"
           }
         }
       }
@@ -311,6 +555,12 @@
             "state" : "translated",
             "value" : "Source:"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "出典："
+          }
         }
       }
     },
@@ -320,6 +570,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Source: Pixabay"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "出典：Pixabay"
           }
         }
       }
@@ -331,6 +587,12 @@
             "state" : "translated",
             "value" : "Model Name: Little Jet Plane"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "モデル名：リトルジェットプレーン"
+          }
         }
       }
     },
@@ -340,6 +602,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Copyright Information"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "著作権情報"
           }
         }
       }
@@ -351,6 +619,28 @@
             "state" : "translated",
             "value" : "Similar: %@"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "類似: %@"
+          }
+        }
+      }
+    },
+    "自定义" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "カスタム"
+          }
         }
       }
     },
@@ -360,6 +650,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Custom Light Source Color"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "カスタム光源色"
           }
         }
       }
@@ -371,6 +667,12 @@
             "state" : "translated",
             "value" : "Angle Description"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "角度説明"
+          }
         }
       }
     },
@@ -380,6 +682,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "License: CC BY (Creative Commons - Attribution)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ライセンス：CC BY (Creative Commons - 表示)"
           }
         }
       }
@@ -391,6 +699,12 @@
             "state" : "translated",
             "value" : "License: Pixabay Content License"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ライセンス：Pixabayコンテンツライセンス"
+          }
         }
       }
     },
@@ -400,6 +714,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Details:"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "詳細："
           }
         }
       }
@@ -411,6 +731,12 @@
             "state" : "translated",
             "value" : "Detailed Data"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "詳細データ"
+          }
         }
       }
     },
@@ -420,6 +746,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Takeoff Point"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "離陸地点"
           }
         }
       }
@@ -431,6 +763,28 @@
             "state" : "translated",
             "value" : "Select Color"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "色を選択"
+          }
+        }
+      }
+    },
+    "速度" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speed"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "速度"
+          }
         }
       }
     },
@@ -440,6 +794,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Speed Unit"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "速度単位"
           }
         }
       }
@@ -451,6 +811,12 @@
             "state" : "translated",
             "value" : "Recalibrate"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "再校正"
+          }
         }
       }
     },
@@ -460,6 +826,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Landing Point"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "着陸地点"
           }
         }
       }
@@ -471,6 +843,12 @@
             "state" : "translated",
             "value" : "Sound Effect Resources"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "効果音リソース"
+          }
         }
       }
     },
@@ -480,6 +858,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aircraft Model"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "飛行機モデル"
           }
         }
       }

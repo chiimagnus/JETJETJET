@@ -10,9 +10,9 @@ enum DataDisplayType: String, CaseIterable, Identifiable {
     var localized: String {
         switch self {
         case .acceleration:
-            return "加速度"
+            return String(localized: "加速度")
         case .speed:
-            return "速度"
+            return String(localized: "速度")
         }
     }
 
@@ -21,7 +21,7 @@ enum DataDisplayType: String, CaseIterable, Identifiable {
         case .acceleration:
             return "m/s²"
         case .speed:
-            return "速度单位"  // 这里不能直接引用UserPreferences.shared，会造成循环引用
+            return String(localized: "速度单位")  // 这里不能直接引用UserPreferences.shared，会造成循环引用
         }
     }
 }
