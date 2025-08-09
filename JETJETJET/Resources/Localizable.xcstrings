@@ -116,6 +116,22 @@
         }
       }
     },
+    "Little Jet Plane" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Little Jet Plane"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Little Jet Plane"
+          }
+        }
+      }
+    },
     "LOGS" : {
       "localizations" : {
         "en" : {
@@ -687,7 +703,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "モデル名：リトルジェットプレーン"
+            "value" : "モデル名：Little Jet Plane"
           }
         }
       }
@@ -1072,6 +1088,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "飛行機モデル"
+          }
+        }
+      }
+    },
+    "默认" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Default"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デフォルト"
           }
         }
       }
