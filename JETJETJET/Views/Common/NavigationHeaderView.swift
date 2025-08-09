@@ -2,13 +2,11 @@ import SwiftUI
 
 enum NavigationTitleType {
     case main
-    case preJetting
     case jetting
     
     var title: String {
         switch self {
         case .main: return NSLocalizedString("main_view_title", comment: "Main view title")
-        case .preJetting: return NSLocalizedString("pre_jetting_view_title", comment: "Pre-jetting view title")
         case .jetting: return NSLocalizedString("jetting_view_title", comment: "Jetting view title")
         }
     }
@@ -48,7 +46,6 @@ struct NavigationHeaderView: View {
 #Preview {
     VStack(spacing: 20) {
         NavigationHeaderView(titleType: .main)
-        NavigationHeaderView(titleType: .preJetting)
         NavigationHeaderView(titleType: .jetting)
     }
     .preferredColorScheme(.dark)

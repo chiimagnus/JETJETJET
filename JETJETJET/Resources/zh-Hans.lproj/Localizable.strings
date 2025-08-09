@@ -1,11 +1,8 @@
 /* MainView */
 "main_view_title" = "JETJETJET";
 
-/* Pre-Jetting View */
-"pre_jetting_view_title" = "准备起飞";
-
 /* Jetting View */
-"jetting_view_title" = "飞行中";
+"jetting_view_title" = "J E T T I N G";
 
 /* SettingsView */
 "settings_view_title" = "设置";
