@@ -29,22 +29,22 @@ class FlightDataDetailVM {
     func getAngleExplanations() -> [AngleExplanation] {
         return [
             AngleExplanation(
-                title: "俯仰角 (Pitch)",
-                description: "飞机机头向上或向下的角度",
+                title: String(localized: "俯仰角"),
+                description: String(localized: "飞机机头向上或向下的角度"),
                 emoji: "✈️",
-                gesture: "点头动作"
+                gesture: String(localized: "点头动作")
             ),
             AngleExplanation(
-                title: "横滚角 (Roll)",
-                description: "飞机左右翅膀的倾斜角度",
+                title: String(localized: "横滚角"),
+                description: String(localized: "飞机左右翅膀的倾斜角度"),
                 emoji: "🔄",
-                gesture: "摇头动作"
+                gesture: String(localized: "摇头动作")
             ),
             AngleExplanation(
-                title: "偏航角 (Yaw)",
-                description: "飞机机头左右转向的角度",
+                title: String(localized: "偏航角"),
+                description: String(localized: "飞机机头左右转向的角度"),
                 emoji: "↩️",
-                gesture: "转头动作"
+                gesture: String(localized: "转头动作")
             )
         ]
     }

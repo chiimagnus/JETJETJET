@@ -53,10 +53,10 @@ struct FlightDataDetailView: View {
                 }
 
                 VStack(spacing: 12) {
-                    InfoRow(title: "开始时间", value: viewModel.formatDateTime(session.startTime))
-                    InfoRow(title: "结束时间", value: viewModel.formatDateTime(session.endTime))
-                    InfoRow(title: "持续时间", value: session.formattedDuration)
-                    InfoRow(title: "数据点数", value: "\(flightData.count) 条")
+                    InfoRow(title: String(localized: "开始时间"), value: viewModel.formatDateTime(session.startTime))
+                    InfoRow(title: String(localized: "结束时间"), value: viewModel.formatDateTime(session.endTime))
+                    InfoRow(title: String(localized: "持续时间"), value: session.formattedDuration)
+                    InfoRow(title: String(localized: "数据点数"), value: String(localized: "\(flightData.count) 条"))
                 }
             }
             .padding(20)

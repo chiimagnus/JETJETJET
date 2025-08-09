@@ -292,6 +292,38 @@
         }
       }
     },
+    "俯仰角" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pitch"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ピッチ"
+          }
+        }
+      }
+    },
+    "偏航角" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yaw"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ヨー"
+          }
+        }
+      }
+    },
     "光源模式" : {
       "localizations" : {
         "en" : {
@@ -420,6 +452,22 @@
         }
       }
     },
+    "开始时间" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start Time"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開始時間"
+          }
+        }
+      }
+    },
     "当前时刻飞行数据" : {
       "localizations" : {
         "en" : {
@@ -452,6 +500,22 @@
         }
       }
     },
+    "持续时间" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Duration"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "持続時間"
+          }
+        }
+      }
+    },
     "搜索飞行记录..." : {
       "localizations" : {
         "en" : {
@@ -468,6 +532,22 @@
         }
       }
     },
+    "摇头动作" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Head Shake"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "頭を振る"
+          }
+        }
+      }
+    },
     "数据显示类型" : {
       "localizations" : {
         "en" : {
@@ -480,6 +560,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "データ表示タイプ"
+          }
+        }
+      }
+    },
+    "数据点数" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data Points"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "データポイント数"
           }
         }
       }
@@ -596,6 +692,38 @@
         }
       }
     },
+    "横滚角" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Roll"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ロール"
+          }
+        }
+      }
+    },
+    "点头动作" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nod"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "うなずき"
+          }
+        }
+      }
+    },
     "版权信息" : {
       "localizations" : {
         "en" : {
@@ -624,6 +752,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "類似: %@"
+          }
+        }
+      }
+    },
+    "结束时间" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "End Time"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "終了時間"
           }
         }
       }
@@ -756,6 +900,22 @@
         }
       }
     },
+    "转头动作" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Head Turn"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "頭を回す"
+          }
+        }
+      }
+    },
     "选择颜色" : {
       "localizations" : {
         "en" : {
@@ -848,6 +1008,54 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "効果音リソース"
+          }
+        }
+      }
+    },
+    "飞机左右翅膀的倾斜角度" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The tilt angle of the aircraft's left and right wings"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "飛行機の左右の翼の傾き角度"
+          }
+        }
+      }
+    },
+    "飞机机头向上或向下的角度" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The angle of the aircraft's nose up or down"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "飛行機の機首の上下の角度"
+          }
+        }
+      }
+    },
+    "飞机机头左右转向的角度" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The angle of the aircraft's nose turning left or right"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "飛行機の機首の左右の旋回角度"
           }
         }
       }
