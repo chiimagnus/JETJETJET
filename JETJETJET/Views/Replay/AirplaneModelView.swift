@@ -71,11 +71,15 @@ struct AirplaneModelView: View {
             viewModel.stopPlayback()
         }
         .onChange(of: viewModel.currentDataIndex) { _, newIndex in
-            updateAirplaneAttitude()
+            DispatchQueue.main.async {
+                self.updateAirplaneAttitude()
+            }
         }
         .onChange(of: userPreferences.selectedAirplaneModelType) { _, newModelType in
             // 当用户更改模型类型时，重新创建3D模型
-            airplane3DModel = Airplane3DModel(modelType: newModelType)
+            DispatchQueue.main.async {
+                self.airplane3DModel = Airplane3DModel(modelType: newModelType)
+            }
         }
 
         // 错误信息显示

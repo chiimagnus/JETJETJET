@@ -88,8 +88,10 @@ struct HUDDataItem: View {
             }
         }
         .onChange(of: progress) { _, newValue in
-            withAnimation(.easeInOut(duration: 0.3)) {
-                animatedProgress = newValue
+            DispatchQueue.main.async {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    self.animatedProgress = newValue
+                }
             }
         }
     }

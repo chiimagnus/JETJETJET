@@ -104,14 +104,14 @@ struct MainView: View {
         }
         .onChange(of: viewModel.currentSnapshot) { _, snapshot in
             // 使用异步更新避免多次更新警告
-            Task { @MainActor in
-                updateAirplaneAttitude()
+            DispatchQueue.main.async {
+                self.updateAirplaneAttitude()
             }
         }
         .onChange(of: userPreferences.selectedAirplaneModelType) { _, newModelType in
             // 当用户更改模型类型时，重新创建3D模型
-            Task { @MainActor in
-                airplane3DModel = Airplane3DModel(modelType: newModelType)
+            DispatchQueue.main.async {
+                self.airplane3DModel = Airplane3DModel(modelType: newModelType)
             }
         }
         .simplePageTransition(showSecondPage: $showingRecordingView) {
