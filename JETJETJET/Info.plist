@@ -37,12 +37,6 @@
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.entertainment</string>
 
-	<!-- 最低系统版本 -->
-	<key>LSMinimumSystemVersion</key>
-	<string>17.0</string>
-
-
-
 	<!-- 状态栏样式 -->
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleLightContent</string>
