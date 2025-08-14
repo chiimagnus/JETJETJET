@@ -10,6 +10,8 @@
 [![SceneKit](https://img.shields.io/badge/3D-SceneKit-purple.svg)](https://developer.apple.com/scenekit) [![CoreMotion](https://img.shields.io/badge/Sensors-CoreMotion-red.svg)](https://developer.apple.com/coremotion)
 [![iOS 17+](https://img.shields.io/badge/iOS-17+-blue.svg)](https://developer.apple.com/ios) [![License](https://img.shields.io/badge/License-GPL--3.0-yellow.svg)](./LICENSE)
 
+<a target="_blank" href="https://apps.apple.com/cn/app/jet-%E6%98%AF%E5%A4%AA%E9%98%B3%E5%95%8A/id6749267859" title="JETJETJET AppStore"><img alt="JETJETJET AppStore" src="https://jaywcjlove.github.io/sb/download/macos.svg" height="51">
+
 </div>
 
 ## 🎯 一句话介绍
