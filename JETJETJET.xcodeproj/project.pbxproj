@@ -155,7 +155,7 @@
 				};
 			};
 			buildConfigurationList = D86DC0952E38AEEB0090D27A /* Build configuration list for PBXProject "JETJETJET" */;
-			developmentRegion = en;
+			developmentRegion = "zh-Hans";
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
