@@ -103,13 +103,17 @@ iOS 和 visionOS 共享的代码文件可见 [project.pbxproj](../JETJETJET.xcod
 Models/FlightData.swift,
 Models/FlightSession.swift,
 Models/LightSourceSettings.swift,
+
 Resources/Localizable.xcstrings,
 "Resources/Whoosh Epic Explosion.mp3",
 "Resources/Whoosh Sound Effect.mp3",
+
 Services/MotionService.swift,
 Services/SoundService.swift,
+
 Utils/AppConfig.swift,
 Utils/UserPreferences.swift,
+
 ViewModels/AirplaneModelVM.swift,
 ViewModels/FlightDataDetailVM.swift,
 ViewModels/FlightHistoryVM.swift,
