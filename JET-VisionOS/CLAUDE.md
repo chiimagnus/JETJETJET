@@ -1,85 +1,85 @@
 # JET-VisionOS CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in the JET-VisionOS target, which is designed for Apple Vision Pro.
+本文件为 Claude Code (claude.ai/code) 在处理 JET-VisionOS 目标代码时提供指导，该目标专为 Apple Vision Pro 设计。
 
-## Overview
+## 概述
 
-The JET-VisionOS target extends the core flight data recording functionality of JETJETJET to the spatial computing environment of Apple Vision Pro. It leverages visionOS-specific features to create an immersive 3D flight visualization experience.
+JET-VisionOS 目标将 JETJETJET 的核心飞行数据记录功能扩展到 Apple Vision Pro 的空间计算环境中。它利用 visionOS 的特定功能，创造沉浸式的 3D 飞行可视化体验。
 
-## visionOS Development Guidelines
+## visionOS 开发指南
 
-### Core Concepts
-- Use SwiftUI for building spatial interfaces that take advantage of visionOS's spectrum of immersion
-- Implement both windowed and fully immersive experiences
-- Leverage RealityKit for advanced 3D rendering and spatial interactions
-- Design for hand gestures and eye tracking as primary input methods
+### 核心概念
+- 使用 SwiftUI 构建空间界面，充分利用 visionOS 的沉浸感光谱
+- 实现窗口式和完全沉浸式体验
+- 利用 RealityKit 进行高级 3D 渲染和空间交互
+- 以手势和眼球追踪作为主要输入方式设计
 
-### Key visionOS Features to Utilize
+### 关键 visionOS 功能的运用
 
-#### Immersive Spaces
-- Create immersive experiences using `ImmersiveSpace` and related APIs
-- Implement proper scene transitions between windowed and immersive modes
-- Use `RealityView` for custom RealityKit content in SwiftUI
+#### 沉浸式空间
+- 使用 `ImmersiveSpace` 和相关 API 创建沉浸式体验
+- 在窗口模式和沉浸模式之间实现适当的场景转换
+- 在 SwiftUI 中使用 `RealityView` 来展示自定义 RealityKit 内容
 
-#### Spatial Interactions
-- Design for spatial hand gestures (tap, pinch, drag, zoom, rotate)
-- Support eye tracking for element selection
-- Implement proper gesture recognition using built-in SwiftUI gestures and ARKit for custom gestures
+#### 空间交互
+- 为手势操作设计（点击、捏合、拖拽、缩放、旋转）
+- 支持眼球追踪进行元素选择
+- 使用内置 SwiftUI 手势和 ARKit 实现自定义手势识别
 
-#### 3D Content Integration
-- Use RealityKit and Reality Composer Pro for advanced 3D scenes
-- Position and size windows appropriately in 3D space
-- Implement object tracking and plane detection where relevant
+#### 3D 内容集成
+- 使用 RealityKit 和 Reality Composer Pro 创建高级 3D 场景
+- 在 3D 空间中适当定位和调整窗口大小
+- 在相关场景中实现物体追踪和平面检测
 
-#### Performance Considerations
-- Optimize rendering costs for both UI and RealityKit content
-- Follow visionOS performance best practices
-- Test on actual Apple Vision Pro hardware when possible
+#### 性能考虑
+- 优化 UI 和 RealityKit 内容的渲染成本
+- 遵循 visionOS 性能最佳实践
+- 尽可能在实际 Apple Vision Pro 硬件上测试
 
-### Architecture Patterns
-- Extend existing ViewModels where appropriate for visionOS-specific functionality
-- Create visionOS-specific Views that leverage spatial computing capabilities
-- Use shared Models and Services from the main JETJETJET target when possible
+### 架构模式
+- 在适当情况下扩展现有的 ViewModels 以实现 visionOS 特定功能
+- 创建利用空间计算能力的 visionOS 特定 Views
+- 在可能的情况下使用主 JETJETJET 目标中的共享 Models 和 Services
 
-### Notion Development Resources
-- Reference the [visionOS 开发 Notion database](https://www.notion.so/crhlove/261be9d6386a80718480deccb539f276?v=261be9d6386a806c902f000cc0d1930f&source=copy_link) for additional resources and documentation
-- Add new relevant resources to the Notion database to maintain a comprehensive knowledge base
+### Notion 开发资源
+- 参考 [visionOS 开发 Notion 数据库](https://www.notion.so/crhlove/261be9d6386a80718480deccb539f276?v=261be9d6386a806c902f000cc0d1930f&source=copy_link) 获取更多资源和文档
+- 将新的相关资源添加到 Notion 数据库中以维护全面的知识库
 
-### Apple Documentation References
-- [visionOS Documentation](https://developer.apple.com/documentation/visionOS)
-- [Adding 3D Content to Your App](https://developer.apple.com/documentation/visionOS/adding-3d-content-to-your-app)
-- [Creating Fully Immersive Experiences](https://developer.apple.com/documentation/visionOS/creating-fully-immersive-experiences)
-- [Designing for visionOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-visionos)
+### Apple 文档参考
+- [visionOS 文档](https://developer.apple.com/documentation/visionOS)
+- [向您的应用添加 3D 内容](https://developer.apple.com/documentation/visionOS/adding-3d-content-to-your-app)
+- [创建完全沉浸式体验](https://developer.apple.com/documentation/visionOS/creating-fully-immersive-experiences)
+- [为 visionOS 设计](https://developer.apple.com/design/human-interface-guidelines/designing-for-visionos)
 
-## Development Tasks
+## 开发任务
 
-### Creating New Features
-1. Follow MVVM pattern with SwiftUI Views and Observable ViewModels
-2. Leverage existing Services from the main target where appropriate
-3. Implement spatial interactions using visionOS-specific APIs
-4. Test both windowed and immersive experiences
+### 创建新功能
+1. 遵循 MVVM 模式，使用 SwiftUI Views 和 Observable ViewModels
+2. 在适当情况下利用主目标中的现有 Services、Models、ViewModels
+3. 使用 visionOS 特定 API 实现空间交互
+4. 测试窗口式和沉浸式体验
 
-### Working with 3D Content
-1. Use RealityKit for advanced 3D rendering
-2. Create Reality Composer Pro projects for complex scenes
-3. Position entities using head and device transforms
-4. Enable video reflections in immersive environments where appropriate
+### 处理 3D 内容
+1. 使用 RealityKit 进行高级 3D 渲染
+2. 为复杂场景创建 Reality Composer Pro 项目
+3. 使用头部和设备变换定位实体
+4. 在适当的沉浸式环境中启用视频反射
 
-## Best Practices
+## 最佳实践
 
-### UI/UX Design
-- Follow Apple's Human Interface Guidelines for visionOS
-- Design for both intimate and fully immersive experiences
-- Ensure proper sizing and positioning of UI elements in 3D space
-- Implement smooth transitions between different levels of immersion
+### UI/UX 设计
+- 遵循 Apple 的 visionOS 人机界面指南
+- 为亲密和完全沉浸式体验进行设计
+- 确保 3D 空间中 UI 元素的适当大小和定位
+- 在不同沉浸级别之间实现流畅的过渡
 
-### Performance
-- Profile app performance regularly using Xcode tools
-- Optimize RealityKit content rendering costs
-- Reduce UI rendering costs in visionOS
-- Implement efficient scene restoration patterns
+### 性能
+- 使用 Xcode 工具定期分析应用性能
+- 优化 RealityKit 内容渲染成本
+- 减少 visionOS 中的 UI 渲染成本
+- 实现高效的场景恢复模式
 
-### Compatibility
-- Ensure the app works well in both windowed and immersive modes
-- Consider how existing iOS functionality translates to visionOS
-- Maintain feature parity where appropriate between iOS and visionOS versions
+### 兼容性
+- 确保应用在窗口模式和沉浸模式下都能良好运行
+- 考虑现有 iOS 功能如何转换到 visionOS
+- 在 iOS 和 visionOS 版本之间适当保持功能一致性
