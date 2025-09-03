@@ -1,5 +1,6 @@
 import Foundation
 import CoreMotion
+import Combine
 
 /// 运动传感器状态
 enum MotionServiceState {
@@ -16,7 +17,7 @@ enum MotionServiceState {
     }
 }
 
-class MotionService {
+class MotionService: ObservableObject {
     private let motionManager = CMMotionManager()
     private var previousVelocity: (x: Double, y: Double, z: Double) = (0, 0, 0)
     private var previousTimestamp: TimeInterval = 0
