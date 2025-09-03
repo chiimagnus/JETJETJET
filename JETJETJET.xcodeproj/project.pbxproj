@@ -24,6 +24,26 @@
 			);
 			target = D80309C82E653BD50077FFFC /* JET-VisionOS */;
 		};
+		D80BBF652E6868EF00449708 /* Exceptions for "JETJETJET" folder in "JET-VisionOS" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Models/FlightData.swift,
+				Models/FlightSession.swift,
+				Models/LightSourceSettings.swift,
+				Resources/Localizable.xcstrings,
+				"Resources/Whoosh Epic Explosion.mp3",
+				"Resources/Whoosh Sound Effect.mp3",
+				Services/MotionService.swift,
+				Services/SoundService.swift,
+				Utils/AppConfig.swift,
+				Utils/UserPreferences.swift,
+				ViewModels/AirplaneModelVM.swift,
+				ViewModels/FlightDataDetailVM.swift,
+				ViewModels/FlightHistoryVM.swift,
+				ViewModels/FlightRecordingVM.swift,
+			);
+			target = D80309C82E653BD50077FFFC /* JET-VisionOS */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -37,6 +57,9 @@
 		};
 		D86DC09C2E38AEEB0090D27A /* JETJETJET */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D80BBF652E6868EF00449708 /* Exceptions for "JETJETJET" folder in "JET-VisionOS" target */,
+			);
 			path = JETJETJET;
 			sourceTree = "<group>";
 		};
