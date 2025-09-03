@@ -24,7 +24,7 @@ struct JET_VisionOSApp: App {
         }
         
         ImmersiveSpace(id: appModel.immersiveSpaceID) {
-            ImmersiveView()
+            ImmersiveFlightView()
                 .environment(appModel)
                 .onAppear {
                     appModel.immersiveSpaceState = .open
