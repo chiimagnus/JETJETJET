@@ -68,6 +68,9 @@
         }
       }
     },
+    "Hide Immersive Space" : {
+
+    },
     "JET" : {
       "localizations" : {
         "en" : {
@@ -243,6 +246,9 @@
           }
         }
       }
+    },
+    "Show Immersive Space" : {
+
     },
     "SKY" : {
       "localizations" : {
