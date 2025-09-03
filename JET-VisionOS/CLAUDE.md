@@ -95,24 +95,24 @@ iOS 和 visionOS 共享的代码文件可见 [project.pbxproj](../JETJETJET.xcod
 
 目前共享的文件有（存放在`JETJETJET/`文件夹中）：
 ```
-Models/FlightData.swift
-Models/FlightSession.swift
-Models/LightSourceSettings.swift
+JETJETJET/Models/FlightData.swift
+JETJETJET/Models/FlightSession.swift
+JETJETJET/Models/LightSourceSettings.swift
 
-Resources/Localizable.xcstrings
-"Resources/Whoosh Epic Explosion.mp3"
-"Resources/Whoosh Sound Effect.mp3"
+JETJETJET/Resources/Localizable.xcstrings
+JETJETJET/Resources/Whoosh Epic Explosion.mp3
+JETJETJET/Resources/Whoosh Sound Effect.mp3
 
-Services/MotionService.swift
-Services/SoundService.swift
+JETJETJET/Services/MotionService.swift
+JETJETJET/Services/SoundService.swift
 
-Utils/AppConfig.swift
-Utils/UserPreferences.swift
+JETJETJET/Utils/AppConfig.swift
+JETJETJET/Utils/UserPreferences.swift
 
-ViewModels/AirplaneModelVM.swift
-ViewModels/FlightDataDetailVM.swift
-ViewModels/FlightHistoryVM.swift
-ViewModels/FlightRecordingVM.swift
-Views/3D/Airplane3DModel.swift
-Views/3D/Airplane3DSceneView.swift
+JETJETJET/ViewModels/AirplaneModelVM.swift
+JETJETJET/ViewModels/FlightDataDetailVM.swift
+JETJETJET/ViewModels/FlightHistoryVM.swift
+JETJETJET/ViewModels/FlightRecordingVM.swift
+JETJETJET/Views/3D/Airplane3DModel.swift
+JETJETJET/Views/3D/Airplane3DSceneView.swift
 ```
