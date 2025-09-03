@@ -107,16 +107,46 @@ JETJETJET/
 
 ### Code Quality
 - Use SwiftUI declarative patterns
-- Follow MVVM architecture
-- Maintain clear separation of concerns
-- Use Observable classes for ViewModels
+- Follow MVVM architecture with clear separation of concerns
+- Use Observable classes for ViewModels (iOS 17+/macOS 14+)
 - Implement proper error handling
+- Follow SwiftUI + Combine + SwiftData best practices
+
+### MVVM Architecture Details
+#### Models
+- Pure data structures without business logic
+- Use `@Model` macro for SwiftData
+- Should only contain properties and simple data processing methods
+- Do not directly reference SwiftUI or Combine
+
+#### ViewModels
+- Handle business logic and state management
+- Use `@Observable` macro (iOS 17+/macOS 14+) or `@ObservableObject`
+- Include `@Published` properties for state management
+- Do not directly reference SwiftUI Views
+- **Do not use singleton pattern** (`shared` static instances)
+- Use Combine for reactive data flow processing
+- Manage data binding and provide formatted data to Views
+- Call Services to perform business operations and subscribe to data changes (Combine)
+- Handle error and loading states uniformly
+
+#### Views
+- Pure UI display without business logic
+- Use SwiftUI with @ObservedObject/@StateObject binding to ViewModels
+- Manage state with `@State` and `@Bindable`
+- Component-based, reusable, with conditional rendering (loading/error/empty data)
+- iOS device adaptation (iPhone/iPad), dark mode, theme switching
+- Responsive layout supporting different screen sizes
+- Use ScrollView to optimize long content display
 
 ### Performance Considerations
 - MotionService updates at 10Hz - optimize processing
 - Large flight data sets - implement batching and memory management
 - 3D rendering - use efficient SceneKit practices
 - Background data saving with SwiftData
+- Use `@Published` reasonably to avoid unnecessary updates
+- Use `removeDuplicates()` to reduce duplicate calculations
+- Use `debounce()` to optimize user input response
 
 ### Device Requirements
 - Physical iOS device required for CoreMotion testing
