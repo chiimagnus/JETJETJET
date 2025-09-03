@@ -135,20 +135,7 @@ JETJETJET/
 ### Shared Resources
 The following resources are shared between targets through Xcode's Target Membership settings:
 
-#### Shared Source Files
-- **Models/** - Data models shared between iOS and VisionOS targets:
-  - FlightData.swift
-  - FlightSession.swift
-  - LightSourceSettings.swift
-  
-- **Utils/** - Utility classes and extensions:
-  - AppConfig.swift
-  - UserPreferences.swift
-
-#### Shared Asset Catalogs
-- **Resources/Localizable.xcstrings** - Localization strings used by both targets
-- **Resources/jet.scn** - 3D airplane model file
-- **Audio files** - Sound effects used across both targets
+iOS和visionOS共享的代码文件可见 [project.pbxproj](JETJETJET.xcodeproj/project.pbxproj)
 
 ### Managing Shared Files
 1. Shared files are managed through Xcode's Target Membership settings in the File Inspector
