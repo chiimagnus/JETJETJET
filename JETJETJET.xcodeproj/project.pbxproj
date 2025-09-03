@@ -42,6 +42,7 @@
 				ViewModels/FlightHistoryVM.swift,
 				ViewModels/FlightRecordingVM.swift,
 				Views/3D/Airplane3DModel.swift,
+				Views/3D/Airplane3DSceneView.swift,
 			);
 			target = D80309C82E653BD50077FFFC /* JET-VisionOS */;
 		};
