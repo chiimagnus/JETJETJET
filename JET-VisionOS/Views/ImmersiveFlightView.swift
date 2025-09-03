@@ -18,26 +18,49 @@ struct ImmersiveFlightView: View {
     @State private var flightDataSnapshot: FlightDataSnapshot?
     
     var body: some View {
-        RealityView { content in
-            // Add the initial RealityKit content
-            if let immersiveContentEntity = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
-                content.add(immersiveContentEntity)
+        ZStack {
+            RealityView { content in
+                // Add the initial RealityKit content
+                if let immersiveContentEntity = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
+                    content.add(immersiveContentEntity)
+                }
+                
+                // Add our flight simulator content
+                let airplaneEntity = createAirplaneEntity()
+                content.add(airplaneEntity)
+            } update: { content in
+                // Update the airplane position based on flight data
+                if let airplaneEntity = content.entities.first(where: { $0.name == "airplane" }),
+                   let snapshot = flightDataSnapshot {
+                    // Update airplane orientation based on pitch, roll, and yaw
+                    let pitchRadians = Float(snapshot.pitch * .pi / 180.0)
+                    let rollRadians = Float(snapshot.roll * .pi / 180.0)
+                    let yawRadians = Float(snapshot.yaw * .pi / 180.0)
+                    
+                    let transform = Transform(pitch: pitchRadians, yaw: yawRadians, roll: rollRadians)
+                    airplaneEntity.orientation = transform.rotation
+                }
             }
             
-            // Add our flight simulator content
-            let airplaneEntity = createAirplaneEntity()
-            content.add(airplaneEntity)
-        } update: { content in
-            // Update the airplane position based on flight data
-            if let airplaneEntity = content.entities.first(where: { $0.name == "airplane" }),
-               let snapshot = flightDataSnapshot {
-                // Update airplane orientation based on pitch, roll, and yaw
-                let pitchRadians = Float(snapshot.pitch * .pi / 180.0)
-                let rollRadians = Float(snapshot.roll * .pi / 180.0)
-                let yawRadians = Float(snapshot.yaw * .pi / 180.0)
-                
-                let transform = Transform(pitch: pitchRadians, yaw: yawRadians, roll: rollRadians)
-                airplaneEntity.orientation = transform.rotation
+            // 添加一个按钮来展示3D模型视图
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        // 这里可以导航到3D模型展示视图
+                        // 但在immersive view中我们只显示一个提示
+                    }) {
+                        Image(systemName: "airplane.circle.fill")
+                            .font(.largeTitle)
+                            .foregroundColor(.white)
+                            .shadow(radius: 5)
+                    }
+                    .padding()
+                    .background(Color.black.opacity(0.5))
+                    .clipShape(Circle())
+                    .padding()
+                }
             }
         }
         .onAppear {
