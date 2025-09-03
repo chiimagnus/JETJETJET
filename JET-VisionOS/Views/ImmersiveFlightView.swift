@@ -36,7 +36,8 @@ struct ImmersiveFlightView: View {
                 let rollRadians = Float(snapshot.roll * .pi / 180.0)
                 let yawRadians = Float(snapshot.yaw * .pi / 180.0)
                 
-                airplaneEntity.orientation = simd_quatf(rotation: SIMD3<Float>(pitchRadians, yawRadians, rollRadians))
+                let transform = Transform(pitch: pitchRadians, yaw: yawRadians, roll: rollRadians)
+                airplaneEntity.orientation = transform.rotation
             }
         }
         .onAppear {
@@ -48,9 +49,9 @@ struct ImmersiveFlightView: View {
     }
     
     private func startMotionUpdates() {
-        motionService.startMotionMonitoring { [weak self] snapshot in
+        motionService.startMotionMonitoring { snapshot in
             DispatchQueue.main.async {
-                self?.flightDataSnapshot = snapshot
+                self.flightDataSnapshot = snapshot
             }
         }
     }
