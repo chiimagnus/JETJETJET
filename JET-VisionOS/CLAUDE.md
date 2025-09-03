@@ -83,3 +83,43 @@ JET-VisionOS 目标将 JETJETJET 的核心飞行数据记录功能扩展到 Appl
 - 确保应用在窗口模式和沉浸模式下都能良好运行
 - 考虑现有 iOS 功能如何转换到 visionOS
 - 在 iOS 和 visionOS 版本之间适当保持功能一致性
+
+## 共享文件和跨目标资源
+
+### 项目目标
+1. **JETJETJET** - 主 iOS 应用目标
+2. **JET-VisionOS** - VisionOS 应用目标，用于 Apple Vision Pro
+
+### 共享 Swift 包
+- **RealityKitContent** - 在两个目标间共享的 3D 内容包
+
+### 共享资源
+通过 Xcode 的目标成员设置在目标间共享以下资源：
+
+iOS 和 visionOS 共享的代码文件可见 [project.pbxproj](../JETJETJET.xcodeproj/project.pbxproj)
+
+目前共享的文件有：
+```
+Models/FlightData.swift,
+Models/FlightSession.swift,
+Models/LightSourceSettings.swift,
+Resources/Localizable.xcstrings,
+"Resources/Whoosh Epic Explosion.mp3",
+"Resources/Whoosh Sound Effect.mp3",
+Services/MotionService.swift,
+Services/SoundService.swift,
+Utils/AppConfig.swift,
+Utils/UserPreferences.swift,
+ViewModels/AirplaneModelVM.swift,
+ViewModels/FlightDataDetailVM.swift,
+ViewModels/FlightHistoryVM.swift,
+ViewModels/FlightRecordingVM.swift,
+Views/3D/Airplane3DModel.swift,
+```
+
+### 管理共享文件
+1. 共享文件通过 Xcode 文件检查器中的目标成员设置进行管理
+2. project.pbxproj 文件包含实际的目标成员配置
+3. 不要手动编辑 project.pbxproj 文件 - 使用 Xcode 界面进行目标成员更改
+4. 添加新的共享文件时，确保它们被添加到 Xcode 中的相应目标
+5. 共享资源应在此部分进行记录，以保持开发团队间的可见性
