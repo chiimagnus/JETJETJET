@@ -15,6 +15,6 @@ struct JET_AVPApp: App {
             ContentView()
         }
         .windowStyle(.volumetric)
-        .defaultSize(width: 4096, height: 4096, depth: 4096)
+        // .defaultSize(width: 4096, height: 4096, depth: 4096)
     }
 }
