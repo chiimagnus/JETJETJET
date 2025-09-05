@@ -139,6 +139,17 @@
       [
         "E92F9A8C-6047-4BE8-ADB7-101786BFA0B3",
         "root",
+        "Cube",
+        "Cube"
+      ],
+      {
+        "disallowsFraming" : false,
+        "isExpanded" : false,
+        "isLocked" : false
+      },
+      [
+        "E92F9A8C-6047-4BE8-ADB7-101786BFA0B3",
+        "root",
         "Cube"
       ],
       {
@@ -151,6 +162,16 @@
       ],
       {
         "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "E92F9A8C-6047-4BE8-ADB7-101786BFA0B3",
+        "root",
+        "SkyDome"
+      ],
+      {
+        "disallowsFraming" : false,
+        "isExpanded" : false,
         "isLocked" : false
       }
     ]
