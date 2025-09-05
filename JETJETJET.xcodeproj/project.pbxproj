@@ -24,6 +24,25 @@
 			);
 			target = D8098DFD2E6AA1F900C9B0A4 /* JET-AVP */;
 		};
+		D8098E162E6AA4ED00C9B0A4 /* Exceptions for "JET-iOS" folder in "JET-AVP" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Models/FlightData.swift,
+				Models/FlightSession.swift,
+				Models/LightSourceSettings.swift,
+				Services/MotionService.swift,
+				Services/SoundService.swift,
+				Utils/AppConfig.swift,
+				Utils/UserPreferences.swift,
+				ViewModels/AirplaneModelVM.swift,
+				ViewModels/FlightDataDetailVM.swift,
+				ViewModels/FlightHistoryVM.swift,
+				ViewModels/FlightRecordingVM.swift,
+				Views/3D/Airplane3DModel.swift,
+				Views/3D/Airplane3DSceneView.swift,
+			);
+			target = D8098DFD2E6AA1F900C9B0A4 /* JET-AVP */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -37,6 +56,9 @@
 		};
 		D86DC09C2E38AEEB0090D27A /* JET-iOS */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D8098E162E6AA4ED00C9B0A4 /* Exceptions for "JET-iOS" folder in "JET-AVP" target */,
+			);
 			path = "JET-iOS";
 			sourceTree = "<group>";
 		};
