@@ -5,8 +5,15 @@ import RealityKitContent
 struct ContentView: View {
 
     var body: some View {
-        Model3D(named: "jet", bundle: realityKitContentBundle)
-//            .padding3D(.bottom, 2000)
-        
+        ZStack {
+            Model3D(named: "jet", bundle: realityKitContentBundle)
+                .padding3D(.bottom, 1000)
+            
+            Button("切换颜色") {
+                
+            }
+                .glassBackgroundEffect(in: .capsule)
+        }
+
     }
 }
