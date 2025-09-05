@@ -157,19 +157,6 @@ JETJETJET/
 
 ### Project Targets
 1. **JETJETJET** - Main iOS application target
-2. **JET-VisionOS** - VisionOS application target for Apple Vision Pro
-
-### Shared Swift Packages
-- **RealityKitContent** - Shared 3D content package used across both targets
+2. **JET-AVP** - VisionOS application target for Apple Vision Pro
 
 ### Shared Resources
-The following resources are shared between targets through Xcode's Target Membership settings:
-
-iOS和visionOS共享的代码文件可见 [project.pbxproj](JETJETJET.xcodeproj/project.pbxproj)
-
-### Managing Shared Files
-1. Shared files are managed through Xcode's Target Membership settings in the File Inspector
-2. The project.pbxproj file contains the actual target membership configuration
-3. Do not manually edit the project.pbxproj file - use Xcode interface for target membership changes
-4. When adding new shared files, ensure they are added to the appropriate targets in Xcode
-5. Shared resources should be documented in this section to maintain visibility across the development team
