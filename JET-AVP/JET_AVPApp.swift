@@ -14,5 +14,6 @@ struct JET_AVPApp: App {
         WindowGroup {
             ContentView()
         }
+        .windowStyle(.volumetric)
     }
 }
