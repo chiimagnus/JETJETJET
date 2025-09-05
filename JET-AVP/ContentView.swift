@@ -5,8 +5,8 @@ import RealityKitContent
 struct ContentView: View {
 
     var body: some View {
-        VStack {
-            Model3D(named: "jet", bundle: realityKitContentBundle)
-        }
+        Model3D(named: "jet", bundle: realityKitContentBundle)
+//            .padding3D(.bottom, 2000)
+        
     }
 }
