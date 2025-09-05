@@ -159,4 +159,40 @@ JETJETJET/
 1. **JETJETJET** - Main iOS application target
 2. **JET-AVP** - VisionOS application target for Apple Vision Pro
 
-### Shared Resources
+### 非常重要：Shared Resources
+The following files are shared between the iOS and VisionOS targets:
+
+#### Data Models
+- `Models/FlightData.swift`
+- `Models/FlightSession.swift`
+- `Models/LightSourceSettings.swift`
+
+#### Services
+- `Services/MotionService.swift`
+- `Services/SoundService.swift`
+
+#### Utilities
+- `Utils/AppConfig.swift`
+- `Utils/UserPreferences.swift`
+
+#### ViewModels
+- `ViewModels/AirplaneModelVM.swift`
+- `ViewModels/FlightDataDetailVM.swift`
+- `ViewModels/FlightHistoryVM.swift`
+- `ViewModels/FlightRecordingVM.swift`
+
+#### 3D Components
+- `Views/3D/Airplane3DModel.swift`
+- `Views/3D/Airplane3DSceneView.swift`
+
+Note: `HapticService.swift` is not shared as it's not available on visionOS.
+
+## VisionOS Development Considerations
+
+When developing for VisionOS, keep in mind:
+1. Spatial computing paradigm - design for 3D space and immersive experiences
+2. Hand and eye tracking instead of touch input
+3. Different performance characteristics and optimization strategies
+4. RealityKit for 3D content instead of SceneKit where possible
+5. Windowed vs. immersive space experiences
+6. Different input methods and interaction patterns
