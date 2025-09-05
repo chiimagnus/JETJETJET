@@ -13,7 +13,7 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            Model3D(named: "Scene", bundle: realityKitContentBundle)
+            Model3D(named: "jet", bundle: realityKitContentBundle)
                 .padding(.bottom, 50)
 
             Text("JET-AVP 飞行模拟器")
