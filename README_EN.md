@@ -52,24 +52,6 @@ JETJETJET/
     └── jetjet_theme.css        # Complete theme system
 ```
 
-## 🎨 Design Showcase
-
-<div align="center">
-
-### 📂 Complete design files included in project!
-
-**🎨 5 beautiful HTML design files + complete CSS theme**
-
-| Interface | Preview | Features |
-|-----------|---------|----------|
-| **Main Interface** | [🚀 Main design file](./.superdesign/design_iterations/jetjet_main_1.html) | Dynamic starfield + 3D aircraft |
-| **Recording Interface** | [📹 Recording design file](./.superdesign/design_iterations/jetjet_recording_1.html) | HUD style + real-time data |
-| **Countdown Interface** | [⏰ Countdown design file](./.superdesign/design_iterations/jetjet_countdown_1.html) | Immersive preparation experience |
-| **History Records** | [📊 History design file](./.superdesign/design_iterations/jetjet_history_1.html) | Glassmorphism cards |
-| **3D Replay** | [🎮 3D replay design file](./.superdesign/design_iterations/jetjet_replay_1.html) | Complete trajectory replay |
-
-</div>
-
 ## 🚀 Getting Started
 
 ### 📱 Requirements
