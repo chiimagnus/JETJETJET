@@ -16,7 +16,9 @@ struct ContentView: View {
             Model3D(named: "Scene", bundle: realityKitContentBundle)
                 .padding(.bottom, 50)
 
-            Text("Hello, world!")
+            Text("JET-AVP 飞行模拟器")
+                .font(.title)
+                .padding()
         }
         .padding()
     }
