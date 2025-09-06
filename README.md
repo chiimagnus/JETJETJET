@@ -33,16 +33,6 @@
 🎯 传感器: CoreMotion
 ```
 
-## 🎨 5个精美HTML设计稿
-
-| 界面 | 预览 | 特色 |
-|------|------|------|
-| **主界面** | [🚀 主界面设计稿](./.superdesign/design_iterations/jetjet_main_1.html) | 动态星空+3D飞机 |
-| **录制界面** | [📹 录制界面设计稿](./.superdesign/design_iterations/jetjet_recording_1.html) | HUD风格+实时数据 |
-| **倒计时界面** | [⏰ 倒计时设计稿](./.superdesign/design_iterations/jetjet_countdown_1.html) | 沉浸式准备体验 |
-| **历史记录** | [📊 历史记录设计稿](./.superdesign/design_iterations/jetjet_history_1.html) | 玻璃拟态卡片 |
-| **3D回放** | [🎮 3D回放设计稿](./.superdesign/design_iterations/jetjet_replay_1.html) | 完整轨迹重现 |
-
 ## 🎯 开发路线图
 
 ### ✅ 已完成

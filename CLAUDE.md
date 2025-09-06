@@ -157,19 +157,42 @@ JETJETJET/
 
 ### Project Targets
 1. **JETJETJET** - Main iOS application target
-2. **JET-VisionOS** - VisionOS application target for Apple Vision Pro
+2. **JET-AVP** - VisionOS application target for Apple Vision Pro
 
-### Shared Swift Packages
-- **RealityKitContent** - Shared 3D content package used across both targets
+### 非常重要：Shared Resources
+The following files are shared between the iOS and VisionOS targets:
 
-### Shared Resources
-The following resources are shared between targets through Xcode's Target Membership settings:
+#### Data Models
+- `Models/FlightData.swift`
+- `Models/FlightSession.swift`
+- `Models/LightSourceSettings.swift`
 
-iOS和visionOS共享的代码文件可见 [project.pbxproj](JETJETJET.xcodeproj/project.pbxproj)
+#### Services
+- `Services/MotionService.swift`
+- `Services/SoundService.swift`
 
-### Managing Shared Files
-1. Shared files are managed through Xcode's Target Membership settings in the File Inspector
-2. The project.pbxproj file contains the actual target membership configuration
-3. Do not manually edit the project.pbxproj file - use Xcode interface for target membership changes
-4. When adding new shared files, ensure they are added to the appropriate targets in Xcode
-5. Shared resources should be documented in this section to maintain visibility across the development team
+#### Utilities
+- `Utils/AppConfig.swift`
+- `Utils/UserPreferences.swift`
+
+#### ViewModels
+- `ViewModels/AirplaneModelVM.swift`
+- `ViewModels/FlightDataDetailVM.swift`
+- `ViewModels/FlightHistoryVM.swift`
+- `ViewModels/FlightRecordingVM.swift`
+
+#### 3D Components
+- `Views/3D/Airplane3DModel.swift`
+- `Views/3D/Airplane3DSceneView.swift`
+
+Note: `HapticService.swift` is not shared as it's not available on visionOS.
+
+## VisionOS Development Considerations
+
+When developing for VisionOS, keep in mind:
+1. Spatial computing paradigm - design for 3D space and immersive experiences
+2. Hand and eye tracking instead of touch input
+3. Different performance characteristics and optimization strategies
+4. RealityKit for 3D content instead of SceneKit where possible
+5. Windowed vs. immersive space experiences
+6. Different input methods and interaction patterns

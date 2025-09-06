@@ -7,32 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D80309CE2E653BD50077FFFC /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = D80309CD2E653BD50077FFFC /* RealityKitContent */; };
+		D8098E012E6AA1F900C9B0A4 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = D8098E002E6AA1F900C9B0A4 /* RealityKitContent */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D80309C92E653BD50077FFFC /* JET-VisionOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "JET-VisionOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D80309CC2E653BD50077FFFC /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
-		D86DC09A2E38AEEB0090D27A /* JETJETJET.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JETJETJET.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8098DFE2E6AA1F900C9B0A4 /* JET-AVP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "JET-AVP.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D86DC09A2E38AEEB0090D27A /* JET-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "JET-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		D80309E02E653BD60077FFFC /* Exceptions for "JET-VisionOS" folder in "JET-VisionOS" target */ = {
+		D8098E0F2E6AA1FA00C9B0A4 /* Exceptions for "JET-AVP" folder in "JET-AVP" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = D80309C82E653BD50077FFFC /* JET-VisionOS */;
+			target = D8098DFD2E6AA1F900C9B0A4 /* JET-AVP */;
 		};
-		D80BBF652E6868EF00449708 /* Exceptions for "JETJETJET" folder in "JET-VisionOS" target */ = {
+		D8098E162E6AA4ED00C9B0A4 /* Exceptions for "JET-iOS" folder in "JET-AVP" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Models/FlightData.swift,
 				Models/FlightSession.swift,
 				Models/LightSourceSettings.swift,
-				Resources/Localizable.xcstrings,
-				"Resources/Whoosh Epic Explosion.mp3",
-				"Resources/Whoosh Sound Effect.mp3",
 				Services/MotionService.swift,
 				Services/SoundService.swift,
 				Utils/AppConfig.swift,
@@ -42,36 +39,37 @@
 				ViewModels/FlightHistoryVM.swift,
 				ViewModels/FlightRecordingVM.swift,
 				Views/3D/Airplane3DModel.swift,
+				Views/3D/Airplane3DSceneView.swift,
 			);
-			target = D80309C82E653BD50077FFFC /* JET-VisionOS */;
+			target = D8098DFD2E6AA1F900C9B0A4 /* JET-AVP */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		D80309CA2E653BD50077FFFC /* JET-VisionOS */ = {
+		D8098DFF2E6AA1F900C9B0A4 /* JET-AVP */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				D80309E02E653BD60077FFFC /* Exceptions for "JET-VisionOS" folder in "JET-VisionOS" target */,
+				D8098E0F2E6AA1FA00C9B0A4 /* Exceptions for "JET-AVP" folder in "JET-AVP" target */,
 			);
-			path = "JET-VisionOS";
+			path = "JET-AVP";
 			sourceTree = "<group>";
 		};
-		D86DC09C2E38AEEB0090D27A /* JETJETJET */ = {
+		D86DC09C2E38AEEB0090D27A /* JET-iOS */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				D80BBF652E6868EF00449708 /* Exceptions for "JETJETJET" folder in "JET-VisionOS" target */,
+				D8098E162E6AA4ED00C9B0A4 /* Exceptions for "JET-iOS" folder in "JET-AVP" target */,
 			);
-			path = JETJETJET;
+			path = "JET-iOS";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		D80309C62E653BD50077FFFC /* Frameworks */ = {
+		D8098DFB2E6AA1F900C9B0A4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D80309CE2E653BD50077FFFC /* RealityKitContent in Frameworks */,
+				D8098E012E6AA1F900C9B0A4 /* RealityKitContent in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,9 +94,9 @@
 		D86DC0912E38AEEB0090D27A = {
 			isa = PBXGroup;
 			children = (
-				D86DC09C2E38AEEB0090D27A /* JETJETJET */,
-				D80309CA2E653BD50077FFFC /* JET-VisionOS */,
+				D86DC09C2E38AEEB0090D27A /* JET-iOS */,
 				D80309CB2E653BD50077FFFC /* Packages */,
+				D8098DFF2E6AA1F900C9B0A4 /* JET-AVP */,
 				D86DC09B2E38AEEB0090D27A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -106,8 +104,8 @@
 		D86DC09B2E38AEEB0090D27A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D86DC09A2E38AEEB0090D27A /* JETJETJET.app */,
-				D80309C92E653BD50077FFFC /* JET-VisionOS.app */,
+				D86DC09A2E38AEEB0090D27A /* JET-iOS.app */,
+				D8098DFE2E6AA1F900C9B0A4 /* JET-AVP.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -115,32 +113,32 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D80309C82E653BD50077FFFC /* JET-VisionOS */ = {
+		D8098DFD2E6AA1F900C9B0A4 /* JET-AVP */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D80309E12E653BD60077FFFC /* Build configuration list for PBXNativeTarget "JET-VisionOS" */;
+			buildConfigurationList = D8098E102E6AA1FA00C9B0A4 /* Build configuration list for PBXNativeTarget "JET-AVP" */;
 			buildPhases = (
-				D80309C52E653BD50077FFFC /* Sources */,
-				D80309C62E653BD50077FFFC /* Frameworks */,
-				D80309C72E653BD50077FFFC /* Resources */,
+				D8098DFA2E6AA1F900C9B0A4 /* Sources */,
+				D8098DFB2E6AA1F900C9B0A4 /* Frameworks */,
+				D8098DFC2E6AA1F900C9B0A4 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				D80309CA2E653BD50077FFFC /* JET-VisionOS */,
+				D8098DFF2E6AA1F900C9B0A4 /* JET-AVP */,
 			);
-			name = "JET-VisionOS";
+			name = "JET-AVP";
 			packageProductDependencies = (
-				D80309CD2E653BD50077FFFC /* RealityKitContent */,
+				D8098E002E6AA1F900C9B0A4 /* RealityKitContent */,
 			);
-			productName = "JET-VisionOS";
-			productReference = D80309C92E653BD50077FFFC /* JET-VisionOS.app */;
+			productName = "JET-AVP";
+			productReference = D8098DFE2E6AA1F900C9B0A4 /* JET-AVP.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D86DC0992E38AEEB0090D27A /* JETJETJET */ = {
+		D86DC0992E38AEEB0090D27A /* JET-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D86DC0A82E38AEEC0090D27A /* Build configuration list for PBXNativeTarget "JETJETJET" */;
+			buildConfigurationList = D86DC0A82E38AEEC0090D27A /* Build configuration list for PBXNativeTarget "JET-iOS" */;
 			buildPhases = (
 				D86DC0962E38AEEB0090D27A /* Sources */,
 				D86DC0972E38AEEB0090D27A /* Frameworks */,
@@ -151,13 +149,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				D86DC09C2E38AEEB0090D27A /* JETJETJET */,
+				D86DC09C2E38AEEB0090D27A /* JET-iOS */,
 			);
-			name = JETJETJET;
+			name = "JET-iOS";
 			packageProductDependencies = (
 			);
 			productName = JETJETJET;
-			productReference = D86DC09A2E38AEEB0090D27A /* JETJETJET.app */;
+			productReference = D86DC09A2E38AEEB0090D27A /* JET-iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -170,7 +168,7 @@
 				LastSwiftUpdateCheck = 1630;
 				LastUpgradeCheck = 1630;
 				TargetAttributes = {
-					D80309C82E653BD50077FFFC = {
+					D8098DFD2E6AA1F900C9B0A4 = {
 						CreatedOnToolsVersion = 16.3;
 					};
 					D86DC0992E38AEEB0090D27A = {
@@ -197,14 +195,14 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D86DC0992E38AEEB0090D27A /* JETJETJET */,
-				D80309C82E653BD50077FFFC /* JET-VisionOS */,
+				D86DC0992E38AEEB0090D27A /* JET-iOS */,
+				D8098DFD2E6AA1F900C9B0A4 /* JET-AVP */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		D80309C72E653BD50077FFFC /* Resources */ = {
+		D8098DFC2E6AA1F900C9B0A4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -221,7 +219,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		D80309C52E653BD50077FFFC /* Sources */ = {
+		D8098DFA2E6AA1F900C9B0A4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -238,7 +236,7 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		D80309E22E653BD60077FFFC /* Debug */ = {
+		D8098E112E6AA1FA00C9B0A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -254,7 +252,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.chiimagnus.JET-VisionOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.chiimagnus.JET-AVP";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = xros;
 				SUPPORTED_PLATFORMS = "xros xrsimulator";
@@ -265,7 +263,7 @@
 			};
 			name = Debug;
 		};
-		D80309E32E653BD60077FFFC /* Release */ = {
+		D8098E122E6AA1FA00C9B0A4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -281,7 +279,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.chiimagnus.JET-VisionOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.chiimagnus.JET-AVP";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = xros;
 				SUPPORTED_PLATFORMS = "xros xrsimulator";
@@ -496,11 +494,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D80309E12E653BD60077FFFC /* Build configuration list for PBXNativeTarget "JET-VisionOS" */ = {
+		D8098E102E6AA1FA00C9B0A4 /* Build configuration list for PBXNativeTarget "JET-AVP" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D80309E22E653BD60077FFFC /* Debug */,
-				D80309E32E653BD60077FFFC /* Release */,
+				D8098E112E6AA1FA00C9B0A4 /* Debug */,
+				D8098E122E6AA1FA00C9B0A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -514,7 +512,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D86DC0A82E38AEEC0090D27A /* Build configuration list for PBXNativeTarget "JETJETJET" */ = {
+		D86DC0A82E38AEEC0090D27A /* Build configuration list for PBXNativeTarget "JET-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D86DC0A92E38AEEC0090D27A /* Debug */,
@@ -533,7 +531,7 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D80309CD2E653BD50077FFFC /* RealityKitContent */ = {
+		D8098E002E6AA1F900C9B0A4 /* RealityKitContent */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RealityKitContent;
 		};
