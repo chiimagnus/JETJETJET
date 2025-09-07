@@ -12,10 +12,6 @@ struct ImmersiveView: View {
             RealityView { content in
                 // Add the initial RealityKit content
                 if let model = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
-                    // 为模型添加碰撞组件和输入目标组件，使其可以响应手势
-                    model.components.set(CollisionComponent(shapes: [.generateBox(size: SIMD3<Float>(0.5, 0.5, 0.5))]))
-                    model.components.set(InputTargetComponent())
-
                     // 递归为所有子实体添加交互组件
                     setupEntityForInteraction(model)
 
