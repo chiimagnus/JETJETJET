@@ -24,10 +24,23 @@
       [
         "303CD67C-14A9-416F-9A79-B6A102231A95",
         "root",
+        "Cube",
+        "jet"
+      ],
+      {
+        "disallowsFraming" : false,
+        "isExpanded" : false,
+        "isLocked" : false
+      },
+      [
+        "303CD67C-14A9-416F-9A79-B6A102231A95",
+        "root",
+        "Cube",
         "Cube"
       ],
       {
-        "isExpanded" : true,
+        "disallowsFraming" : false,
+        "isExpanded" : false,
         "isLocked" : false
       }
     ]
@@ -122,6 +135,16 @@
       ],
       {
         "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "D66134B1-3681-4A8E-AFE5-29F257229F3B",
+        "Root",
+        "GridMaterial"
+      ],
+      {
+        "disallowsFraming" : false,
+        "isExpanded" : false,
         "isLocked" : false
       },
       [
