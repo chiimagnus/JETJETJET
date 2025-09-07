@@ -1,7 +1,8 @@
 {
   "advancedEditorSelectedIdentifier" : "ProjectBrowser",
   "openSceneRelativePaths" : [
-    "jet.usdc"
+    "jet.usdc",
+    "Scene.usda"
   ],
   "recentIdentifiers" : {
     "303CD67C-14A9-416F-9A79-B6A102231A95" : [
@@ -800,5 +801,5 @@
   "sceneViewportBackgroundColors" : {
 
   },
-  "selectedSceneRelativePath" : "jet.usdc"
+  "selectedSceneRelativePath" : "Scene.usda"
 }
