@@ -9,5 +9,9 @@ struct JET_AVPApp: App {
         }
         .windowStyle(.volumetric)
         // .defaultSize(width: 4096, height: 4096, depth: 4096)
+        
+        ImmersiveSpace(id: "ImmersiveSpace"){
+            ImmersiveView()
+        }
     }
 }
