@@ -50,8 +50,6 @@ struct ContentView: View {
                                     await openImmersiveSpace(id: "ImmersiveSpace")
                                     isImmersiveSpaceOpen = true
                                 }
-                            } catch {
-                                print("ImmersiveSpace操作失败: \(error.localizedDescription)")
                             }
                         }
                     }) {
