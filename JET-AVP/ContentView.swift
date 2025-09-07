@@ -4,6 +4,7 @@ import RealityKitContent
 
 struct ContentView: View {
     @State private var enlarge = false
+    @State private var isImmersiveSpaceOpen = false
     @Environment(\.openImmersiveSpace) private var openImmersiveSpace
     @Environment(\.dismissImmersiveSpace) private var dismissImmersiveSpace
 
@@ -41,15 +42,25 @@ struct ContentView: View {
 
                     Button(action: {
                         Task {
-                            await openImmersiveSpace(id: "ImmersiveSpace")
+                            do {
+                                if isImmersiveSpaceOpen {
+                                    await dismissImmersiveSpace()
+                                    isImmersiveSpaceOpen = false
+                                } else {
+                                    await openImmersiveSpace(id: "ImmersiveSpace")
+                                    isImmersiveSpaceOpen = true
+                                }
+                            } catch {
+                                print("ImmersiveSpace操作失败: \(error.localizedDescription)")
+                            }
                         }
                     }) {
-                        Text("进入沉浸式空间")
+                        Text(isImmersiveSpaceOpen ? "退出沉浸式空间" : "进入沉浸式空间")
                             .font(.headline)
                             .foregroundColor(.white)
                             .padding(.horizontal, 20)
                             .padding(.vertical, 12)
-                            .background(Color.blue.opacity(0.8))
+                            .background(isImmersiveSpaceOpen ? Color.red.opacity(0.8) : Color.blue.opacity(0.8))
                             .cornerRadius(12)
                     }
                 }

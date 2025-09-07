@@ -4,12 +4,37 @@ import RealityKitContent
 
 struct ImmersiveView: View {
     @State private var enlarge = false
+    @Environment(\.dismissImmersiveSpace) private var dismissImmersiveSpace
 
     var body: some View {
-        RealityView { content in
-            // Add the initial RealityKit content
-            if let model = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
-                content.add(model)
+        ZStack(alignment: .topLeading) {
+            RealityView { content in
+                // Add the initial RealityKit content
+                if let model = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
+                    content.add(model)
+                }
+            }
+
+            // 返回按钮
+            VStack {
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        Task {
+                            await dismissImmersiveSpace()
+                        }
+                    }) {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.system(size: 30))
+                            .foregroundColor(.white.opacity(0.8))
+                            .padding(20)
+                            .background(Color.black.opacity(0.5))
+                            .clipShape(Circle())
+                    }
+                    .padding(.top, 50)
+                    .padding(.trailing, 20)
+                }
+                Spacer()
             }
         }
     }
