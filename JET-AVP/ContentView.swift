@@ -4,6 +4,8 @@ import RealityKitContent
 
 struct ContentView: View {
     @State private var enlarge = false
+    @Environment(\.openImmersiveSpace) private var openImmersiveSpace
+    @Environment(\.dismissImmersiveSpace) private var dismissImmersiveSpace
 
     var body: some View {
         VStack {
@@ -32,9 +34,25 @@ struct ContentView: View {
                     }
             )
 
-            VStack {
-                Toggle("Enlarge RealityView Content", isOn: $enlarge)
-                    .toggleStyle(.button)
+            VStack(spacing: 16) {
+                HStack(spacing: 20) {
+                    Toggle("放大模型", isOn: $enlarge)
+                        .toggleStyle(.button)
+
+                    Button(action: {
+                        Task {
+                            await openImmersiveSpace(id: "ImmersiveSpace")
+                        }
+                    }) {
+                        Text("进入沉浸式空间")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 12)
+                            .background(Color.blue.opacity(0.8))
+                            .cornerRadius(12)
+                    }
+                }
             }
             .padding()
             .glassBackgroundEffect()
