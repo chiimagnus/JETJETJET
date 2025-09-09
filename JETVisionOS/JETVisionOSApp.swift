@@ -18,7 +18,7 @@ struct JETVisionOSApp: App {
                 .environment(appModel)
         }
         
-        // Volumetric Jet Model Window Group
+        // 需要具备id标识符，因为需要和主窗口区分开来——没有加id标识符的就是主窗口。
         WindowGroup(id: "volumetricJet") {
             VolumetricJetView()
                 .environment(appModel)
