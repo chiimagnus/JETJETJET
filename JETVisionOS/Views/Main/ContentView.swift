@@ -16,11 +16,14 @@ struct ContentView: View {
             Model3D(named: "jet", bundle: realityKitContentBundle)
                 .padding(.bottom, 50)
 
-            Text("Hello, world!")
-
-            ToggleImmersiveSpaceButton()
+            Spacer()
             
-            ShowVolumetricJetButton()
+            HStack {
+                ToggleImmersiveSpaceButton()
+                
+                ShowVolumetricJetButton()
+            }
+            .padding(.horizontal)
         }
         .padding()
     }
