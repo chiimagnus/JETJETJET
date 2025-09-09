@@ -12,7 +12,7 @@ import RealityKitContent
 struct VolumetricJetView: View {
     var body: some View {
         Model3D(named: "jet", bundle: realityKitContentBundle)
-            .frame(width: 400, height: 400)
+            // .frame(width: 400, height: 400)
             .aspectRatio(contentMode: .fit)
     }
 }
