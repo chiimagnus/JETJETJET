@@ -25,7 +25,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```
 JETJETJET/
-├── JETJETJET/              # Main iOS app target
+├── JET-iOS/                # Main iOS app target
 │   ├── Models/             # SwiftData models (FlightData, FlightSession)
 │   ├── ViewModels/         # Business logic (FlightRecordingVM, FlightHistoryVM, etc.)
 │   ├── Views/              # SwiftUI interface components
@@ -38,7 +38,7 @@ JETJETJET/
 │   ├── Services/           # Core services (MotionService, SoundService, HapticService)
 │   ├── Utils/              # Utility classes and extensions
 │   └── Resources/          # Assets, 3D models, audio files
-├── JET-VisionOS/           # VisionOS target (Apple Vision Pro support)
+├── JETVisionOS/            # VisionOS target (Apple Vision Pro support)
 ├── Packages/               # Swift packages (RealityKitContent)
 └── .superdesign/           # HTML design files
 ```
@@ -156,8 +156,8 @@ JETJETJET/
 ## Shared Files and Cross-Target Resources
 
 ### Project Targets
-1. **JETJETJET** - Main iOS application target
-2. **JET-AVP** - VisionOS application target for Apple Vision Pro
+1. **JET-iOS** - Main iOS application target
+2. **JETVisionOS** - VisionOS application target for Apple Vision Pro
 
 ### 非常重要：Shared Resources
 The following files are shared between the iOS and VisionOS targets:
