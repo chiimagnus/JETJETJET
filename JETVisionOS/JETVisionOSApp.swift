@@ -17,6 +17,13 @@ struct JETVisionOSApp: App {
             ContentView()
                 .environment(appModel)
         }
+        
+        // Volumetric Jet Model Window Group
+        WindowGroup(id: "volumetricJet") {
+            VolumetricJetView()
+                .environment(appModel)
+        }
+        .windowStyle(.volumetric)
 
         ImmersiveSpace(id: appModel.immersiveSpaceID) {
             ImmersiveView()
