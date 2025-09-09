@@ -15,16 +15,29 @@
     "objectMetadataList" : [
       [
         "303CD67C-14A9-416F-9A79-B6A102231A95",
-        "root"
+        "root",
+        "Cube",
+        "jet"
       ],
       {
-        "isExpanded" : true,
+        "disallowsFraming" : false,
+        "isExpanded" : false,
         "isLocked" : false
       },
       [
         "303CD67C-14A9-416F-9A79-B6A102231A95",
         "root",
+        "Cube",
         "Cube"
+      ],
+      {
+        "disallowsFraming" : false,
+        "isExpanded" : false,
+        "isLocked" : false
+      },
+      [
+        "303CD67C-14A9-416F-9A79-B6A102231A95",
+        "root"
       ],
       {
         "isExpanded" : true,
@@ -60,6 +73,14 @@
     "objectMetadataList" : [
       [
         "AF09ED6F-1707-48FD-8720-65B998362C09",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
         "Sphere_Left"
       ],
@@ -71,14 +92,6 @@
         "AF09ED6F-1707-48FD-8720-65B998362C09",
         "Root",
         "Sphere_Right"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "AF09ED6F-1707-48FD-8720-65B998362C09",
-        "Root"
       ],
       {
         "isExpanded" : true,
@@ -116,6 +129,16 @@
     "objectMetadataList" : [
       [
         "D66134B1-3681-4A8E-AFE5-29F257229F3B",
+        "Root",
+        "GridMaterial"
+      ],
+      {
+        "disallowsFraming" : false,
+        "isExpanded" : false,
+        "isLocked" : false
+      },
+      [
+        "D66134B1-3681-4A8E-AFE5-29F257229F3B",
         "Root"
       ],
       {
@@ -138,16 +161,6 @@
     "objectMetadataList" : [
       [
         "E92F9A8C-6047-4BE8-ADB7-101786BFA0B3",
-        "root",
-        "SkyDome"
-      ],
-      {
-        "disallowsFraming" : false,
-        "isExpanded" : false,
-        "isLocked" : false
-      },
-      [
-        "E92F9A8C-6047-4BE8-ADB7-101786BFA0B3",
         "root"
       ],
       {
@@ -160,7 +173,18 @@
         "Cube"
       ],
       {
-        "isExpanded" : true,
+        "disallowsFraming" : false,
+        "isExpanded" : false,
+        "isLocked" : false
+      },
+      [
+        "E92F9A8C-6047-4BE8-ADB7-101786BFA0B3",
+        "root",
+        "SkyDome"
+      ],
+      {
+        "disallowsFraming" : false,
+        "isExpanded" : false,
         "isLocked" : false
       },
       [
